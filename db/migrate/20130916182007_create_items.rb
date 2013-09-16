@@ -6,6 +6,7 @@ class CreateItems < ActiveRecord::Migration
       t.text :image_url
       t.boolean :foil
       t.integer :game_id
+      t.string :currency_symbol, :default => '$'
 
       t.timestamps
     end

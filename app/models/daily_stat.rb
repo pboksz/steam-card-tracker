@@ -3,6 +3,8 @@ class DailyStat < ActiveRecord::Base
 
   belongs_to :item
 
+  delegate :currency_symbol, :to => :item
+
   def min_price_low
     min_price_low_integer / 100
   end

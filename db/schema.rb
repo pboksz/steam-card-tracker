@@ -14,7 +14,6 @@
 ActiveRecord::Schema.define(version: 20130916182652) do
 
   create_table "daily_stats", force: true do |t|
-    t.string   "currency_symbol",        default: "$"
     t.integer  "min_price_low_integer",  default: 0
     t.integer  "min_price_high_integer", default: 0
     t.integer  "quantity_low",           default: 0
@@ -36,6 +35,7 @@ ActiveRecord::Schema.define(version: 20130916182652) do
     t.text     "image_url"
     t.boolean  "foil"
     t.integer  "game_id"
+    t.string   "currency_symbol", default: "$"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

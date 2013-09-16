@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Game.where(:name => 'Dota 2').first_or_create
+Game.where(:name => 'Trine 2').first_or_create
+Game.where(:name => 'Brütal Legend').first_or_create
+Game.where(:name => 'Team Fortress 2').first_or_create
