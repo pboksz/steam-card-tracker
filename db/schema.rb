@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130916182007) do
+ActiveRecord::Schema.define(version: 20130916182652) do
+
+  create_table "daily_stats", force: true do |t|
+    t.string   "currency_symbol",        default: "$"
+    t.integer  "min_price_low_integer",  default: 0
+    t.integer  "min_price_high_integer", default: 0
+    t.integer  "quantity_low",           default: 0
+    t.integer  "quantity_high",          default: 0
+    t.integer  "item_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "games", force: true do |t|
     t.string   "name"
