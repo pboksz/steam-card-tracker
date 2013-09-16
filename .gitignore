@@ -21,3 +21,4 @@
 
 # Config
 /config/database.yml
+/config/unicorn.rb
