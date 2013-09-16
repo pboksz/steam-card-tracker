@@ -60,5 +60,9 @@ class HomeController < ApplicationController
     def foil?
       @name.include?('Foil')
     end
+
+    def short_name
+      @name.gsub(/(\(Trading Card\)|\sTrading Card)/, '')
+    end
   end
 end

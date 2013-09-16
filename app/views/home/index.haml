@@ -4,11 +4,13 @@
     .games_select= select_tag 'games', options_for_select(@games, params[:games]), :multiple => true, :include_blank => true
     .foil_select
       = label_tag 'foil'
-      = check_box_tag 'foil'
+      = check_box_tag 'foil', true, params[:foil]
     .submit= submit_tag 'Select Games'
 
   - @game_listings.each do |name, listings|
     %h3= name
     - listings.each do |listing|
       .steam-card-tracker-listing
-        = "#{listing.name} - #{listing.min_price}"
+        = link_to listing.link do
+          = image_tag listing.image
+          = "#{listing.short_name} @ #{listing.min_price}"
