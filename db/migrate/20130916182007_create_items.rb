@@ -3,7 +3,7 @@ class CreateItems < ActiveRecord::Migration
     create_table :items do |t|
       t.string :name
       t.string :link_url
-      t.string :image_url
+      t.text :image_url
       t.boolean :foil
       t.integer :game_id
 
