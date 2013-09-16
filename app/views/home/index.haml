@@ -1,5 +1,5 @@
-.card-tracker
-  %h2 Card Tracker
+.steam-card-tracker
+  %h2 Steam Card Tracker
   = form_tag root_path, :method => :get do
     .games_select= select_tag 'games', options_for_select(@games, params[:games]), :multiple => true, :include_blank => true
     .foil_select
@@ -9,7 +9,6 @@
 
   - @game_listings.each do |name, listings|
     %h3= name
-
     - listings.each do |listing|
-      .card-tracker-listing
+      .steam-card-tracker-listing
         = "#{listing.name} - #{listing.min_price}"

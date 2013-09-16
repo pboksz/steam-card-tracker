@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-CardTracker::Application.config.secret_key_base = '18dcc02799ad56c8b96f7f34e7c52f09eed834ae4aaf503040f2c512ec8231d22873d6a433be05439006e53bc0a3ee1742116944607810c2b5d4fd23e735844b'
+SteamCardTracker::Application.config.secret_key_base = '18dcc02799ad56c8b96f7f34e7c52f09eed834ae4aaf503040f2c512ec8231d22873d6a433be05439006e53bc0a3ee1742116944607810c2b5d4fd23e735844b'
