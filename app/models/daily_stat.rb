@@ -1,4 +1,4 @@
-class DailyStats < ActiveRecord::Base
+class DailyStat < ActiveRecord::Base
   attr_accessible :min_price_low_integer, :min_price_high_integer, :quantity_low, :quantity_high, :item
 
   belongs_to :item
