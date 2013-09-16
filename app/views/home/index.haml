@@ -1,10 +1,16 @@
 .steam-card-tracker
   %h2 Steam Card Tracker
   = form_tag root_path, :method => :get do
-    .games_select= select_tag 'games', options_for_select(@games, params[:games]), :multiple => true, :include_blank => true
-    .foil_select
-      = label_tag 'foil'
-      = check_box_tag 'foil', true, params[:foil]
+    .games-select= select_tag 'games', options_for_select(@games, params[:games]), :multiple => true
+    .regular-cards
+      = label_tag 'type', 'Regular Cards?'
+      = radio_button_tag 'type', 'regular', true
+    .foil-cards
+      = label_tag 'type', 'Foil Cards?'
+      = radio_button_tag 'type', 'foil', params[:type] == 'foil'
+    .booster-packs
+      = label_tag 'booster', 'Booster Packs?'
+      = radio_button_tag 'type', 'booster', params[:type] == 'booster'
     .submit= submit_tag 'Select Games'
 
   - @game_listings.each do |name, listings|

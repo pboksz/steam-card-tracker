@@ -5,9 +5,10 @@ class HomeController < ApplicationController
 
   def index
     @game_listings = {}
+    query_base = params[:type] == 'booster' ? 'booster' : 'trading+card'
 
     params[:games].try(:each) do |game|
-      query = "trading+card+#{game.downcase.gsub(' ', '+')}"
+      query = "#{query_base}+#{game.downcase.gsub(' ', '+')}"
       listings_response = Weary::Request.new("http://steamcommunity.com/market/search/render/?query=#{query}&start=0&count=10000").perform
       listings_json = JSON.parse(listings_response.body)
 
@@ -17,7 +18,7 @@ class HomeController < ApplicationController
         listings_html = Nokogiri::HTML(listings_json['results_html'])
         listings_html.css('.market_listing_row_link').each do |listing_html|
           listing = parse_listing(listing_html)
-          if params[:foil]
+          if params[:type] == 'foil'
             listings << listing if listing.foil?
           else
             listings << listing if !listing.foil?
