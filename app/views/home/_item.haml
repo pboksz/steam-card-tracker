@@ -1,0 +1,5 @@
+.steam-card-tracker-listing
+  = link_to item.link_url do
+    = image_tag item.image_url
+    = "#{item.short_name} - #{number_to_currency(item.current_price, :unit => item.currency_symbol)}"
+    -#TODO show average min price lows and highs

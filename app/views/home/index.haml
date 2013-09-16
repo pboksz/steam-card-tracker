@@ -13,10 +13,11 @@
       = radio_button_tag 'type', 'booster', params[:type] == 'booster'
     .submit= submit_tag 'Select Games'
 
-  - @game_listings.each do |name, listings|
-    %h3= name
-    - listings.each do |listing|
-      .steam-card-tracker-listing
-        = link_to listing.link do
-          = image_tag listing.image
-          = "#{listing.short_name} @ #{listing.min_price}"
+  - @game_items.each do |game_name, items|
+    %h3= game_name
+    - if params[:type] == 'foil'
+      - items.select { |item| item.foil? }.each do |item|
+        = render 'item', :item => item
+    - else
+      - items.select { |item| !item.foil? }.each do |item|
+        = render 'item', :item => item
