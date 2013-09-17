@@ -4,6 +4,7 @@ gem 'rails', '4.0.0'
 gem 'mysql2'
 
 gem 'haml-rails'
+gem 'highcharts-rails'
 gem 'jbuilder', '~> 1.2'
 gem 'jquery-rails'
 gem 'json'

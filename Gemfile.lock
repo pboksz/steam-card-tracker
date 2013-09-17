@@ -45,6 +45,8 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
+    highcharts-rails (3.0.5)
+      railties (>= 3.1)
     hike (1.2.3)
     i18n (0.6.5)
     jbuilder (1.5.1)
@@ -137,6 +139,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
   haml-rails
+  highcharts-rails
   jbuilder (~> 1.2)
   jquery-rails
   json
