@@ -1,14 +1,14 @@
 # encoding: utf-8
 
 class HomeController < ApplicationController
-  before_filter :load_games
-
   def index
+    @games = Game.all
+
     @game_items = {}
     query_base = params[:type] == 'booster' ? 'booster' : 'trading+card'
 
     params[:games].try(:each) do |game_name|
-      @game = Game.where(:name => game_name).first_or_create
+      @game = Game.includes(:items => :daily_stats).where(:name => game_name).first_or_create
 
       query = "#{query_base}+#{@game.query_name}"
       listings_response = Weary::Request.new("http://steamcommunity.com/market/search/render/?query=#{query}&start=0&count=10000").perform
@@ -20,11 +20,17 @@ class HomeController < ApplicationController
         listings_html = Nokogiri::HTML(listings_json['results_html'])
         listings_html.css('.market_listing_row_link').each do |listing_html|
           attrs = parse_listing(listing_html)
-          @item = update_item(@game, attrs[:current_price], attrs[:item])
-          update_daily_stats(@item, attrs[:current_price], attrs[:quantity])
 
-          @items << @item
+          if params[:type] == 'regular' && attrs[:item][:foil] == false # looking for regular and card is not foil
+            @items << update_item(@game, attrs[:current_price], attrs)
+          elsif params[:type] == 'foil' && attrs[:item][:foil] == true # looking for foils and card is a foil
+            @items << update_item(@game, attrs[:current_price], attrs)
+          elsif params[:type] == 'booster' # looking for boosters only
+            @items << update_item(@game, attrs[:current_price], attrs)
+          end
         end
+
+        @game.save
 
         @game_items.merge!(@game.name => @items)
       end
@@ -32,10 +38,6 @@ class HomeController < ApplicationController
   end
 
   private
-
-  def load_games
-    @games = Game.all.map(&:name)
-  end
 
   def parse_listing(listing_html)
     attrs = { :item => {} }
@@ -55,20 +57,19 @@ class HomeController < ApplicationController
   end
 
   def update_item(game, current_price, attrs)
-    item = game.items.where(attrs).first_or_create
+    item = game.items.where(attrs[:item]).first_or_create
     item.current_price = current_price
+    update_daily_stats(item, attrs[:current_price], attrs[:quantity])
 
     item
   end
 
   def update_daily_stats(item, current_price, quantity)
     stats = item.daily_stats.where(:created_at => Time.now.beginning_of_day..Time.now.end_of_day).first_or_initialize
-
     stats.min_price_low = current_price if current_price < stats.min_price_low || stats.min_price_low == 0
     stats.min_price_high = current_price if current_price > stats.min_price_high
     stats.quantity_low = quantity if quantity < stats.quantity_low || stats.quantity_low == 0
     stats.quantity_high = quantity if quantity > stats.quantity_high
-    stats.save if stats.changed?
 
     stats
   end
