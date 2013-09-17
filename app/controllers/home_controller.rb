@@ -21,7 +21,7 @@ class HomeController < ApplicationController
         listings_html.css('.market_listing_row_link').each do |listing_html|
           attrs = parse_listing(listing_html)
           @item = update_item(@game, attrs[:current_price], attrs[:item])
-          update_daily_stats(@item, attrs[:current_price], attrs[:stats])
+          update_daily_stats(@item, attrs[:current_price], attrs[:quantity])
 
           @items << @item
         end
@@ -38,10 +38,11 @@ class HomeController < ApplicationController
   end
 
   def parse_listing(listing_html)
-    attrs = { :item => {}, :stats => {} }
+    attrs = { :item => {} }
 
     min_price_string = listing_html.css('.market_listing_row .market_listing_num_listings span').first.children.last.content.squish
     attrs[:current_price] = min_price_string.match(/\d+.\d{1,2}/).to_s.to_f
+    attrs[:quantity] = listing_html.css('.market_listing_row .market_listing_num_listings .market_listing_num_listings_qty').first.content.gsub(',', '').to_i
 
     name = listing_html.css('.market_listing_row .market_listing_item_name').first.content
     attrs[:item][:name] = name
@@ -49,8 +50,6 @@ class HomeController < ApplicationController
     attrs[:item][:link_url] = listing_html.attributes['href'].value
     attrs[:item][:image_url] = listing_html.css('.market_listing_row img').first.attributes['src'].value
     attrs[:item][:currency_symbol] = min_price_string[0]
-
-    attrs[:stats][:quantity] = listing_html.css('.market_listing_row .market_listing_num_listings .market_listing_num_listings_qty').first.content.gsub!(',', '').to_i
 
     attrs
   end
@@ -63,14 +62,14 @@ class HomeController < ApplicationController
     item
   end
 
-  def update_daily_stats(item, current_price, attrs)
+  def update_daily_stats(item, current_price, quantity)
     stats = item.daily_stats.where(:created_at => Time.now.beginning_of_day..Time.now.end_of_day).first_or_initialize
 
-    stats.quantity_low = attrs[:quantity] if attrs[:quantity] < stats.quantity_low || stats.quantity_low == 0
-    stats.quantity_high = attrs[:quantity] if attrs[:quantity] > stats.quantity_high
     stats.min_price_low = current_price if current_price < stats.min_price_low || stats.min_price_low == 0
     stats.min_price_high = current_price if current_price > stats.min_price_high
-    stats.save
+    stats.quantity_low = quantity if quantity < stats.quantity_low || stats.quantity_low == 0
+    stats.quantity_high = quantity if quantity > stats.quantity_high
+    stats.save if stats.changed?
 
     stats
   end
