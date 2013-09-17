@@ -54,7 +54,6 @@ class HomeController < ApplicationController
     attrs
   end
 
-
   def update_item(game, current_price, attrs)
     item = game.items.where(attrs).first_or_create
     item.current_price = current_price
