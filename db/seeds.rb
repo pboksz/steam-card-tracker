@@ -6,7 +6,32 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Game.where(:name => 'Dota 2').first_or_create
-Game.where(:name => 'Trine 2').first_or_create
-Game.where(:name => 'Brütal Legend').first_or_create
-Game.where(:name => 'Team Fortress 2').first_or_create
+[
+ 'Anomaly Warzone Earth',
+ 'Bit Trip Runner',
+ 'Brütal Legend',
+ 'Costume Quest',
+ 'Dota 2',
+ 'Duke Nukem 3D',
+ 'Faster Than Light',
+ 'Gratuitous Space Battles',
+ 'Half Life 2',
+ 'Indie Game the Movie',
+ 'Left 4 Dead 2',
+ 'Magicka',
+ 'Mark of the Ninja',
+ 'Offspring Fling',
+ 'Portal 2',
+ 'Psychonauts',
+ 'Saints Row the Third',
+ 'Space Pirates and Zombies',
+ 'Stacking',
+ 'Steam Summer Getaway',
+ 'Team Fortress 2',
+ 'Terraria',
+ 'The Binding of Isaac',
+ 'The Walking Dead',
+ 'Trine 2'
+].each do |game_name|
+  Game.where(:name => game_name).first_or_create
+end
