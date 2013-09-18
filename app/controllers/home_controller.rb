@@ -30,8 +30,6 @@ class HomeController < ApplicationController
           end
         end
 
-        @game.save
-
         @game_items.merge!(@game.name => @items)
       end
     end
