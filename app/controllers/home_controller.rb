@@ -11,7 +11,7 @@ class HomeController < ApplicationController
       @game = Game.includes(:items => :daily_stats).where(:name => game_name).first_or_create
 
       query = "#{query_base}+#{@game.query_name}"
-      listings_response = Weary::Request.new("http://steamcommunity.com/market/search/render/?query=#{query}&start=0&count=10000").perform
+      listings_response = Weary::Request.new("http://steamcommunity.com/market/search/render/?query=#{query}&start=0&count=2000").perform
       listings_json = JSON.parse(listings_response.body)
 
       if listings_json['success']
@@ -57,20 +57,24 @@ class HomeController < ApplicationController
   end
 
   def update_item(game, current_price, attrs)
-    item = game.items.where(attrs[:item]).first_or_create
-    item.current_price = current_price
+    item = game.items.where(:name => attrs[:item][:name]).first_or_initialize.tap do |item|
+      item.assign_attributes(attrs[:item])
+      item.save if item.changed?
+      item.current_price = current_price
+    end
+
     update_daily_stats(item, attrs[:current_price], attrs[:quantity])
 
     item
   end
 
   def update_daily_stats(item, current_price, quantity)
-    stats = item.daily_stats.where(:created_at => Time.now.beginning_of_day..Time.now.end_of_day).first_or_initialize
-    stats.min_price_low = current_price if current_price < stats.min_price_low || stats.min_price_low == 0
-    stats.min_price_high = current_price if current_price > stats.min_price_high
-    stats.quantity_low = quantity if quantity < stats.quantity_low || stats.quantity_low == 0
-    stats.quantity_high = quantity if quantity > stats.quantity_high
-
-    stats
+    item.daily_stats.where(:created_at => Time.now.beginning_of_day..Time.now.end_of_day).first_or_initialize.tap do |stats|
+      stats.min_price_low = current_price if current_price < stats.min_price_low || stats.min_price_low == 0
+      stats.min_price_high = current_price if current_price > stats.min_price_high
+      stats.quantity_low = quantity if quantity < stats.quantity_low || stats.quantity_low == 0
+      stats.quantity_high = quantity if quantity > stats.quantity_high
+      stats.save if stats.changed?
+    end
   end
 end
