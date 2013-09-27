@@ -17,8 +17,7 @@ class HomeController < ApplicationController
       if listings_json['success']
         @items = []
 
-        listings_html = Nokogiri::HTML(listings_json['results_html'])
-        listings_html.css('.market_listing_row_link').each do |listing_html|
+        Nokogiri::HTML(listings_json['results_html']).css('.market_listing_row_link').each do |listing_html|
           attrs = parse_listing(listing_html)
 
           if params[:type] == 'regular' && attrs[:item][:foil] == false # looking for regular and card is not foil
@@ -72,6 +71,7 @@ class HomeController < ApplicationController
   end
 
   def update_item(game, attrs)
+    #TODO this is not eager loading
     game.items.where(:name => attrs[:item][:name]).first_or_initialize.tap do |item|
       item.assign_attributes(attrs[:item])
       item.save if item.changed?
