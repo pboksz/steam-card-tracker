@@ -1,4 +1,4 @@
-$(document).ready ->
+$(window).onload ->
   $('.game_items').each (index, game) ->
     $.ajax
       url: '/update_stats'
