@@ -16,10 +16,11 @@
       .submit= submit_tag 'Show Items'
 
   - @game_items.each do |game_name, items|
-    %h3= game_name
-    - if params[:type] == 'foil'
-      - items.select { |item| item.foil? }.each do |item|
-        = render 'item', :item => item
-    - else
-      - items.select { |item| !item.foil? }.each do |item|
-        = render 'item', :item => item
+    .game_items
+      %h3= game_name
+      - if params[:type] == 'foil'
+        - items.select { |item| item.foil? }.each do |item|
+          = render 'item', :item => item
+      - else
+        - items.select { |item| !item.foil? }.each do |item|
+          = render 'item', :item => item
