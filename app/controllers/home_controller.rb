@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   def index
     @games = Game.all.order(:name)
 
-    @game_items = {}
+    @game_items = []
     query_base = params[:type] == 'booster' ? 'booster' : 'trading+card'
 
     params[:games].try(:each) do |game_name|
@@ -29,26 +29,34 @@ class HomeController < ApplicationController
           end
         end
 
-        @game_items.merge!(@game.name => @items)
+        @game_items << { :game => { :id => @game.id, :name => @game.name }, :items => @items }
       end
     end
   end
 
   def update_stats
-    params[:items].each do |item_info|
-      quantity = item_info.last[:quantity].to_i
-      price = item_info.last[:price].to_f
+    game = Game.find(params[:id])
+    #TODO get min and max dates?
+    series = []
 
-      Item.find(item_info.last[:id]).daily_stats.where(:created_at => Time.now.beginning_of_day..Time.now.end_of_day).first_or_initialize.tap do |stats|
+
+    params[:items].each do |index, info|
+      item = Item.find(info[:id])
+      quantity = info[:quantity].to_i
+      price = info[:price].to_f
+
+      item.daily_stats.where(:created_at => Time.now.beginning_of_day..Time.now.end_of_day).first_or_initialize.tap do |stats|
         stats.min_price_low = price if price < stats.min_price_low || stats.min_price_low == 0
         stats.min_price_high = price if price > stats.min_price_high
         stats.quantity_low = quantity if quantity < stats.quantity_low || stats.quantity_low == 0
         stats.quantity_high = quantity if quantity > stats.quantity_high
         stats.save if stats.changed?
       end
+
+      series << { :name => item.short_name, :data => item.daily_stats.order(:created_at).map { |stat| [stat.min_price_low, stat.min_price_high] } }
     end
 
-    render :json => { :success => true }
+    render :json => { :success => true, :id => game.id, :series => series }
   end
 
   private

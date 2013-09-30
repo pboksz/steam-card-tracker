@@ -1,0 +1,7 @@
+.game
+  .game-items{ :style => "display:inline-block;" }
+    %h3= game[:name]
+    %span.game-info{ :hidden => '', 'data-id' => game[:id] }
+    - items.each do |item|
+      = render 'item', :item => item
+  .game-chart{ :id => "container#{game[:id]}", :style => "width: 70%; height: 100%; display:inline-block; float:right;" }
