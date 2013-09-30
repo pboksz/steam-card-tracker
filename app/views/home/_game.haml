@@ -1,6 +1,6 @@
 .game
+  %h2= game[:name]
   .game-items
-    %h3= game[:name]
     %span.game-info{ :hidden => '', 'data-id' => game[:id] }
     - items.each do |item|
       = render 'item', :item => item

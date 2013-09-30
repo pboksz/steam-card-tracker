@@ -33,7 +33,6 @@ renderNewChart = (containerId, dates, series) ->
     chart:
       renderTo: containerId
       type: 'arearange'
-      spacingTop: 40
     title:
       text: ""
     xAxis:
