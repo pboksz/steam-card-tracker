@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 [
-  'Anna',
+  'Anna - Extended Edition',
   'Anomaly Warzone Earth',
   'BIT.TRIP Runner',
   'Brütal Legend',
