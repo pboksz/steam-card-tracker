@@ -36,9 +36,8 @@ class HomeController < ApplicationController
 
   def update_stats
     game = Game.find(params[:id])
-    #TODO get min and max dates?
+    dates = game.items.first.daily_stats.order(:created_at).map(&:humanize_date)
     series = []
-
 
     params[:items].each do |index, info|
       item = Item.find(info[:id])
@@ -56,7 +55,7 @@ class HomeController < ApplicationController
       series << { :name => item.short_name, :data => item.daily_stats.order(:created_at).map { |stat| [stat.min_price_low, stat.min_price_high] } }
     end
 
-    render :json => { :success => true, :id => game.id, :series => series }
+    render :json => { :success => true, :id => game.id, :dates => dates, :series => series }
   end
 
   private

@@ -9,7 +9,7 @@ $(document).ready ->
         items: getAllItemInfo(game)
       success: (result) ->
         console.log(result)
-        renderNewChart("container" + result.id, result.series)
+        renderNewChart("container" + result.id, result.dates, result.series)
 
 getAllItemInfo = (game) ->
   items = []
@@ -28,18 +28,16 @@ getAllSeries = (allSeries) ->
 
   all
 
-renderNewChart = (containerId, series) ->
+renderNewChart = (containerId, dates, series) ->
   new Highcharts.Chart
     chart:
       renderTo: containerId
-      type: 'columnrange'
+      type: 'arearange'
     title:
       text: ""
-#    xAxis:
-#      categories: ""
+    xAxis:
+      categories: dates
     tooltip:
-      formatter: ->
-        "$" + this.y
-    legend:
-      enabled: false
+      crosshairs: true
+      valuePrefix: "$"
     series: getAllSeries(series)
