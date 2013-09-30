@@ -20,12 +20,14 @@ class HomeController < ApplicationController
         Nokogiri::HTML(listings_json['results_html']).css('.market_listing_row_link').each do |listing_html|
           attrs = parse_listing(listing_html)
 
-          if params[:type] == 'regular' && attrs[:item][:foil] == false # looking for regular and card is not foil
-            @items << update_item(@game, attrs)
-          elsif params[:type] == 'foil' && attrs[:item][:foil] == true # looking for foils and card is a foil
-            @items << update_item(@game, attrs)
-          elsif params[:type] == 'booster' # looking for boosters only
-            @items << update_item(@game, attrs)
+          if attrs[:game_name] =~ /#{@game.name}\s(foil\s)?(trading card)/i
+            if params[:type] == 'regular' && attrs[:item][:foil] == false # looking for regular and card is not foil
+              @items << update_item(@game, attrs)
+            elsif params[:type] == 'foil' && attrs[:item][:foil] == true # looking for foils and card is a foil
+              @items << update_item(@game, attrs)
+            elsif params[:type] == 'booster' # looking for boosters only
+              @items << update_item(@game, attrs)
+            end
           end
         end
 
@@ -67,6 +69,7 @@ class HomeController < ApplicationController
     min_price_string = listing_html.css('.market_listing_row .market_listing_num_listings span').first.children.last.content.squish
     attrs[:current_price] = min_price_string.match(/\d+.\d{1,2}/).to_s.to_f
     attrs[:current_quantity] = listing_html.css('.market_listing_row .market_listing_num_listings .market_listing_num_listings_qty').first.content.gsub(',', '').to_i
+    attrs[:game_name] = listing_html.css('.market_listing_row .market_listing_game_name').first.content
 
     name = listing_html.css('.market_listing_row .market_listing_item_name').first.content
     attrs[:item][:name] = name
