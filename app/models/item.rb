@@ -6,6 +6,6 @@ class Item < ActiveRecord::Base
   belongs_to :game
 
   def short_name
-    name.gsub(/(\(Trading Card\)|\sTrading Card)/, '')
+    name.gsub(/(\(Trading Card\)|\sTrading Card)/, '').truncate(17)
   end
 end

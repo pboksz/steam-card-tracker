@@ -33,11 +33,20 @@ renderNewChart = (containerId, dates, series) ->
     chart:
       renderTo: containerId
       type: 'arearange'
+      spacingTop: 40
     title:
       text: ""
     xAxis:
       categories: dates
+    yAxis:
+      title:
+        text: ""
+    plotOptions:
+      arearange:
+        connectNulls: true
     tooltip:
       crosshairs: true
-      valuePrefix: "$"
+      formatter: ->
+        '<b>' + this.point.series.name + '</b> on ' + this.x + '<br/>' +
+        '<b>$' + this.point.low + '</b> to $' + this.point.high
     series: getAllSeries(series)

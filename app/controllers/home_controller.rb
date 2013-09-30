@@ -35,12 +35,12 @@ class HomeController < ApplicationController
   end
 
   def update_stats
-    game = Game.find(params[:id])
-    dates = game.items.first.daily_stats.order(:created_at).map(&:humanize_date)
+    game = Game.includes(:items => :daily_stats).find(params[:id])
+    dates = []
     series = []
 
     params[:items].each do |index, info|
-      item = Item.find(info[:id])
+      item = game.items.find(info[:id])
       quantity = info[:quantity].to_i
       price = info[:price].to_f
 
@@ -52,6 +52,7 @@ class HomeController < ApplicationController
         stats.save if stats.changed?
       end
 
+      dates = item.daily_stats.order(:created_at).map(&:humanize_date) if dates.empty?
       series << { :name => item.short_name, :data => item.daily_stats.order(:created_at).map { |stat| [stat.min_price_low, stat.min_price_high] } }
     end
 
@@ -78,7 +79,6 @@ class HomeController < ApplicationController
   end
 
   def update_item(game, attrs)
-    #TODO this is not eager loading
     game.items.where(:name => attrs[:item][:name]).first_or_initialize.tap do |item|
       item.assign_attributes(attrs[:item])
       item.save if item.changed?

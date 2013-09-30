@@ -1,5 +1,8 @@
 .steam-card-tracker-listing
   = link_to item.link_url, :target => '_blank' do
-    = image_tag item.image_url
-    %span.info{ :hidden => '', 'data-id' => item.id, 'data-quantity' => item.current_quantity, 'data-price' => item.current_price }
-    = "#{item.short_name} || #{item.current_quantity} @ #{number_to_currency(item.current_price, :unit => item.currency_symbol)}"
+    .left= image_tag item.image_url
+    .right
+      %span.info{ :hidden => '', 'data-id' => item.id, 'data-quantity' => item.current_quantity, 'data-price' => item.current_price }
+      %div= item.short_name
+      %div= "Quantity: #{item.current_quantity}"
+      %div= "Price: #{number_to_currency(item.current_price, :unit => item.currency_symbol)}"
