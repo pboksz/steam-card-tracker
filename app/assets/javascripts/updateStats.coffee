@@ -14,7 +14,7 @@ $(document).ready ->
 getAllItemInfo = (game) ->
   items = []
 
-  $(game).find('.steam-card-tracker-listing').each (index, item) ->
+  $(game).find('.card-listing').each (index, item) ->
     info = $(item).find('.info')
     items.push({id: info.data('id'), quantity: info.data('quantity'), price: info.data('price')})
 
