@@ -20,13 +20,15 @@ class HomeController < ApplicationController
         Nokogiri::HTML(listings_json['results_html']).css('.market_listing_row_link').each do |listing_html|
           attrs = parse_listing(listing_html)
 
-          if attrs[:game_name] =~ /#{@game.name}\s(foil\s)?(trading card)/i
-            if params[:type] == 'regular' && attrs[:item][:foil] == false # looking for regular and card is not foil
-              @items << update_item(@game, attrs)
-            elsif params[:type] == 'foil' && attrs[:item][:foil] == true # looking for foils and card is a foil
-              @items << update_item(@game, attrs)
-            elsif params[:type] == 'booster' # looking for boosters only
-              @items << update_item(@game, attrs)
+          if params[:type] == 'booster' # looking for boosters only
+            @items << update_item(@game, attrs)
+          else
+            if attrs[:game_name] =~ /#{@game.name}\s(foil\s)?(trading card)/i # validate card is from the correct game
+              if params[:type] == 'regular' && attrs[:item][:foil] == false # looking for regular and card is not foil
+                @items << update_item(@game, attrs)
+              elsif params[:type] == 'foil' && attrs[:item][:foil] == true # looking for foils and card is a foil
+                @items << update_item(@game, attrs)
+              end
             end
           end
         end
