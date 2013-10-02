@@ -21,7 +21,9 @@ class HomeController < ApplicationController
           attrs = parse_listing(listing_html)
 
           if params[:type] == 'booster' # looking for boosters only
-            @items << update_item(@game, attrs)
+            if attrs[:item][:name] =~ /#{@game.name}\s(booster pack)/i # validate booster is specifically from this game
+              @items << update_item(@game, attrs)
+            end
           else
             if attrs[:game_name] =~ /#{@game.name}\s(foil\s)?(trading card)/i # validate card is from the correct game
               if params[:type] == 'regular' && attrs[:item][:foil] == false # looking for regular and card is not foil
