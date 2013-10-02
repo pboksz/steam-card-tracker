@@ -8,4 +8,12 @@ class Item < ActiveRecord::Base
   def short_name
     name.gsub(/(\(Trading Card\)|\sTrading Card)/, '').truncate(17)
   end
+
+  def all_time_low_price
+    daily_stats.minimum(:min_price_low_integer) / 100.00
+  end
+
+  def all_time_high_price
+    daily_stats.maximum(:min_price_high_integer) / 100.00
+  end
 end

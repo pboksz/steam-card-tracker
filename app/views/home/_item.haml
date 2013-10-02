@@ -2,7 +2,11 @@
   = link_to item.link_url, :target => '_blank' do
     .left= image_tag item.image_url
     .right
-      .price= number_to_currency(item.current_price, :unit => item.currency_symbol)
-      %span.info{ :hidden => '', 'data-id' => item.id, 'data-quantity' => item.current_quantity, 'data-price' => item.current_price }
-      %div= item.short_name
-      %div= "Quantity: #{item.current_quantity}"
+      .prices
+        .low= item.all_time_low_price
+        .current= number_to_currency(item.current_price, :unit => item.currency_symbol)
+        .high= item.all_time_high_price
+      .other
+        %span.info{ :hidden => '', 'data-id' => item.id, 'data-quantity' => item.current_quantity, 'data-price' => item.current_price }
+        .name= item.short_name
+        .quantity= "Quantity: #{item.current_quantity}"
