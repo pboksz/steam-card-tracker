@@ -3,9 +3,9 @@
     .left= image_tag item.image_url
     .right
       .prices
-        .low= item.all_time_low_price
-        .current= number_to_currency(item.current_price, :unit => item.currency_symbol)
-        .high= item.all_time_high_price
+        .low= number_with_precision(item.all_time_low_price, :precision => 2)
+        .current= number_to_currency(item.current_price, :unit => item.currency_symbol, :precision => 2)
+        .high= number_with_precision(item.all_time_high_price, :precision => 2)
       .other
         %span.info{ :hidden => '', 'data-id' => item.id, 'data-quantity' => item.current_quantity, 'data-price' => item.current_price }
         .name= item.short_name
