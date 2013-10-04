@@ -10,6 +10,7 @@
   'Anna - Extended Edition',
   'Anomaly Warzone Earth',
   'BIT.TRIP Runner',
+  'Bleed',
   'Brütal Legend',
   'Costume Quest',
   'Dota 2',
@@ -19,6 +20,7 @@
   'Half-Life 2',
   'Indie Game: The Movie',
   'Left 4 Dead 2',
+  'Magic 2014',
   'Magicka',
   'Mark of the Ninja',
   'Offspring Fling!',
@@ -28,11 +30,13 @@
   'Space Pirates and Zombies',
   'Stacking',
   'Steam Summer Getaway',
+  'Surgeon Simulator 2013',
   'Team Fortress 2',
   'Terraria',
   'The Binding of Isaac',
   'The Walking Dead',
-  'Trine 2'
+  'Trine 2',
+  'Universe Sandbox'
 ].each do |game_name|
   Game.where(:name => game_name).first_or_create
 end
