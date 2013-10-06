@@ -25,7 +25,7 @@ class HomeController < ApplicationController
               @items << update_item(@game, attrs)
             end
           else
-            if attrs[:game_name] =~ /#{@game.name}\s(foil\s)?(trading card)/i # validate card is from the correct game
+            if attrs[:game_name] =~ /#{@game.name}\s*(foil\s)?(trading card)/i # validate card is from the correct game
               if params[:type] == 'regular' && attrs[:item][:foil] == false # looking for regular and card is not foil
                 @items << update_item(@game, attrs)
               elsif params[:type] == 'foil' && attrs[:item][:foil] == true # looking for foils and card is a foil
