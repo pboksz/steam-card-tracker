@@ -1,49 +1,58 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu)
 
-body
+#steam-card-tracker
   font-family: 'Ubuntu', sans-serif
   font-size: 0.8em
 
-  .game
-    margin-top: 10px
-    min-height: 499px
-    border-top: 1px solid #c0c0c0
+  .app-title
+    font-size: 3em
 
-    h2
-      margin: 5px 5px 5px 5px
+  .games
+    .game
+      margin-top: 10px
+      border-top: 1px solid #c0c0c0
 
-    .game-items
-      display: inline-block
-      width: 20%
+      .game-title
+        margin: 5px 5px 5px 5px
+        font-size: 1.2em
+        cursor: pointer
 
-    .game-chart
-      display: inline-block
-      float: right
-      width: 78%
-      height: 450px
+      .loaded
+        display: none
+        min-height: 500px
 
-    .card-listing
-      a
-        text-decoration: none
-        color: black
+        .game-items
+          display: inline-block
+          width: 16%
 
-      .left, .right
-        vertical-align: top
-        display: inline-block
+          .game-item
+            a
+              text-decoration: none
+              color: black
 
-      .prices
-        .low, .high, .current
-          display: inline
-          line-height: 1em
-          vertical-align: top
+            .left, .right
+              vertical-align: top
+              display: inline-block
 
-        .low
-          color: #006400
+            .right .prices
+              .low, .high, .current
+                display: inline
+                line-height: 1em
+                vertical-align: top
 
-        .high
-          color: #8b0000
+              .low
+                color: #006400
 
-        .current
-          font-size: 2em
-          font-weight: bold
-          color: steelblue
+              .high
+                color: #8b0000
+
+              .current
+                font-size: 2em
+                font-weight: bold
+                color: steelblue
+
+        .game-chart
+          display: inline-block
+          float: right
+          width: 80%
+          height: 450px

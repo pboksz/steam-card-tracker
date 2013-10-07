@@ -1,7 +1,0 @@
-.game
-  %h2= game[:name]
-  .game-items
-    %span.game-info{ :hidden => '', 'data-id' => game[:id] }
-    - items.each do |item|
-      = render 'item', :item => item
-  .game-chart{ :id => "container#{game[:id]}" }

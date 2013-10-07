@@ -1,19 +1,23 @@
-.steam-card-tracker
-  %h2 Steam Card Tracker
-  = form_tag root_path, :method => :get do
-    .left-side= select_tag 'games', options_for_select(@games.map(&:name), params[:games]), :multiple => true
+#steam-card-tracker{ 'ng-controller' => 'GamesController' }
+  .app-title Steam Card Tracker
 
-    .right-side
-      .regular-cards.radio
-        = label_tag 'type', 'Regular Cards?'
-        = radio_button_tag 'type', 'regular', true
-      .foil-cards.radio
-        = label_tag 'type', 'Foil Cards?'
-        = radio_button_tag 'type', 'foil', params[:type] == 'foil'
-      .booster-packs.radio
-        = label_tag 'booster', 'Booster Packs?'
-        = radio_button_tag 'type', 'booster', params[:type] == 'booster'
-      .submit= submit_tag 'Show Items'
+  .games{ 'ng-repeat' => 'game in games' }
+    .game{ :id => 'game{{game.id}}' }
+      .game-title{ 'ng-click' => 'showGame($event)' }
+        {{game.name}}
+        %i.icon-spinner.icon-spin.icon-large
 
-  - @game_items.each do |game_items|
-    = render 'game', :game => game_items[:game], :items => game_items[:items]
+      .loaded
+        .game-items
+          .game-item{ 'ng-repeat' => 'item in game.items' }
+            %a{ 'ng-href' => '{{item.link_url}}', :target => '_blank' }
+              %img.left{ 'ng-src' => '{{item.image_url}}' }
+              .right
+                .prices
+                  .low {{item.all_time_low_price}}
+                  .current {{item.currency_symbol}}{{item.current_price}}
+                  .high {{item.all_time_high_price}}
+                .other
+                  .name {{item.short_name}}
+                  .quantity Quantity: {{item.current_quantity}}
+        .game-chart{ :id => 'chart{{game.id}}' }
