@@ -9,7 +9,7 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.includes(:items => :daily_stats).find(params[:id])
+    @game = Game.find(params[:id])
     regular_items = []
     foil_items = []
 
@@ -21,7 +21,10 @@ class GamesController < ApplicationController
       parse_listings(Nokogiri::HTML(listings_json['results_html'])).each do |attributes|
         # validate card is from the correct game
         if attributes[:game_name] =~ /#{@game.name}\s*(foil\s)?(trading card)/i
-          item = @game.items.where(attributes[:item]).first_or_create.tap do |item|
+          item = @game.items.where(:name => attributes[:name]).first_or_initialize.tap do |item|
+            item.assign_attributes(attributes[:item])
+            item.save if item.changed?
+
             item.current_price = attributes[:price]
             item.current_quantity = attributes[:quantity]
             item.update_daily_stats
@@ -57,9 +60,9 @@ class GamesController < ApplicationController
       listing[:game_name] = listing_html.css('.market_listing_row .market_listing_game_name').first.content
       listing[:price] = listing_html.css('.market_listing_row .market_listing_num_listings span').first.children.last.content.squish.match(/\d+.\d{1,2}/).to_s.to_f
       listing[:quantity] = listing_html.css('.market_listing_row .market_listing_num_listings .market_listing_num_listings_qty').first.content.gsub(',', '').to_i
+      listing[:name] = listing_html.css('.market_listing_row .market_listing_item_name').first.content
 
-      listing[:item][:name] = listing_html.css('.market_listing_row .market_listing_item_name').first.content
-      listing[:item][:foil] = listing[:item][:name].include?('Foil')
+      listing[:item][:foil] = listing[:name].include?('Foil')
       listing[:item][:link_url] = listing_html.attributes['href'].value
       listing[:item][:image_url] = listing_html.css('.market_listing_row img').first.attributes['src'].value
 

@@ -32,5 +32,6 @@ group :production do
 end
 
 group :development, :test do
+  gem 'bullet'
   gem 'quiet_assets'
 end
