@@ -1,5 +1,7 @@
 #steam-card-tracker{ 'ng-controller' => 'GamesController' }
-  .app-title Steam Card Tracker
+  .header
+    .app-title Steam Card Tracker
+    %button.toggle-card-type{ 'ng-click' => 'toggleCardType()' } Toggle Card Type
 
   .games{ 'ng-repeat' => 'game in games' }
     .game{ :id => 'game{{game.id}}' }
@@ -7,17 +9,15 @@
         {{game.name}}
         %i.icon-spinner.icon-spin.icon-large
 
-      .loaded
-        .game-items
-          .game-item{ 'ng-repeat' => 'item in game.items' }
-            %a{ 'ng-href' => '{{item.link_url}}', :target => '_blank' }
-              %img.left{ 'ng-src' => '{{item.image_url}}' }
-              .right
-                .prices
-                  .low {{item.all_time_low_price}}
-                  .current {{item.currency_symbol}}{{item.current_price}}
-                  .high {{item.all_time_high_price}}
-                .other
-                  .name {{item.short_name}}
-                  .quantity Quantity: {{item.current_quantity}}
-        .game-chart{ :id => 'chart{{game.id}}' }
+      .loading.hidden
+        .regular
+          .game-items
+            .game-item{ 'ng-repeat' => 'item in game.regular_items' }
+              = render 'item'
+          .game-chart{ :id => 'regular{{game.id}}' }
+
+        .foil.hidden
+          .game-items
+            .game-item{ 'ng-repeat' => 'item in game.foil_items' }
+              = render 'item'
+          .game-chart{ :id => 'foil{{game.id}}' }

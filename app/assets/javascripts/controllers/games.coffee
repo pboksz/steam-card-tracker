@@ -8,10 +8,15 @@ angular.module('cardtracker').controller 'GamesController', [
           $scope.games[$scope.games.indexOf(game)] = loadedGame
           $scope.$apply()
           $('#game' + loadedGame.id).find('.icon-spin').hide()
-          renderNewChart('chart' + loadedGame.id, loadedGame.series_dates, loadedGame.series_data, chart_width)
+          renderNewChart('regular' + loadedGame.id, loadedGame.regular_dates, loadedGame.regular_data, chart_width)
+          renderNewChart('foil' + loadedGame.id, loadedGame.foil_dates, loadedGame.foil_data, chart_width)
 
     $scope.showGame = (event) ->
       $(event.currentTarget).next().toggle()
+
+    $scope.toggleCardType = (event) ->
+      $('.regular').toggle()
+      $('.foil').toggle()
 ]
 
 renderNewChart = (container_id, series_dates, series_data, chart_width) ->

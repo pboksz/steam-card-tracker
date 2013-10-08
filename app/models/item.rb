@@ -18,7 +18,7 @@ class Item < ActiveRecord::Base
   end
 
   def series_data
-    { :name => short_name, :data => daily_stats.order(:created_at).map { |stat| [stat.min_price_low, stat.min_price_high] } }
+    { :name => name, :data => daily_stats.order(:created_at).map { |stat| [stat.min_price_low, stat.min_price_high] } }
   end
 
   def update_daily_stats

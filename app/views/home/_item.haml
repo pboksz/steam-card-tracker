@@ -1,0 +1,10 @@
+%a{ 'ng-href' => '{{item.link_url}}', :target => '_blank' }
+  %img.left{ 'ng-src' => '{{item.image_url}}' }
+  .right
+    .prices
+      .low {{item.all_time_low_price}}
+      .current {{item.currency_symbol}}{{item.current_price}}
+      .high {{item.all_time_high_price}}
+    .other
+      .name {{item.short_name}}
+      .quantity Quantity: {{item.current_quantity}}

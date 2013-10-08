@@ -4,8 +4,15 @@
   font-family: 'Ubuntu', sans-serif
   font-size: 0.8em
 
-  .app-title
-    font-size: 3em
+  .hidden
+    display: none
+
+  .header
+    .app-title
+      font-size: 3em
+
+    .toggle-card-types
+      margin-left: 0
 
   .games
     .game
@@ -14,44 +21,46 @@
 
       .game-title
         margin: 5px 5px 5px 5px
-        font-size: 1.2em
+        font-size: 1.5em
         cursor: pointer
 
-      .loaded
-        display: none
+      .loading
         min-height: 500px
 
-        .game-items
-          display: inline-block
-          width: 200px
+        .regular, .foil
+          .game-items
+            display: inline-block
+            width: 200px
 
-          .game-item
-            a
-              text-decoration: none
-              color: black
+            .game-item
+              margin-bottom: 4px
 
-            .left, .right
-              vertical-align: top
-              display: inline-block
+              a
+                text-decoration: none
+                color: black
 
-            .right .prices
-              .low, .high, .current
-                display: inline
-                line-height: 1em
+              .left, .right
                 vertical-align: top
+                display: inline-block
 
-              .low
-                color: #006400
+              .right .prices
+                .low, .high, .current
+                  display: inline
+                  line-height: 1em
+                  vertical-align: top
 
-              .high
-                color: #8b0000
+                .low
+                  color: #006400
 
-              .current
-                font-size: 2em
-                font-weight: bold
-                color: steelblue
+                .high
+                  color: #8b0000
 
-        .game-chart
-          display: inline-block
-          float: right
-          height: 450px
+                .current
+                  font-size: 2em
+                  font-weight: bold
+                  color: steelblue
+
+          .game-chart
+            display: inline-block
+            float: right
+            height: 450px

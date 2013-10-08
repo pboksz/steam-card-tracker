@@ -9,7 +9,8 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.includes(:items => :daily_stats).find(params[:id])
-    items = []
+    regular_items = []
+    foil_items = []
 
     query = "trading+card+#{@game.query_name}"
     listings_response = Weary::Request.new("http://steamcommunity.com/market/search/render/?query=#{query}&start=0&count=2000").perform
@@ -19,22 +20,30 @@ class GamesController < ApplicationController
       parse_listings(Nokogiri::HTML(listings_json['results_html'])).each do |attributes|
         # validate card is from the correct game
         if attributes[:game_name] =~ /#{@game.name}\s*(foil\s)?(trading card)/i
-          items << @game.items.where(attributes[:item]).first_or_create.tap do |item|
+          item = @game.items.where(attributes[:item]).first_or_create.tap do |item|
             item.current_price = attributes[:price]
             item.current_quantity = attributes[:quantity]
             item.update_daily_stats
           end
+
+          if item.foil? then foil_items << item else regular_items << item end
         end
       end
     end
 
-    items_json = items.as_json(
+    options = {
       :only => [:link_url, :image_url, :foil, :currency_symbol],
       :methods => [:short_name, :current_price, :current_quantity, :all_time_low_price, :all_time_high_price]
-    )
+    }
 
-    render :json => { :id => @game.id, :name => @game.name, :items => items_json,
-                      :series_dates => @game.series_dates, :series_data => @game.series_data }
+    render :json => { :id => @game.id, :name => @game.name,
+                      :regular_items => regular_items.as_json(options),
+                      :regular_dates => @game.series_dates(:foil => false),
+                      :regular_data => @game.series_data(:foil => false),
+                      :foil_items => foil_items.as_json(options),
+                      :foil_dates => @game.series_dates(:foil => true),
+                      :foil_data => @game.series_data(:foil => true)
+                    }
   end
 
   private
