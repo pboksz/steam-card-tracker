@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130916182652) do
+ActiveRecord::Schema.define(version: 20131008102318) do
 
   create_table "daily_stats", force: true do |t|
     t.integer  "min_price_low_integer",  default: 0
@@ -22,6 +22,10 @@ ActiveRecord::Schema.define(version: 20130916182652) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "daily_stats", ["created_at"], name: "index_daily_stats_on_created_at", using: :btree
+  add_index "daily_stats", ["min_price_high_integer"], name: "index_daily_stats_on_min_price_high_integer", using: :btree
+  add_index "daily_stats", ["min_price_low_integer"], name: "index_daily_stats_on_min_price_low_integer", using: :btree
 
   create_table "games", force: true do |t|
     t.string   "name"
@@ -39,5 +43,9 @@ ActiveRecord::Schema.define(version: 20130916182652) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "items", ["foil"], name: "index_items_on_foil", using: :btree
+  add_index "items", ["name", "foil"], name: "index_items_on_name_and_foil", using: :btree
+  add_index "items", ["name"], name: "index_items_on_name", using: :btree
 
 end
