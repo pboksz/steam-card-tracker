@@ -6,8 +6,9 @@ angular.module('cardtracker').controller 'GamesController', [
       _.each games, (game) ->
         Game.show id: game.id, (loadedGame) ->
           $scope.games[$scope.games.indexOf(game)] = loadedGame
-          $scope.$apply()
+          $scope.$apply() #TODO digest called twice
           $('#game' + loadedGame.id).find('.icon-spin').hide()
+          $('#game' + loadedGame.id).find('.icon-collapse').show()
           renderNewChart('regular' + loadedGame.id, loadedGame.regular_dates, loadedGame.regular_data, chart_width)
           renderNewChart('foil' + loadedGame.id, loadedGame.foil_dates, loadedGame.foil_data, chart_width)
 
