@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class GamesController < ApplicationController
   def index
     #@games = Game.all.order(:name)
