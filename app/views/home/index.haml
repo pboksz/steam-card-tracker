@@ -8,16 +8,16 @@
       .game-title{ 'ng-click' => 'showGame($event)' }
         {{game.name}}
         %i.icon-spinner.icon-spin.icon-large
-        %i.icon-collapse.icon-large.hidden
+        %i.icon-collapse.icon-large{ :style => 'display: none' }
 
-      .loading.hidden
+      .loading{ :style => 'display: none' }
         .regular
           .game-items
             .game-item{ 'ng-repeat' => 'item in game.regular_items' }
               = render 'item'
           .game-chart{ :id => 'regular{{game.id}}' }
 
-        .foil.hidden
+        .foil{ :style => 'display: none' }
           .game-items
             .game-item{ 'ng-repeat' => 'item in game.foil_items' }
               = render 'item'
