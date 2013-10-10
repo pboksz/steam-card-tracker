@@ -3,11 +3,11 @@
 #steam-card-tracker
   font-family: 'Ubuntu', sans-serif
   font-size: 0.8em
+  font-weight: bold
 
   .header
     .app-title
       font-size: 2em
-      font-weight: bold
 
     .toggle-card-types
       margin-left: 0
@@ -32,7 +32,7 @@
         .regular, .foil
           .game-items
             display: inline-block
-            width: 200px
+            width: 250px
 
             .game-item
               margin-bottom: 4px
@@ -46,9 +46,11 @@
                 display: inline-block
 
               .right .prices
+                margin-top: 4px
+
                 .low, .high, .current
                   display: inline
-                  line-height: 1em
+                  line-height: 0.6em
                   vertical-align: top
 
                 .low
@@ -58,9 +60,8 @@
                   color: #8b0000
 
                 .current
-                  font-size: 2em
-                  font-weight: bold
                   color: steelblue
+                  font-size: 2em
 
           .game-chart
             display: inline-block
