@@ -1,0 +1,11 @@
+.regular
+  .game-items
+    .game-item{ 'ng-repeat' => 'item in game.regular_items' }
+      = render 'item'
+  .game-chart{ :id => 'regular{{game.id}}' }
+
+.foil{ :style => 'display: none' }
+  .game-items
+    .game-item{ 'ng-repeat' => 'item in game.foil_items' }
+      = render 'item'
+  .game-chart{ :id => 'foil{{game.id}}' }

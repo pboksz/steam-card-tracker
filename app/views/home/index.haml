@@ -1,24 +1,20 @@
+%script{ :type => 'text/ng-template', :id => 'game.html' }
+  = render 'game'
+
 #steam-card-tracker{ 'ng-controller' => 'GamesController' }
   .header
     .app-title Steam Card Tracker
-    %button.toggle-card-type{ 'ng-click' => 'toggleCardType()' } Toggle Card Type
 
   .games{ 'ng-repeat' => 'game in games' }
-    .game{ :id => 'game{{game.id}}' }
-      .game-title{ 'ng-click' => 'showGame($event)' }
+    .game
+      .game-title.show-game{ 'game-id' => '{{game.id}}' }
         {{game.name}}
-        %i.icon-spinner.icon-spin.icon-large
-        %i.icon-collapse.icon-large{ :style => 'display: none' }
+        .collapse
+          %i.icon.icon-angle-down
+          %i.icon.icon-angle-up{ :style => 'display: none' }
+      .toggle-type
+        %i.icon.icon-star-empty
+        %i.icon.icon-star{ :style => 'display: none' }
 
       .loading{ :style => 'display: none' }
-        .regular
-          .game-items
-            .game-item{ 'ng-repeat' => 'item in game.regular_items' }
-              = render 'item'
-          .game-chart{ :id => 'regular{{game.id}}' }
-
-        .foil{ :style => 'display: none' }
-          .game-items
-            .game-item{ 'ng-repeat' => 'item in game.foil_items' }
-              = render 'item'
-          .game-chart{ :id => 'foil{{game.id}}' }
+        %i.icon.icon-refresh.icon-spin.loading-icon
