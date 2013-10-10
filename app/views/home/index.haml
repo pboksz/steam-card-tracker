@@ -7,12 +7,12 @@
 
   .games
     .game{ 'ng-repeat' => 'game in games' }
-      .game-title.show-game{ 'game-id' => '{{game.id}}' }
-        {{game.name}}
-        .collapse
+      %span.game-title.show-game{ 'game-id' => '{{game.id}}' }
+        %span.name {{game.name}}
+        %span.collapse
           %i.icon.icon-angle-down
           %i.icon.icon-angle-up{ :style => 'display: none' }
-      .toggle-type
+      %span.toggle-type
         %i.icon.icon-star-empty
         %i.icon.icon-star{ :style => 'display: none' }
 

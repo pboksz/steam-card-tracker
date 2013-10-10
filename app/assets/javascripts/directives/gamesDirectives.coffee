@@ -11,6 +11,7 @@ angular.module('cardtracker').directive 'showGame', [
           scope.$apply ->
             Game.show id: attributes.gameId, (game) ->
               scope.game = game
+              $(element).find('.name').addClass('info')
               loading.find('.loading-icon').hide()
               loading.append($compile($templateCache.get('game.html'))(scope))
               Chart.render(loading.find('.regular .game-chart')[0], game.regular_dates, game.regular_data)
