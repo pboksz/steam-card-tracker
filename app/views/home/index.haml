@@ -5,8 +5,8 @@
   .header
     .app-title Steam Card Tracker
 
-  .games{ 'ng-repeat' => 'game in games' }
-    .game
+  .games
+    .game{ 'ng-repeat' => 'game in games' }
       .game-title.show-game{ 'game-id' => '{{game.id}}' }
         {{game.name}}
         .collapse
