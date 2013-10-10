@@ -1,0 +1,41 @@
+#steam-card-tracker
+  .regular, .foil
+    min-height: 400px
+
+    .game-items
+      display: inline-block
+      width: 250px
+
+      .game-item
+        margin-bottom: 4px
+
+        a
+          text-decoration: none
+          color: black
+
+        .left, .right
+          vertical-align: top
+          display: inline-block
+
+        .right .prices
+          margin-top: 4px
+
+          .low, .high, .current
+            display: inline
+            line-height: 1em
+            vertical-align: top
+
+          .low
+            color: #006400
+
+          .high
+            color: #8b0000
+
+          .current
+            color: steelblue
+            font-size: 2.2em
+
+    .game-chart
+      display: inline-block
+      float: right
+      height: 450px
