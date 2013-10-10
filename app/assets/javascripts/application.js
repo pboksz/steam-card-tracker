@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require angular.min
+//= require angular-resource.min
 //= require underscore
 //= require turbolinks
 //= require highcharts
