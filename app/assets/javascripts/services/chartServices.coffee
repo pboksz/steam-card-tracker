@@ -5,6 +5,7 @@ angular.module('cardtracker').factory 'Chart', ->
         renderTo: containerId
         type: 'arearange'
         width: $(document).width() - 300
+        backgroundColor: 'rgba(255, 255, 255, 0.0)'
       title:
         text: ""
       xAxis:
