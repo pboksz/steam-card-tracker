@@ -2,9 +2,7 @@
 
 class GamesController < ApplicationController
   def index
-    #TODO load all games
-    #@games = Game.all.order(:name)
-    @games = Game.limit(2)
+    @games = Game.all.order(:name)
     render :json => @games.as_json(:only => [:id, :name])
   end
 

@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(version: 20131008102318) do
   end
 
   add_index "items", ["foil"], name: "index_items_on_foil", using: :btree
-  add_index "items", ["name", "foil"], name: "index_items_on_name_and_foil", using: :btree
   add_index "items", ["name"], name: "index_items_on_name", using: :btree
 
 end
