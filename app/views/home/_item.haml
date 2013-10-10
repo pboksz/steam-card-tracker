@@ -4,6 +4,6 @@
     .info
       .name {{item.short_name}} X {{item.current_quantity}}
     .prices
-      .low {{item.all_time_low_price}}
-      .current {{item.currency_symbol}}{{item.current_price}}
-      .high {{item.all_time_high_price}}
+      .low {{item.all_time_low_price | number: 2 }}
+      .current {{item.currency_symbol}}{{item.current_price | number: 2}}
+      .high {{item.all_time_high_price | number: 2}}
