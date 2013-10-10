@@ -1,19 +1,24 @@
-.steam-card-tracker
-  %h2 Steam Card Tracker
-  = form_tag root_path, :method => :get do
-    .left-side= select_tag 'games', options_for_select(@games.map(&:name), params[:games]), :multiple => true
+#steam-card-tracker{ 'ng-controller' => 'GamesController' }
+  .header
+    .app-title Steam Card Tracker
+    %button.toggle-card-type{ 'ng-click' => 'toggleCardType()' } Toggle Card Type
 
-    .right-side
-      .regular-cards.radio
-        = label_tag 'type', 'Regular Cards?'
-        = radio_button_tag 'type', 'regular', true
-      .foil-cards.radio
-        = label_tag 'type', 'Foil Cards?'
-        = radio_button_tag 'type', 'foil', params[:type] == 'foil'
-      .booster-packs.radio
-        = label_tag 'booster', 'Booster Packs?'
-        = radio_button_tag 'type', 'booster', params[:type] == 'booster'
-      .submit= submit_tag 'Show Items'
+  .games{ 'ng-repeat' => 'game in games' }
+    .game{ :id => 'game{{game.id}}' }
+      .game-title{ 'ng-click' => 'showGame($event)' }
+        {{game.name}}
+        %i.icon-spinner.icon-spin.icon-large
+        %i.icon-collapse.icon-large.hidden
 
-  - @game_items.each do |game_items|
-    = render 'game', :game => game_items[:game], :items => game_items[:items]
+      .loading.hidden
+        .regular
+          .game-items
+            .game-item{ 'ng-repeat' => 'item in game.regular_items' }
+              = render 'item'
+          .game-chart{ :id => 'regular{{game.id}}' }
+
+        .foil.hidden
+          .game-items
+            .game-item{ 'ng-repeat' => 'item in game.foil_items' }
+              = render 'item'
+          .game-chart{ :id => 'foil{{game.id}}' }

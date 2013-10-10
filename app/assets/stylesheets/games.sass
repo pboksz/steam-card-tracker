@@ -1,0 +1,71 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu)
+
+#steam-card-tracker
+  font-family: 'Ubuntu', sans-serif
+  font-size: 0.8em
+
+  .hidden
+    display: none
+
+  .header
+    .app-title
+      font-size: 2em
+      font-weight: bold
+
+    .toggle-card-types
+      margin-left: 0
+
+  .games
+    .game
+      margin-top: 10px
+      border-top: 1px solid #c0c0c0
+
+      .game-title
+        margin: 5px 5px 5px 5px
+        font-size: 1.2em
+        font-weight: bold
+        cursor: pointer
+
+        .icon-large
+          margin-left: 4px
+
+      .loading
+        min-height: 500px
+
+        .regular, .foil
+          .game-items
+            display: inline-block
+            width: 200px
+
+            .game-item
+              margin-bottom: 4px
+
+              a
+                text-decoration: none
+                color: black
+
+              .left, .right
+                vertical-align: top
+                display: inline-block
+
+              .right .prices
+                .low, .high, .current
+                  display: inline
+                  line-height: 1em
+                  vertical-align: top
+
+                .low
+                  color: #006400
+
+                .high
+                  color: #8b0000
+
+                .current
+                  font-size: 2em
+                  font-weight: bold
+                  color: steelblue
+
+          .game-chart
+            display: inline-block
+            float: right
+            height: 450px

@@ -1,12 +1,10 @@
-.card-listing
-  = link_to item.link_url, :target => '_blank' do
-    .left= image_tag item.image_url
-    .right
-      .prices
-        .low= number_with_precision(item.all_time_low_price, :precision => 2)
-        .current= number_to_currency(item.current_price, :unit => item.currency_symbol, :precision => 2)
-        .high= number_with_precision(item.all_time_high_price, :precision => 2)
-      .other
-        %span.info{ :hidden => '', 'data-id' => item.id, 'data-quantity' => item.current_quantity, 'data-price' => item.current_price }
-        .name= item.short_name
-        .quantity= "Quantity: #{item.current_quantity}"
+%a{ 'ng-href' => '{{item.link_url}}', :target => '_blank' }
+  %img.left{ 'ng-src' => '{{item.image_url}}' }
+  .right
+    .prices
+      .low {{item.all_time_low_price}}
+      .current {{item.currency_symbol}}{{item.current_price}}
+      .high {{item.all_time_high_price}}
+    .other
+      .name {{item.short_name}}
+      .quantity Quantity: {{item.current_quantity}}

@@ -16,4 +16,18 @@ class Item < ActiveRecord::Base
   def all_time_high_price
     daily_stats.maximum(:min_price_high_integer).try(:/, 100.00)
   end
+
+  def series_data
+    { :name => name, :data => daily_stats.order(:created_at).map { |stat| [stat.min_price_low, stat.min_price_high] } }
+  end
+
+  def update_daily_stats
+    daily_stats.where(:created_at => Time.now.beginning_of_day..Time.now.end_of_day).first_or_initialize.tap do |stats|
+      stats.min_price_low = current_price if current_price < stats.min_price_low || stats.min_price_low == 0
+      stats.min_price_high = current_price if current_price > stats.min_price_high
+      stats.quantity_low = current_quantity if current_quantity < stats.quantity_low || stats.quantity_low == 0
+      stats.quantity_high = current_quantity if current_quantity > stats.quantity_high
+      stats.save if stats.changed?
+    end
+  end
 end

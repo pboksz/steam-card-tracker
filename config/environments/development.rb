@@ -32,4 +32,10 @@ SteamCardTracker::Application.configure do
   config.logger.level = Logger.const_get(
     ENV['LOG_LEVEL'] ? ENV['LOG_LEVEL'].upcase : 'DEBUG'
   )
+
+  # Enable bullet and have it log to js console
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.rails_logger = true
+  end
 end
