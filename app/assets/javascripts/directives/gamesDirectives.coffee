@@ -3,25 +3,27 @@ angular.module('cardtracker').directive 'showGame', [
     restrict: 'C'
     link: (scope, element, attributes) ->
       $(element).on 'click', ->
-        $(element).find('.collapse .icon').toggle()
-        loading = $(element).parent().find('.loading')
-        loading.toggle()
+        gameElement = $(element).closest('.game')
+        $(element).find('.icon').toggle()
+        gameElement.find('.loading').toggle()
 
         unless scope.game.$resolved
           scope.$apply ->
             Game.show id: attributes.gameId, (game) ->
               scope.game = game
               $(element).find('.name').addClass('info')
-              loading.find('.loading-icon').hide()
-              loading.append($compile($templateCache.get('game.html'))(scope))
-              Chart.render(loading.find('.regular .game-chart')[0], game.regular_dates, game.regular_data)
-              Chart.render(loading.find('.foil .game-chart')[0], game.foil_dates, game.foil_data)
+              gameElement.find('.toggle-type').show()
+              gameElement.find('.loading-icon').hide()
+              gameElement.find('.loading').append($compile($templateCache.get('game.html'))(scope))
+              Chart.render(gameElement.find('.regular .game-chart')[0], game.regular_dates, game.regular_data)
+              Chart.render(gameElement.find('.foil .game-chart')[0], game.foil_dates, game.foil_data)
 ]
 
 angular.module('cardtracker').directive 'toggleType', ->
   restrict: 'C'
   link: (scope, element) ->
     $(element).on 'click', ->
-      $(element).parent().find('.regular').toggle()
-      $(element).parent().find('.foil').toggle()
-      $(element).parent().find('.toggle-type .icon').toggle()
+      gameElement = $(element).closest('.game')
+      gameElement.find('.regular').toggle()
+      gameElement.find('.foil').toggle()
+      gameElement.find('.toggle-type .icon').toggle()
