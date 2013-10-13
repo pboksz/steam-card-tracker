@@ -5,6 +5,7 @@ angular.module('cardtracker').directive 'showGame', [
       $(element).on 'click', ->
         gameElement = $(element).closest('.game')
         gameElement.find('.loading').toggle()
+        gameElement.find('.toggle-type').toggle()
         $(element).find('.icon').toggle()
 
         unless scope.game.$resolved
@@ -17,7 +18,6 @@ angular.module('cardtracker').directive 'showGame', [
               else
                 scope.game = game
                 $(element).find('.name').addClass('info')
-                gameElement.find('.toggle-type').show()
                 gameElement.find('.loading-icon').hide()
                 gameElement.find('.loading').append($compile($templateCache.get('game.html'))(scope))
                 Chart.render(gameElement.find('.regular .game-chart')[0], game.regular_dates, game.regular_data)
@@ -44,3 +44,15 @@ angular.module('cardtracker').directive 'collapseAll', ->
   link: (scope, element) ->
     $(element).on 'click', ->
       $('.game .loading:visible').prevAll().find('.show-game').click()
+
+angular.module('cardtracker').directive 'scrollTop', ->
+  restrict: 'C'
+  link: (scope, element) ->
+    $(window).scroll ->
+      if $(window).scrollTop() > 100
+        $(element).fadeIn()
+      else
+
+    $(element).on 'click', ->
+      $('body').animate { scrollTop: 0 }, 500
+      $(element).hide()
