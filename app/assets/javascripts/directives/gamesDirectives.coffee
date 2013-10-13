@@ -32,3 +32,15 @@ angular.module('cardtracker').directive 'toggleType', ->
       gameElement.find('.regular').toggle()
       gameElement.find('.foil').toggle()
       gameElement.find('.toggle-type .icon').toggle()
+
+angular.module('cardtracker').directive 'loadAll', ->
+  restrict: 'C'
+  link: (scope, element) ->
+    $(element).on 'click', ->
+      $('.game .loading:hidden').prevAll().find('.show-game').click()
+
+angular.module('cardtracker').directive 'collapseAll', ->
+  restrict: 'C'
+  link: (scope, element) ->
+    $(element).on 'click', ->
+      $('.game .loading:visible').prevAll().find('.show-game').click()

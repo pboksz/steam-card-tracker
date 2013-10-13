@@ -3,7 +3,10 @@
 
 #steam-card-tracker{ 'ng-controller' => 'GamesController' }
   .header
-    .app-title Steam Card Tracker
+    %span.app-title Steam Card Tracker
+    %span.app-actions
+      %i.icon.icon-double-angle-down.load-all
+      %i.icon.icon-double-angle-up.collapse-all
 
   .games
     .game{ 'ng-repeat' => 'game in games' }

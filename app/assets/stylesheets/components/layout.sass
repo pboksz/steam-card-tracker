@@ -3,13 +3,6 @@ body
   background-color: ghostwhite
   color: $main
 
-#steam-card-tracker
-  .header
-    .app-title
-      font-size: 2em
-      font-weight: bold
-      @include user-select(none)
-
   .success
     color: $success
 
@@ -18,3 +11,18 @@ body
 
   .warning
     color: $warning
+
+  .icon
+    cursor: pointer
+    margin-left: 4px
+
+#steam-card-tracker
+  .header
+    @include user-select(none)
+
+    .app-title
+      font-size: 2em
+      font-weight: bold
+
+    .app-actions
+      font-size: 1.2em
