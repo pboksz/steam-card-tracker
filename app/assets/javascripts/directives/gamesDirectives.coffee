@@ -49,10 +49,7 @@ angular.module('cardtracker').directive 'scrollTop', ->
   restrict: 'C'
   link: (scope, element) ->
     $(window).scroll ->
-      if $(window).scrollTop() > 100
-        $(element).fadeIn()
-      else
+      if $(window).scrollTop() > 100 then $(element).fadeIn(300) else $(element).fadeOut(300)
 
     $(element).on 'click', ->
       $('body').animate { scrollTop: 0 }, 500
-      $(element).hide()
