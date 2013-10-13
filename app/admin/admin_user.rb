@@ -2,6 +2,7 @@ ActiveAdmin.register AdminUser do
   menu false
 
   config.filters = false
+  config.paginate = false
 
   index :download_links => false do
     column :email

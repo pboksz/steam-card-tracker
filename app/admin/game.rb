@@ -3,6 +3,7 @@ ActiveAdmin.register Game do
 
   config.filters = false
   config.sort_order = "name_asc"
+  config.paginate = false
 
   index :download_links => false do
     column :id
