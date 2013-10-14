@@ -1,20 +1,28 @@
 class Item < ActiveRecord::Base
-  attr_accessible :name, :link_url, :image_url, :foil, :currency_symbol, :game
+  attr_accessible :game, :name, :link_url, :image_url, :foil, :currency_symbol, :all_time_low_price_integer, :all_time_high_price_integer
   attr_accessor :current_price, :current_quantity
 
-  has_many :daily_stats, :dependent => :destroy
   belongs_to :game
-
-  def short_name
-    name.gsub(/(\(Trading Card\)|\sTrading Card)/, '').truncate(17)
-  end
+  has_many :daily_stats, :dependent => :destroy
 
   def all_time_low_price
-    daily_stats.minimum(:min_price_low_integer).try(:/, 100.00)
+    all_time_low_price_integer / 100.00
+  end
+
+  def all_time_low_price=(price)
+    self.all_time_low_price_integer = price * 100.00
   end
 
   def all_time_high_price
-    daily_stats.maximum(:min_price_high_integer).try(:/, 100.00)
+    all_time_high_price_integer / 100.00
+  end
+
+  def all_time_high_price=(price)
+    self.all_time_high_price_integer = price * 100.00
+  end
+
+  def short_name
+    name.gsub(/(\(Trading Card\)|\sTrading Card)/, '').truncate(17)
   end
 
   def series_data

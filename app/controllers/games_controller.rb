@@ -20,6 +20,8 @@ class GamesController < ApplicationController
         # validate card is from the correct game
         if attributes[:game_name] =~ /#{@game.name}\s*(foil\s)?(trading card)/i
           item = @game.items.where(:name => attributes[:name]).first_or_initialize.tap do |item|
+            item.all_time_low_price = attributes[:price] if attributes[:price] < item.all_time_low_price || item.all_time_low_price == 0
+            item.all_time_high_price = attributes[:price] if attributes[:price] > item.all_time_high_price || item.all_time_high_price == 0
             item.assign_attributes(attributes[:item])
             item.save if item.changed?
 
