@@ -12,9 +12,9 @@ angular.module('cardtracker').directive 'showGame', [
           scope.$apply ->
             Game.show id: attributes.gameId, (game) ->
               if game.error
-                $(element).find('.name').addClass('warning')
-                $(element).find('.collapse .icon').toggle()
                 gameElement.find('.loading').toggle()
+                $(element).find('.icon').toggle()
+                $(element).find('.name').addClass('warning')
               else
                 scope.game = game
                 $(element).find('.name').addClass('info')
