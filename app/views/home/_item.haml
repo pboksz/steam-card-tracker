@@ -3,6 +3,6 @@
   .right
     .name {{item.short_name}} X {{item.current_quantity}}
     .prices
-      .low.success {{item.all_time_low_price | number: 2 }}
-      .current.info {{item.currency_symbol}}{{item.current_price | number: 2}}
+      .low.success {{item.all_time_low_price | number: 2}}
+      .current.info {{item.current_price | currency}}
       .high.warning {{item.all_time_high_price | number: 2}}

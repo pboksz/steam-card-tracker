@@ -1,9 +1,13 @@
 class Item < ActiveRecord::Base
-  attr_accessible :game, :name, :link_url, :image_url, :foil, :currency_symbol, :all_time_low_price_integer, :all_time_high_price_integer
-  attr_accessor :current_price, :current_quantity
+  attr_accessible :game, :name, :all_time_low_price_integer, :all_time_high_price_integer
+  attr_accessor :current_price, :current_quantity, :link_url, :image_url
 
   belongs_to :game
   has_many :daily_stats, :dependent => :destroy
+
+  def foil?
+    name.include?('Foil')
+  end
 
   def all_time_low_price
     all_time_low_price_integer / 100.00

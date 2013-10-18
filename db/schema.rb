@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131014082216) do
+ActiveRecord::Schema.define(version: 20131018122205) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -53,18 +53,13 @@ ActiveRecord::Schema.define(version: 20131014082216) do
 
   create_table "items", force: true do |t|
     t.string   "name"
-    t.string   "link_url"
-    t.text     "image_url"
-    t.boolean  "foil"
     t.integer  "game_id"
-    t.string   "currency_symbol",             default: "$"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "all_time_high_price_integer", default: 0
     t.integer  "all_time_low_price_integer",  default: 0
   end
 
-  add_index "items", ["foil"], name: "index_items_on_foil", using: :btree
   add_index "items", ["name"], name: "index_items_on_name", using: :btree
 
 end

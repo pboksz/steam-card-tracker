@@ -8,10 +8,10 @@ class Game < ActiveRecord::Base
   end
 
   def series_dates(options = { :foil => false })
-    items.where(:foil => options[:foil]).first.daily_stats.order(:created_at).map(&:humanize_date)
+    items.select{ |item| item.foil? == options[:foil] }.first.daily_stats.order(:created_at).map(&:humanize_date)
   end
 
   def series_data(options = { :foil => false })
-    items.where(:foil => options[:foil]).map(&:series_data)
+    items.select{ |item| item.foil? == options[:foil] }.map(&:series_data)
   end
 end
