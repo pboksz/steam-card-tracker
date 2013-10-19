@@ -20,5 +20,5 @@
 *.iml
 
 # Config
-/config/database.yml
+/config/mongoid.yml
 /config/unicorn.rb
