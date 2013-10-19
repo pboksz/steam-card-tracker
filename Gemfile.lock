@@ -52,6 +52,7 @@ GEM
     bourbon (3.1.8)
       sass (>= 3.2.0)
       thor
+    bson (1.9.2)
     builder (3.1.4)
     bullet (4.6.0)
       uniform_notifier
@@ -75,6 +76,7 @@ GEM
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    durran-validatable (2.0.1)
     erubis (2.7.0)
     execjs (2.0.1)
     font-awesome-rails (3.2.1.2)
@@ -112,12 +114,20 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.8.1)
+    leshill-will_paginate (2.3.11)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25)
     mini_portile (0.5.1)
     minitest (4.7.5)
+    mongo (1.9.2)
+      bson (~> 1.9.2)
+    mongoid (1.0.6)
+      activesupport (>= 2.2.2)
+      durran-validatable (>= 2.0.1)
+      leshill-will_paginate (>= 2.3.11)
+      mongo (>= 0.18.2)
     multi_json (1.8.0)
     mysql2 (0.3.13)
     newrelic_rpm (3.6.7.159)
@@ -223,6 +233,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   json
+  mongoid
   mysql2
   newrelic_rpm
   nokogiri

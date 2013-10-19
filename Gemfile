@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.0'
 gem 'mysql2'
+gem 'mongoid'
 
 gem 'activeadmin', :github => 'gregbell/active_admin'
 gem 'haml-rails'
