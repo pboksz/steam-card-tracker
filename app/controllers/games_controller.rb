@@ -2,8 +2,8 @@
 
 class GamesController < ApplicationController
   def index
-    @games = Game.all.order(:name)
-    render :json => @games.as_json(:only => [:id, :name])
+    @games = Game.all.order_by(:name => :asc)
+    render :json => @games.to_json
   end
 
   def show
@@ -20,8 +20,8 @@ class GamesController < ApplicationController
         # validate card is from the correct game
         if attributes[:game_name] =~ /#{@game.name}\s*(foil\s)?(trading card)/i
           item = @game.items.where(:name => attributes[:name]).first_or_initialize.tap do |item|
-            item.all_time_low_price = attributes[:price] if attributes[:price] < item.all_time_low_price || item.all_time_low_price == 0
-            item.all_time_high_price = attributes[:price] if attributes[:price] > item.all_time_high_price || item.all_time_high_price == 0
+            item.all_time_min_price_low = attributes[:price] if attributes[:price] < item.all_time_min_price_low || item.all_time_min_price_low == 0
+            item.all_time_min_price_high = attributes[:price] if attributes[:price] > item.all_time_min_price_high || item.all_time_min_price_high == 0
             item.save if item.changed?
 
             item.current_price = attributes[:price]
@@ -36,7 +36,11 @@ class GamesController < ApplicationController
       end
     end
 
-    options = { :only => [], :methods => [:short_name, :current_price, :current_quantity, :link_url, :image_url, :all_time_low_price, :all_time_high_price] }
+    options = {
+      :only =>    [:name],
+      :methods => [:current_price, :current_quantity, :link_url, :image_url,
+                   :all_time_min_price_low, :all_time_min_price_high]
+    }
 
     render :json => {
       :id => @game.id, :name => @game.name,
@@ -69,5 +73,11 @@ class GamesController < ApplicationController
     end
 
     listings
+  end
+
+  def permitted_params
+    params.permit :game => [:name]
+    params.permit :item => [:name, :all_time_min_price_low, :all_time_min_price_high]
+    params.permit :daily_stat => [:min_price_low, :min_price_high]
   end
 end
