@@ -3,7 +3,7 @@
 class GamesController < ApplicationController
   def index
     @games = Game.all.order_by(:name => :asc)
-    render :json => @games.to_json
+    render :json => @games.as_json(:only => [:id, :name])
   end
 
   def show
@@ -19,11 +19,7 @@ class GamesController < ApplicationController
       parse_listings(Nokogiri::HTML(listings_json['results_html'])).each do |attributes|
         # validate card is from the correct game
         if attributes[:game_name] =~ /#{@game.name}\s*(foil\s)?(trading card)/i
-          item = @game.items.where(:name => attributes[:name]).first_or_initialize.tap do |item|
-            item.all_time_min_price_low = attributes[:price] if attributes[:price] < item.all_time_min_price_low || item.all_time_min_price_low == 0
-            item.all_time_min_price_high = attributes[:price] if attributes[:price] > item.all_time_min_price_high || item.all_time_min_price_high == 0
-            item.save if item.changed?
-
+          item = @game.items.where(:name => attributes[:name]).first_or_create.tap do |item|
             item.current_price = attributes[:price]
             item.current_quantity = attributes[:quantity]
             item.link_url = attributes[:link_url]

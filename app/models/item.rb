@@ -1,10 +1,9 @@
 class Item
   include Mongoid::Document
-  include Mongoid::Timestamps::Created
+  include Mongoid::Timestamps::Created::Short
+  include Serializable
 
-  field :name, :type => String
-  field :all_time_min_price_low, :type => Float, :default => 0
-  field :all_time_min_price_high, :type => Float, :default => 0
+  field :n, :as => :name, :type => String
 
   attr_accessor :current_price, :current_quantity, :link_url, :image_url
 
@@ -13,6 +12,14 @@ class Item
 
   def foil?
     name.include?('Foil')
+  end
+
+  def all_time_min_price_low
+    daily_stats.min(:min_price_low)
+  end
+
+  def all_time_min_price_high
+    daily_stats.max(:min_price_high)
   end
 
   def series_data
@@ -25,5 +32,9 @@ class Item
       stats.min_price_high = current_price if current_price > stats.min_price_high
       stats.save if stats.changed?
     end
+  end
+
+  def serializable_hash(options = {})
+    Hash[super(options).map { |key, value| [self.aliased_fields.invert[key] || key, value] }]
   end
 end
