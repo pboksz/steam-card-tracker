@@ -24,7 +24,7 @@ class GamesController < ApplicationController
             item.current_quantity = attributes[:quantity]
             item.link_url = attributes[:link_url]
             item.image_url = attributes[:image_url]
-            item.update_daily_stats
+            item.update_todays_stats
           end
 
           if item.foil? then foil_items << item else regular_items << item end

@@ -26,10 +26,10 @@ class Item
     { :name => name, :data => stats.map { |stat| [stat.min_price_low, stat.min_price_high] } }
   end
 
-  def update_daily_stats
+  def update_todays_stats
     stats.where(:created_at => Time.now.beginning_of_day..Time.now.end_of_day).first_or_initialize.tap do |stat|
       stat.min_price_low = current_price if current_price < stat.min_price_low || stat.min_price_low == 0
-      stat.min_price_high = current_price if current_price > stat.min_price_high
+      stat.min_price_high = current_price if current_price > stat.min_price_high || stat.min_price_high == 0
       stat.save if stat.changed?
     end
   end
