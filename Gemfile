@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.0.0'
+gem 'mysql2'
 gem 'mongoid', :github => 'mongoid/mongoid'
 
 gem 'haml-rails'
