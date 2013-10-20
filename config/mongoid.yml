@@ -11,6 +11,7 @@ development:
       hosts:
         - localhost:27017
       options:
+        safe: true
         # Change the default write concern. (default = { w: 1 })
         # write:
         # w: 1
@@ -69,6 +70,7 @@ test:
       hosts:
         - localhost:27017
       options:
+        safe: true
         read: primary
         # In the test environment we lower the retries and retry interval to
         # low amounts for fast failures.
@@ -79,3 +81,6 @@ production:
   sessions:
     default:
       uri: <%= ENV['MONGOHQ_URL'] %>
+      options:
+        skip_version_check: true
+        safe: true
