@@ -12,7 +12,7 @@ class Game
   end
 
   def series_dates(options = { :foil => false })
-    items.select{ |item| item.foil? == options[:foil] }.first.daily_stats.map(&:humanize_date)
+    items.select{ |item| item.foil? == options[:foil] }.first.stats.map(&:humanize_date)
   end
 
   def series_data(options = { :foil => false })

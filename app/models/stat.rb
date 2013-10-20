@@ -1,4 +1,4 @@
-class DailyStat
+class Stat
   include Mongoid::Document
   include Mongoid::Timestamps::Created::Short
   include Serializable
