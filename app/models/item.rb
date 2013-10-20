@@ -1,45 +1,36 @@
-class Item < ActiveRecord::Base
-  attr_accessible :game, :name, :all_time_low_price_integer, :all_time_high_price_integer
+class Item
+  include Mongoid::Document
+  include Mongoid::Timestamps::Created::Short
+  include Serializable
+
+  field :n, :as => :name, :type => String
+
   attr_accessor :current_price, :current_quantity, :link_url, :image_url
 
   belongs_to :game
-  has_many :daily_stats, :dependent => :destroy
+  has_many :stats, :dependent => :destroy
 
   def foil?
     name.include?('Foil')
   end
 
-  def all_time_low_price
-    all_time_low_price_integer / 100.00
+  def all_time_min_price_low
+    stats.min(:min_price_low)
   end
 
-  def all_time_low_price=(price)
-    self.all_time_low_price_integer = price * 100.00
-  end
-
-  def all_time_high_price
-    all_time_high_price_integer / 100.00
-  end
-
-  def all_time_high_price=(price)
-    self.all_time_high_price_integer = price * 100.00
-  end
-
-  def short_name
-    name.gsub(/(\(Trading Card\)|\sTrading Card)/, '').truncate(17)
+  def all_time_min_price_high
+    stats.max(:min_price_high)
   end
 
   def series_data
-    { :name => name, :data => daily_stats.order(:created_at).map { |stat| [stat.min_price_low, stat.min_price_high] } }
+    { :name => name, :data => stats.map { |stat| [stat.min_price_low, stat.min_price_high] } }
   end
 
-  def update_daily_stats
-    daily_stats.where(:created_at => Time.now.beginning_of_day..Time.now.end_of_day).first_or_initialize.tap do |stats|
-      stats.min_price_low = current_price if current_price < stats.min_price_low || stats.min_price_low == 0
-      stats.min_price_high = current_price if current_price > stats.min_price_high
-      stats.quantity_low = current_quantity if current_quantity < stats.quantity_low || stats.quantity_low == 0
-      stats.quantity_high = current_quantity if current_quantity > stats.quantity_high
-      stats.save if stats.changed?
+  def update_todays_stats
+    stats.where(:created_at => Time.now.beginning_of_day..Time.now.end_of_day).first_or_initialize.tap do |stat|
+      stat.min_price_low = current_price if current_price < stat.min_price_low || stat.min_price_low == 0
+      stat.min_price_high = current_price if current_price > stat.min_price_high || stat.min_price_high == 0
+      stat.save if stat.changed?
     end
   end
 end

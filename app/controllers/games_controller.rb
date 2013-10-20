@@ -2,7 +2,7 @@
 
 class GamesController < ApplicationController
   def index
-    @games = Game.all.order(:name)
+    @games = Game.all
     render :json => @games.as_json(:only => [:id, :name])
   end
 
@@ -19,16 +19,12 @@ class GamesController < ApplicationController
       parse_listings(Nokogiri::HTML(listings_json['results_html'])).each do |attributes|
         # validate card is from the correct game
         if attributes[:game_name] =~ /#{@game.name}\s*(foil\s)?(trading card)/i
-          item = @game.items.where(:name => attributes[:name]).first_or_initialize.tap do |item|
-            item.all_time_low_price = attributes[:price] if attributes[:price] < item.all_time_low_price || item.all_time_low_price == 0
-            item.all_time_high_price = attributes[:price] if attributes[:price] > item.all_time_high_price || item.all_time_high_price == 0
-            item.save if item.changed?
-
+          item = @game.items.where(:name => attributes[:name]).first_or_create.tap do |item|
             item.current_price = attributes[:price]
             item.current_quantity = attributes[:quantity]
             item.link_url = attributes[:link_url]
             item.image_url = attributes[:image_url]
-            item.update_daily_stats
+            item.update_todays_stats
           end
 
           if item.foil? then foil_items << item else regular_items << item end
@@ -36,7 +32,11 @@ class GamesController < ApplicationController
       end
     end
 
-    options = { :only => [], :methods => [:short_name, :current_price, :current_quantity, :link_url, :image_url, :all_time_low_price, :all_time_high_price] }
+    options = {
+      :only =>    [:name],
+      :methods => [:current_price, :current_quantity, :link_url, :image_url,
+                   :all_time_min_price_low, :all_time_min_price_high]
+    }
 
     render :json => {
       :id => @game.id, :name => @game.name,
@@ -69,5 +69,11 @@ class GamesController < ApplicationController
     end
 
     listings
+  end
+
+  def permitted_params
+    params.permit :game => [:name]
+    params.permit :item => [:name, :all_time_min_price_low, :all_time_min_price_high]
+    params.permit :daily_stat => [:min_price_low, :min_price_high]
   end
 end

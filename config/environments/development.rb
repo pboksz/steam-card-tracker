@@ -20,7 +20,7 @@ SteamCardTracker::Application.configure do
   config.active_support.deprecation = :log
 
   # Raise an error on page load if there are pending migrations
-  config.active_record.migration_error = :page_load
+  #config.active_record.migration_error = :page_load
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
@@ -32,10 +32,4 @@ SteamCardTracker::Application.configure do
   config.logger.level = Logger.const_get(
     ENV['LOG_LEVEL'] ? ENV['LOG_LEVEL'].upcase : 'DEBUG'
   )
-
-  # Enable bullet and have it log to js console
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.rails_logger = true
-  end
 end

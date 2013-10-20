@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.0'
 gem 'mysql2'
+gem 'mongoid', :github => 'mongoid/mongoid'
 
-gem 'activeadmin', :github => 'gregbell/active_admin'
 gem 'haml-rails'
 gem 'highcharts-rails'
 gem 'jbuilder', '~> 1.2'
@@ -11,7 +11,6 @@ gem 'jquery-rails'
 gem 'json'
 gem 'newrelic_rpm'
 gem 'nokogiri'
-gem 'protected_attributes'
 gem 'turbolinks'
 gem 'underscore-rails'
 gem 'unicorn'
@@ -34,6 +33,5 @@ group :production do
 end
 
 group :development, :test do
-  gem 'bullet'
   gem 'quiet_assets'
 end
