@@ -7,6 +7,8 @@ class Game
 
   has_many :items, :dependent => :destroy
 
+  default_scope order_by(:name => :asc)
+
   def query_name
     name.downcase.gsub(' ', '+')
   end

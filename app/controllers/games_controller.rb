@@ -2,7 +2,7 @@
 
 class GamesController < ApplicationController
   def index
-    @games = Game.all.order_by(:name => :asc)
+    @games = Game.all
     render :json => @games.as_json(:only => [:id, :name])
   end
 
