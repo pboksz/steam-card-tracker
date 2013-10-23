@@ -29,6 +29,7 @@ namespace :db do
           item.stats.where(:created_at => sql_stat["created_at"].to_datetime.beginning_of_day..sql_stat["created_at"].to_datetime.end_of_day).first_or_initialize.tap do |stat|
             stat.min_price_low = sql_stat["min_price_low_integer"] / 100.00
             stat.min_price_high = sql_stat["min_price_high_integer"] / 100.00
+            stat.created_at = sql_stat["created_at"]
             stat.save if stat.changed?
 
             puts "\t\tAdded stat for #{stat.created_at.to_s(:db)}"
