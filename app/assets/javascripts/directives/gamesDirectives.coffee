@@ -22,6 +22,10 @@ angular.module('cardtracker').directive 'showGame', [
                 gameElement.find('.loading').append($compile($templateCache.get('game.html'))(scope))
                 Chart.render(gameElement.find('.regular .game-chart')[0], game.regular_dates, game.regular_data)
                 Chart.render(gameElement.find('.foil .game-chart')[0], game.foil_dates, game.foil_data)
+
+                if $('.game .name[class="name ng-binding info"]').length == $('.game').length
+                  $('.app-title').addClass('info')
+                  $('.app-actions .icons').toggle()
 ]
 
 angular.module('cardtracker').directive 'toggleType', ->
@@ -37,6 +41,7 @@ angular.module('cardtracker').directive 'loadAll', ->
   restrict: 'C'
   link: (scope, element) ->
     $(element).on 'click', ->
+      $('.app-actions').find('.icons').toggle()
       $('.game .loading:hidden').prevAll().find('.show-game').click()
 
 angular.module('cardtracker').directive 'collapseAll', ->

@@ -5,8 +5,11 @@
   .header
     %span.app-title Steam Card Tracker
     %span.app-actions
-      %i.icon.icon-double-angle-down.load-all
-      %i.icon.icon-double-angle-up.collapse-all
+      %span.collapse.icons
+        %i.icon.icon-double-angle-down.load-all
+        %i.icon.icon-double-angle-up.collapse-all
+      %span.loading.icons{ :style => 'display: none' }
+        %i.icon.icon-refresh.icon-spin.loading-icon
 
   .games
     .game{ 'ng-repeat' => 'game in games' }
