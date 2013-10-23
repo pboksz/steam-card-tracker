@@ -22,3 +22,4 @@
 # Config
 /config/database.yml
 /config/unicorn.rb
+/config/initializers/db_converting.rb
