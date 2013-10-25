@@ -41,7 +41,7 @@ angular.module('cardtracker').directive 'loadAll', ->
   restrict: 'C'
   link: (scope, element) ->
     $(element).on 'click', ->
-      $('.app-actions').find('.icons').toggle()
+      $('.app-actions').find('.icons').toggle() unless $('.game .name[class="name ng-binding info"]').length == $('.game').length
       $('.game .loading:hidden').prevAll().find('.show-game').click()
 
 angular.module('cardtracker').directive 'collapseAll', ->
