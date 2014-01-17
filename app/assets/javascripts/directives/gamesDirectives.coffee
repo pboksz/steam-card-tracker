@@ -12,6 +12,8 @@ angular.module('cardtracker').directive 'showGame', [
           scope.$apply ->
             Game.show id: attributes.gameId,
             (success) ->
+              console.log("-----------------------------------SUCCESS--------------------------------------")
+              console.log(success)
               scope.game = success
               $(element).find('.name').addClass('info')
               gameElement.find('.loading-icon').hide()
@@ -19,6 +21,8 @@ angular.module('cardtracker').directive 'showGame', [
               Chart.render(gameElement.find('.regular .game-chart')[0], success.regular_dates, success.regular_data)
               Chart.render(gameElement.find('.foil .game-chart')[0], success.foil_dates, success.foil_data)
             (error) ->
+              console.log("-----------------------------------ERROR--------------------------------------")
+              console.log(error)
               gameElement.find('.loading').toggle()
               $(element).find('.icon').toggle()
               $(element).find('.name').addClass('warning')
