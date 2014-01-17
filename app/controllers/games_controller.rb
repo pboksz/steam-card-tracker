@@ -47,8 +47,6 @@ class GamesController < ApplicationController
       :foil_dates => @game.series_dates(:foil => true),
       :foil_data => @game.series_data(:foil => true)
     }
-  rescue
-    render :json => { :error => true }
   end
 
   private
