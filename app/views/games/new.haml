@@ -1,0 +1,3 @@
+= form_for @game, :url => games_path, :method => :post do |f|
+  = f.text_field :name, :placeholder => 'Game Title'
+  = f.submit

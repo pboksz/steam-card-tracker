@@ -18,7 +18,7 @@ class GamesController < ApplicationController
     if listings_json['success']
       parse_listings(Nokogiri::HTML(listings_json['results_html'])).each do |attributes|
         # validate card is from the correct game
-        if attributes[:game_name] =~ /#{@game.name}\s*(foil\s)?(trading card)/i
+        if attributes[:game_name] =~ /#{Regexp.escape(@game.name)}\s*(foil\s)?(trading card)/i
           item = @game.items.where(:name => attributes[:name]).first_or_create.tap do |item|
             item.current_price = attributes[:price]
             item.current_quantity = attributes[:quantity]
@@ -47,6 +47,20 @@ class GamesController < ApplicationController
       :foil_dates => @game.series_dates(:foil => true),
       :foil_data => @game.series_data(:foil => true)
     }
+  rescue
+    render :json => @game.errors, :status => :unprocessable_entity
+  end
+
+  def new
+    @game = Game.new
+  end
+
+  def create
+    if @game = Game.create(params[:game])
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   private
