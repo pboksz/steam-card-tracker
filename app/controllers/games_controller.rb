@@ -56,7 +56,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    if @game = Game.create(params[:game])
+    if @game = Game.create(permitted_params)
       redirect_to root_path
     else
       render :new
@@ -84,8 +84,6 @@ class GamesController < ApplicationController
   end
 
   def permitted_params
-    params.permit :game => [:name]
-    params.permit :item => [:name, :all_time_min_price_low, :all_time_min_price_high]
-    params.permit :daily_stat => [:min_price_low, :min_price_high]
+    params.require(:game).permit(:name)
   end
 end
