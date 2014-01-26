@@ -7,22 +7,22 @@ angular.module('cardtracker').directive 'showGame', [
           gameElement = $(element).closest('.game')
           gameElement.find('.loading').toggle()
           gameElement.find('.toggle-type').toggle()
-          $(element).find('.icon').toggle()
+          gameElement.find('.collapse .icon').toggle()
 
           unless scope.game.$resolved
             scope.$apply ->
-              Game.show id: attributes.gameId,
-              (success) ->
-                scope.game = success
-                $(element).find('.name').addClass('info')
-                gameElement.find('.loading-icon').hide()
-                gameElement.find('.loading').append($compile($templateCache.get('game.html'))(scope))
-                Chart.render(gameElement.find('.regular .game-chart')[0], success.regular_dates, success.regular_data)
-                Chart.render(gameElement.find('.foil .game-chart')[0], success.foil_dates, success.foil_data)
-              (error) ->
-                gameElement.find('.loading').toggle()
-                $(element).find('.icon').toggle()
-                $(element).find('.name').addClass('warning')
+              Game.show id: attributes.id,
+                (success) ->
+                  scope.game = success
+                  gameElement.find('.name').addClass('info')
+                  gameElement.find('.loading-icon').hide()
+                  gameElement.find('.loading').append($compile($templateCache.get('game.html'))(scope))
+                  Chart.render(gameElement.find('.regular .game-chart')[0], success.regular_dates, success.regular_data)
+                  Chart.render(gameElement.find('.foil .game-chart')[0], success.foil_dates, success.foil_data)
+                (error) ->
+                  gameElement.find('.loading').toggle()
+                  gameElement.find('.collapse .icon').toggle()
+                  gameElement.find('.name').addClass('warning')
 ]
 
 angular.module('cardtracker').directive 'toggleType', ->

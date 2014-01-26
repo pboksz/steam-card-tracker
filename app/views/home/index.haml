@@ -14,7 +14,7 @@
   .games
     .game{ 'ng-repeat' => 'game in games' }
       .game-title
-        %span.collapse.show-game{ 'game-id' => '{{game.id}}' }
+        %span.collapse.show-game{ :id => '{{game.id}}' }
           %span.name {{game.name}}
           %i.icon.icon-angle-down
           %i.icon.icon-angle-up{ :style => 'display: none' }
