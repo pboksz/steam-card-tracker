@@ -3,7 +3,7 @@ angular.module('cardtracker').directive 'showGame', [
     restrict: 'C'
     link: (scope, element, attributes) ->
       $(element).on 'click', ->
-        if $('.game .loading .icon-refresh:visible').length < 1
+        if scope.game.$resolved || $('.game .loading .icon-refresh:visible').length < 1
           gameElement = $(element).closest('.game')
           gameElement.find('.loading').toggle()
           gameElement.find('.toggle-type').toggle()
