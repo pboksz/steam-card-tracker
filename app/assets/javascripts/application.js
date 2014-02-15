@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ajax-queue.min
 //= require angular.min
 //= require angular-resource.min
 //= require underscore
