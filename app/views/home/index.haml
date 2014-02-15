@@ -19,12 +19,13 @@
           %span.name {{game.name}}
           %i.icon.icon-angle-down
           %i.icon.icon-angle-up{ :style => 'display: none' }
-        %span.toggle-type{ :style => 'display: none' }
+        %span.toggle-type
           %i.icon.icon-star-empty
           %i.icon.icon-star{ :style => 'display: none' }
+        %span.loading{ :style => 'display:none' }
+          %i.icon.icon-refresh.icon-spin.loading-icon
 
-      .loading{ :style => 'display: none' }
-        %i.icon.icon-refresh.icon-spin.loading-icon
+      .game-cards{ :style => 'display: none' }
 
   .scroll-top
     %i.icon.icon-double-angle-up
