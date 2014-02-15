@@ -15,7 +15,11 @@ class GamesController < ApplicationController
     listings_response = Weary::Request.new("http://steamcommunity.com/market/search/render/?query=#{query}&start=0&count=2000").perform
     listings_json = JSON.parse(listings_response.body)
 
-    if listings_json['success'] && !listings_json['results_html'].include?('There was an error preforming your search.')
+    Rails.logger.info "-------------------------------------------------------------------"
+    Rails.logger.info listings_json
+    Rails.logger.info "-------------------------------------------------------------------"
+
+    if listings_json['success'] && listings_json['total_count'] > 0
       parse_listings(Nokogiri::HTML(listings_json['results_html'])).each do |attributes|
         # validate card is from the correct game
         if attributes[:game_name] =~ /#{Regexp.escape(@game.name)}\s*(foil\s)?(trading card)/i
@@ -30,27 +34,29 @@ class GamesController < ApplicationController
           if item.foil? then foil_items << item else regular_items << item end
         end
       end
+
+      options = {
+        :only =>    [:name],
+        :methods => [:current_price, :current_quantity, :link_url, :image_url,
+                     :all_time_min_price_low, :all_time_min_price_high]
+      }
+
+      render :json => {
+        :id => @game.id, :name => @game.name,
+        :regular_items => regular_items.as_json(options),
+        :regular_dates => @game.series_dates(:foil => false),
+        :regular_data => @game.series_data(:foil => false),
+        :foil_items => foil_items.as_json(options),
+        :foil_dates => @game.series_dates(:foil => true),
+        :foil_data => @game.series_data(:foil => true)
+      }
     else
+      Rails.logger.info "-------------------------------------------------------------------"
+      Rails.logger.info listings_json
+      Rails.logger.info "-------------------------------------------------------------------"
+
       render :json => @game.errors, :status => :unprocessable_entity
     end
-
-    options = {
-      :only =>    [:name],
-      :methods => [:current_price, :current_quantity, :link_url, :image_url,
-                   :all_time_min_price_low, :all_time_min_price_high]
-    }
-
-    render :json => {
-      :id => @game.id, :name => @game.name,
-      :regular_items => regular_items.as_json(options),
-      :regular_dates => @game.series_dates(:foil => false),
-      :regular_data => @game.series_data(:foil => false),
-      :foil_items => foil_items.as_json(options),
-      :foil_dates => @game.series_dates(:foil => true),
-      :foil_data => @game.series_data(:foil => true)
-    }
-  rescue
-    render :json => @game.errors, :status => :unprocessable_entity
   end
 
   def new
