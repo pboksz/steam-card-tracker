@@ -15,10 +15,6 @@ class GamesController < ApplicationController
     listings_response = Weary::Request.new("http://steamcommunity.com/market/search/render/?query=#{query}&start=0&count=2000").perform
     listings_json = JSON.parse(listings_response.body)
 
-    Rails.logger.info "-------------------------------------------------------------------"
-    Rails.logger.info listings_json
-    Rails.logger.info "-------------------------------------------------------------------"
-
     if listings_json['success'] && listings_json['total_count'] > 0
       parse_listings(Nokogiri::HTML(listings_json['results_html'])).each do |attributes|
         # validate card is from the correct game
