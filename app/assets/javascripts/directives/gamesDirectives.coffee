@@ -3,9 +3,12 @@ angular.module('cardtracker').directive 'showGame', [
     restrict: 'C'
     link: (scope, element) ->
       $(element).on 'click', ->
-        unless $('.game .loading:visible').length > 0
-          scope.$apply ->
-            toggleGame(element, $compile, $templateCache, Chart, Game)
+        if scope.game.$resolved
+          toggleGameCards($(element).closest('.game'))
+        else
+          if nothingLoading()
+            scope.$apply ->
+              toggleGame(element, $compile, $templateCache, Chart, Game)
 ]
 
 angular.module('cardtracker').directive 'expandAll', [
@@ -13,9 +16,10 @@ angular.module('cardtracker').directive 'expandAll', [
     restrict: 'C'
     link: (scope, element) ->
       $(element).on 'click', ->
-        scope.$apply ->
-          $('.game .game-cards:hidden').prevAll().find('.show-game').each (index, element) ->
-            toggleGame(element, $compile, $templateCache, Chart, Game)
+        if nothingLoading()
+          scope.$apply ->
+            $('.game .game-cards:hidden').prevAll().find('.show-game').each (index, element) ->
+              toggleGame(element, $compile, $templateCache, Chart, Game)
 ]
 
 angular.module('cardtracker').directive 'collapseAll', ->
@@ -43,14 +47,27 @@ angular.module('cardtracker').directive 'scrollTop', ->
     $(element).on 'click', ->
       $('body').animate { scrollTop: 0 }, 500
 
+nothingLoading = ->
+  $('.game .loading:visible').length == 0
+
+loadComplete = (gameElement, completeClass) ->
+  gameElement.find('.name').addClass(completeClass)
+  gameElement.find('.loading').hide()
+
+toggleGameCards = (gameElement) ->
+  gameElement.find('.game-cards').toggle()
+  gameElement.find('.collapse .icon').toggle()
+
 toggleGame = (element, $compile, $templateCache, Chart, Game) ->
   scope = $(element).scope()
   gameId = $(element).attr('id')
   gameElement = $(element).closest('.game')
-  gameElement.find('.loading').show()
 
   if !scope.game.$resolved
+    gameElement.find('.loading').show()
     $.ajaxQueue(loadGame(scope, gameId, gameElement, $compile, $templateCache, Chart, Game))
+  else
+    gameElement.find('.game-cards').hide()
 
 loadGame = (scope, gameId, gameElement, $compile, $templateCache, Chart, Game) ->
   Game.show id: gameId,
@@ -60,10 +77,7 @@ loadGame = (scope, gameId, gameElement, $compile, $templateCache, Chart, Game) -
       Chart.render(gameElement.find('.regular .game-chart')[0], success.regular_dates, success.regular_data)
       Chart.render(gameElement.find('.foil .game-chart')[0], success.foil_dates, success.foil_data)
 
-      gameElement.find('.name').addClass('info')
-      gameElement.find('.loading').hide()
-      gameElement.find('.game-cards').toggle()
-      gameElement.find('.collapse .icon').toggle()
+      loadComplete(gameElement, 'info')
+      toggleGameCards(gameElement)
     (error) ->
-      gameElement.find('.name').addClass('warning')
-      gameElement.find('.loading').hide()
+      loadComplete(gameElement, 'warning')
