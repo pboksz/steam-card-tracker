@@ -47,10 +47,6 @@ class GamesController < ApplicationController
         :foil_data => @game.series_data(:foil => true)
       }
     else
-      Rails.logger.info "-------------------------------------------------------------------"
-      Rails.logger.info listings_json
-      Rails.logger.info "-------------------------------------------------------------------"
-
       render :json => @game.errors, :status => :unprocessable_entity
     end
   end
