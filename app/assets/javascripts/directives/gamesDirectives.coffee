@@ -10,7 +10,6 @@ angular.module('cardtracker').directive 'gameChart', [
         Chart.render($(element).get(0), scope.game.foil_dates, scope.game.foil_data)
 ]
 
-
 #TODO update this
 angular.module('cardtracker').directive 'showGame', [
   '$compile', '$templateCache', 'Chart', 'Game', ($compile, $templateCache, Chart, Game) ->

@@ -15,15 +15,16 @@ class GamesController < ApplicationController
 
     if listings_json['success'] && listings_json['total_count'] > 0
       parse_listings(Nokogiri::HTML(listings_json['results_html'])).each do |attributes|
-
         # validate card is from the correct game
         if attributes[:game_name] =~ /#{Regexp.escape(@game.name)}\s*(foil\s)?(trading card)/i
           @game.items.where(:name => attributes[:name]).first_or_create.tap do |item|
-            item.current_price = attributes[:price]
-            item.current_quantity = attributes[:quantity]
             item.link_url = attributes[:link_url]
             item.image_url = attributes[:image_url]
-            item.update_todays_stats
+            item.stats.where(:created_at => Time.now.beginning_of_day..Time.now.end_of_day).first_or_initialize.tap do |stat|
+              stat.min_price_low = attributes[:price] if attributes[:price] < stat.min_price_low || stat.min_price_low == 0
+              stat.min_price_high = attributes[:price] if attributes[:price] > stat.min_price_high || stat.min_price_high == 0
+              stat.save if stat.changed?
+            end
           end
         end
       end
@@ -51,12 +52,11 @@ class GamesController < ApplicationController
   def parse_listings(listings_html)
     listings = []
     listings_html.css('.market_listing_row_link').each do |listing_html|
-      listing = { :item => {} }
+      listing = {}
 
       listing[:game_name] = listing_html.css('.market_listing_row .market_listing_game_name').first.content
       listing[:name] = listing_html.css('.market_listing_row .market_listing_item_name').first.content
-      listing[:price] = listing_html.css('.market_listing_row .market_listing_num_listings span').first.children.last.content.squish.match(/\d+.\d{1,2}/).to_s.to_f
-      listing[:quantity] = listing_html.css('.market_listing_row .market_listing_num_listings .market_listing_num_listings_qty').first.content.gsub(',', '').to_i
+      listing[:price] = listing_html.css('.market_listing_row .market_table_value span').first.content.match(/\d+.\d{1,2}/).to_s.to_f
       listing[:link_url] = listing_html.attributes['href'].value
       listing[:image_url] = listing_html.css('.market_listing_row img').first.attributes['src'].value
 
