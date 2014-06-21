@@ -1,6 +1,3 @@
-%script{ :type => 'text/ng-template', :id => 'game.html' }
-  = render 'game'
-
 #steam-card-tracker{ 'ng-controller' => 'GamesController' }
   .header
     %span.app-title
@@ -24,7 +21,8 @@
         %span.loading{ :style => 'display:none' }
           %i.icon.icon-refresh.icon-spin.loading-icon
 
-      .game-cards{ :style => 'display: none' }
+      .game-cards
+        = render 'game'
 
   .scroll-top
     %i.icon.icon-double-angle-up

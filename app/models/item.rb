@@ -5,13 +5,17 @@ class Item
 
   field :n, :as => :name, :type => String
 
-  attr_accessor :current_price, :current_quantity, :link_url, :image_url
+  attr_accessor :link_url, :image_url
 
   belongs_to :game
   has_many :stats, :dependent => :destroy
 
   def foil?
     name.include?('Foil')
+  end
+
+  def latest_price
+    stats.last.min_price_low
   end
 
   def all_time_min_price_low
@@ -32,5 +36,16 @@ class Item
       stat.min_price_high = current_price if current_price > stat.min_price_high || stat.min_price_high == 0
       stat.save if stat.changed?
     end
+  end
+
+  def as_json(options = {})
+    {
+      :name => name,
+      :link_url => link_url,
+      :image_url => image_url,
+      :all_time_min_price_low => all_time_min_price_low,
+      :latest_price => latest_price,
+      :all_time_min_price_high => all_time_min_price_high
+    }
   end
 end

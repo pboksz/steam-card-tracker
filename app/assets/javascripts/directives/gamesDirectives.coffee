@@ -1,3 +1,17 @@
+angular.module('cardtracker').directive 'gameChart', [
+  'Chart', (Chart) ->
+    restrict: 'C'
+    scope:
+      game: '=game'
+    link: (scope, element, attributes) ->
+      if attributes.type == 'regular'
+        Chart.render($(element).get(0), scope.game.regular_dates, scope.game.regular_data)
+      else if attributes.type == 'foil'
+        Chart.render($(element).get(0), scope.game.foil_dates, scope.game.foil_data)
+]
+
+
+#TODO update this
 angular.module('cardtracker').directive 'showGame', [
   '$compile', '$templateCache', 'Chart', 'Game', ($compile, $templateCache, Chart, Game) ->
     restrict: 'C'

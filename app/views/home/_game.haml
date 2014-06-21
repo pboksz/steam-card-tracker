@@ -2,10 +2,10 @@
   .game-items
     .game-item{ 'ng-repeat' => 'item in game.regular_items' }
       = render 'item'
-  .game-chart{ :id => 'regular{{game.id}}' }
+  .game-chart{ :type => 'regular', :game => 'game' }
 
 .foil{ :style => 'display: none' }
   .game-items
     .game-item{ 'ng-repeat' => 'item in game.foil_items' }
       = render 'item'
-  .game-chart{ :id => 'foil{{game.id}}' }
+  .game-chart{ :type => 'foil', :game => 'game' }

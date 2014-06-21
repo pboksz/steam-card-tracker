@@ -1,8 +1,8 @@
 %a{ 'ng-href' => '{{item.link_url}}', :target => '_blank' }
   %img.left{ 'ng-src' => '{{item.image_url}}' }
   .right
-    .name {{item.name | truncate}} X {{item.current_quantity}}
+    .name {{item.name | truncate}}
     .prices
       .low.success {{item.all_time_min_price_low | currency}}
-      .current.info {{item.current_price | currency}}
+      .current.info {{item.latest_price | currency}}
       .high.warning {{item.all_time_min_price_high | currency}}
