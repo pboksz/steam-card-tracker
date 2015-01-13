@@ -1,13 +1,3 @@
-GIT
-  remote: git://github.com/mongoid/mongoid.git
-  revision: a9b962f17de359d3173cf0ece813c9020803d3af
-  specs:
-    mongoid (4.0.0)
-      activemodel (~> 4.0.0)
-      moped (~> 2.0.beta3)
-      origin (~> 1.0)
-      tzinfo (~> 0.3.37)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -38,9 +28,10 @@ GEM
     addressable (2.3.5)
     arel (4.0.0)
     atomic (1.1.14)
-    bson (2.0.0.rc3)
+    bson (2.3.0)
     builder (3.1.4)
     chunky_png (1.2.9)
+    coderay (1.1.0)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0.beta, < 5.0)
@@ -54,10 +45,11 @@ GEM
       sass (~> 3.1)
     compass-rails (1.1.3)
       compass (>= 0.12.2)
+    connection_pool (2.1.0)
     erubis (2.7.0)
     execjs (2.0.1)
-    font-awesome-rails (3.2.1.2)
-      railties (>= 3.2, < 5.0)
+    font-awesome-sass (4.2.2)
+      sass (~> 3.2)
     fssm (0.2.10)
     haml (4.0.3)
       tilt
@@ -78,24 +70,35 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.0)
     kgio (2.8.1)
+    libv8 (3.16.14.7)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.8.2)
     mime-types (1.25)
     mini_portile (0.5.1)
     minitest (4.7.5)
-    moped (2.0.0.beta3)
-      bson (~> 2.0.0.rc3)
-      optionable (~> 0.1.1)
+    mongoid (4.0.0)
+      activemodel (~> 4.0)
+      moped (~> 2.0.0)
+      origin (~> 2.1)
+      tzinfo (>= 0.3.37)
+    moped (2.0.3)
+      bson (~> 2.2)
+      connection_pool (~> 2.0)
+      optionable (~> 0.2.0)
     multi_json (1.8.2)
-    mysql2 (0.3.13)
     newrelic_rpm (3.6.7.159)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
-    optionable (0.1.1)
-    origin (1.1.0)
+    optionable (0.2.0)
+    origin (2.1.1)
     polyglot (0.3.3)
     promise (0.3.0)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
@@ -123,6 +126,7 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    ref (1.0.5)
     sass (3.2.10)
     sass-rails (4.0.0)
       railties (>= 4.0.0.beta, < 5.0)
@@ -132,6 +136,7 @@ GEM
       json (>= 1.1.3)
       rdoc (~> 3.10)
     simple_oauth (0.2.0)
+    slop (3.6.0)
     sprockets (2.10.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -141,6 +146,9 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    therubyracer (0.12.1)
+      libv8 (~> 3.16.14.0)
+      ref
     thor (0.18.1)
     thread_safe (0.1.3)
       atomic
@@ -171,22 +179,23 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
-  compass-rails (= 1.1.3)
-  font-awesome-rails
+  compass-rails
+  font-awesome-sass
   haml-rails
   highcharts-rails
   jbuilder (~> 1.2)
   jquery-rails
   json
-  mongoid!
-  mysql2
+  mongoid (~> 4.0.0)
   newrelic_rpm
   nokogiri
+  pry
   quiet_assets
   rails (= 4.0.0)
   rails_12factor
   sass-rails (~> 4.0.0)
   sdoc
+  therubyracer
   turbolinks
   uglifier (>= 1.3.0)
   underscore-rails
