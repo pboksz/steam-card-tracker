@@ -34,12 +34,14 @@ angular.module('cardtracker').directive 'reloadGame', [
       $(element).on 'click', ->
         gameElement = $(element).closest('.game')
         gameElement.find('.reload-game i').addClass('fa-spin')
-        Game.show { id: attributes.id }, (game) ->
-          scope.game = game
-          gameElement.find('.game-cards').append($compile($templateCache.get('game.html'))(scope))
-          Chart.render(gameElement.find('.regular .game-chart')[0], game.regular_dates, game.regular_data)
-          Chart.render(gameElement.find('.foil .game-chart')[0], game.foil_dates, game.foil_data)
-          gameElement.find('.reload-game i').removeClass('fa-spin')
+
+        scope.$apply ->
+          Game.show { id: attributes.id }, (game) ->
+            scope.game = game
+            gameElement.find('.game-cards').append($compile($templateCache.get('game.html'))(scope))
+            Chart.render(gameElement.find('.regular .game-chart')[0], game.regular_dates, game.regular_data)
+            Chart.render(gameElement.find('.foil .game-chart')[0], game.foil_dates, game.foil_data)
+            gameElement.find('.reload-game i').removeClass('fa-spin')
 ]
 
 angular.module('cardtracker').directive 'scrollTop', ->
