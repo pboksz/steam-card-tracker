@@ -10,7 +10,7 @@ class ListingsParser
   end
 
   def parse
-    listings_html.each { |listing_html| listing_parser(listing_html).parse }
+    listings_html.map { |listing_html| listing_parser(listing_html).parse }
   end
 
   private
