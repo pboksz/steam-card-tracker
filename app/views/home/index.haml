@@ -4,9 +4,10 @@
       Steam
       %a.add-game{ 'ng-href' => '/games/new' } Card
       Tracker
+      %input{ 'ng-model' => 'query', class: :search, placeholder: 'Filter games by name' }
 
   .games
-    .game{ 'ng-repeat' => 'game in games' }
+    .game{ 'ng-repeat' => 'game in games | filter:query' }
       = render 'game'
 
   .scroll-top
