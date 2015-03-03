@@ -4,8 +4,8 @@ class Item
   include Serializable
 
   field :n, :as => :name, :type => String
-
-  attr_accessor :link_url, :image_url
+  field :l, :as => :link_url, :type => String
+  field :i, :as => :image_url, :type => String
 
   belongs_to :game
   has_many :stats, :dependent => :destroy

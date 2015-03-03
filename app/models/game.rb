@@ -11,10 +11,6 @@ class Game
 
   default_scope -> { order_by(:name => :asc) }
 
-  def query_name
-    name.downcase.gsub(' ', '+')
-  end
-
   def as_json(options = {})
     {
       :id => id.to_s,
