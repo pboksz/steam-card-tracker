@@ -9,15 +9,14 @@
   %span.reload-game{ :id => '{{game.id}}' }
     = icon('refresh')
 
-  .game-cards{ style: 'display:none' }
-    .regular
-      .game-items
-        .game-item{ 'ng-repeat' => 'item in game.regular_items' }
-          = render 'item'
-      .game-chart{ :type => 'regular', :game => 'game' }
-
-    .foil{ :style => 'display: none' }
-      .game-items
-        .game-item{ 'ng-repeat' => 'item in game.foil_items' }
-          = render 'item'
-      .game-chart{ :type => 'foil', :game => 'game' }
+.game-cards{ style: 'display:none' }
+  .regular
+    .game-items
+      .game-item{ 'ng-repeat' => 'item in game.regular_items' }
+        = render 'item'
+    .game-chart{ :type => 'regular', :game => 'game' }
+  .foil{ :style => 'display: none' }
+    .game-items
+      .game-item{ 'ng-repeat' => 'item in game.foil_items' }
+        = render 'item'
+    .game-chart{ :type => 'foil', :game => 'game' }

@@ -1,12 +1,13 @@
 #steam-card-tracker
   .games
     .game
-      border-top: 1px dotted $main
-      margin-bottom: 4px
+      border-top: 1px dashed $main
+      &:nth-of-type(odd)
+        background-color: white
       &:last-of-type
-        border-bottom: 1px dotted $main
+        border-bottom: 1px dashed $main
       .game-title
-        margin-bottom: 6px
+        padding: 0.5em 0
         font-size: 1.2em
         cursor: pointer
       .game-cards
