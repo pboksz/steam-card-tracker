@@ -4,25 +4,10 @@
       Steam
       %a.add-game{ 'ng-href' => '/games/new' } Card
       Tracker
-    %span.app-actions
-      %span.collapse.icons
-        = icon('angle-double-up', '', class: 'collapse-all')
 
   .games
     .game{ 'ng-repeat' => 'game in games' }
-      .game-title
-        %span.collapse.show-game{ :id => '{{game.id}}' }
-          %span.name {{game.name}}
-          = icon('angle-down')
-          = icon('angle-up', '', style: 'display: none')
-        %span.toggle-type
-          = icon('star-o')
-          = icon('star', '', style: 'display: none')
-        %span.loading{ :style => 'display:none' }
-          = icon('refresh', '', class: 'icon-spin loading-icon')
-
-      .game-cards
-        = render 'game'
+      = render 'game'
 
   .scroll-top
     = icon('angle-double-up')

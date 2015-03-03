@@ -1,11 +1,23 @@
-.regular
-  .game-items
-    .game-item{ 'ng-repeat' => 'item in game.regular_items' }
-      = render 'item'
-  .game-chart{ :type => 'regular', :game => 'game' }
+.game-title
+  %span.collapse.toggle-game
+    %span.name {{game.name}}
+    = icon('angle-down')
+    = icon('angle-up', '', style: 'display: none')
+  %span.toggle-type
+    = icon('star-o')
+    = icon('star', '', style: 'display: none')
+  %span.reload-game{ :id => '{{game.id}}' }
+    = icon('refresh')
 
-.foil{ :style => 'display: none' }
-  .game-items
-    .game-item{ 'ng-repeat' => 'item in game.foil_items' }
-      = render 'item'
-  .game-chart{ :type => 'foil', :game => 'game' }
+  .game-cards{ style: 'display:none' }
+    .regular
+      .game-items
+        .game-item{ 'ng-repeat' => 'item in game.regular_items' }
+          = render 'item'
+      .game-chart{ :type => 'regular', :game => 'game' }
+
+    .foil{ :style => 'display: none' }
+      .game-items
+        .game-item{ 'ng-repeat' => 'item in game.foil_items' }
+          = render 'item'
+      .game-chart{ :type => 'foil', :game => 'game' }
