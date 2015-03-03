@@ -15,12 +15,12 @@ class ListingsParser
     @request_generator ||= RequestGenerator.new(game)
   end
 
-  def listing_requester
-    @listing_requestor ||= ListingRequester.new(request_generator.generate)
+  def listings_requester
+    @listings_requestor ||= ListingsRequester.new(request_generator.generate)
   end
 
   def response
-    @response ||= listing_requester.response
+    @response ||= listings_requester.response
   end
 
   def listings

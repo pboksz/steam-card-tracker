@@ -1,4 +1,4 @@
-class ListingRequester
+class ListingsRequester
   attr_reader :request
 
   def initialize(request)
