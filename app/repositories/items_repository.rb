@@ -1,8 +1,8 @@
 class ItemsRepository < DefaultRepository
-  def update_link_and_image(attributes)
-    item = find_or_initialize(name: attributes[:name])
-    item.link_url = attributes[:link_url]
-    item.image_url = attributes[:image_url]
+  def update_link_and_image(name, link_url, image_url)
+    item = find_or_initialize(name: name)
+    item.link_url = link_url
+    item.image_url = image_url
     item.save if item.changed?
 
     item

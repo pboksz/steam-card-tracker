@@ -5,7 +5,7 @@ class Api::GamesController < ApplicationController
 
   def show
     game = games_repository.find(id: params[:id])
-    games_service(game).process
+    listings_parser(game).parse
 
     render :json => game.as_json
   end
@@ -16,7 +16,7 @@ class Api::GamesController < ApplicationController
     @games_repository ||= DefaultRepository.new(Game)
   end
 
-  def games_service(game)
-    GamesService.new(game)
+  def listings_parser(game)
+    ListingsParser.new(game)
   end
 end
