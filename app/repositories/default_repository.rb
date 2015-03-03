@@ -24,4 +24,8 @@ class DefaultRepository
   def find(attributes)
     find_all(attributes).first
   end
+
+  def find_or_initialize(attributes)
+    find_all(attributes).first_or_initialize
+  end
 end
