@@ -5,4 +5,7 @@
 
 %h2= 'Already in the database'
 - games.each do |game|
-  .game= game.name
+  .game
+    = game.name
+    = link_to game_path(game.id), method: :delete do
+      = icon('trash-o')

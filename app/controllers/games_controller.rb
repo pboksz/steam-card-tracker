@@ -5,7 +5,12 @@ class GamesController < ApplicationController
 
   def create
     games_repository.create(game_params)
-    redirect_to new_game_path
+    redirect_to games_path
+  end
+
+  def destroy
+    games_repository.destroy(params[:id])
+    redirect_to games_path
   end
 
   private

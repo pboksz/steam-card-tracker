@@ -16,4 +16,8 @@ class DefaultRepository
   def create(attributes = {})
     klass.create(attributes)
   end
+
+  def destroy(id)
+    klass.destroy(id)
+  end
 end
