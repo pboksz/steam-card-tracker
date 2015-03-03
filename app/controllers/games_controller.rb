@@ -8,11 +8,6 @@ class GamesController < ApplicationController
     redirect_to games_path
   end
 
-  def destroy
-    games_repository.destroy(params[:id])
-    redirect_to games_path
-  end
-
   private
 
   def games_repository

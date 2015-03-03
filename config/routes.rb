@@ -6,7 +6,7 @@ SteamCardTracker::Application.routes.draw do
     resources :games, only: [:index, :show]
   end
 
-  resources :games, only: [:index, :create, :destroy]
+  resources :games, only: [:index, :create]
 
   root 'home#index'
 end
