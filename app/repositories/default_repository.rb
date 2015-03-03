@@ -16,4 +16,12 @@ class DefaultRepository
   def create(attributes = {})
     klass.create(attributes)
   end
+
+  def find_all(attributes)
+    klass.where(attributes)
+  end
+
+  def find(attributes)
+    find_all(attributes).first
+  end
 end
