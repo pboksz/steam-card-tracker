@@ -8,7 +8,7 @@ class Stat
 
   belongs_to :item
 
-  default_scope order_by(:created_at => :asc)
+  default_scope -> { order_by(:created_at => :asc) }
 
   def humanize_date
     created_at.strftime('%-m/%-d')

@@ -9,7 +9,7 @@ class Game
 
   validates :name, :uniqueness => true
 
-  default_scope order_by(:name => :asc)
+  default_scope -> { order_by(:name => :asc) }
 
   def query_name
     name.downcase.gsub(' ', '+')
