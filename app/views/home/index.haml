@@ -6,23 +6,23 @@
       Tracker
     %span.app-actions
       %span.collapse.icons
-        %i.icon.icon-double-angle-up.collapse-all
+        = icon('angle-double-up', '', class: 'collapse-all')
 
   .games
     .game{ 'ng-repeat' => 'game in games' }
       .game-title
         %span.collapse.show-game{ :id => '{{game.id}}' }
           %span.name {{game.name}}
-          %i.icon.icon-angle-down
-          %i.icon.icon-angle-up{ :style => 'display: none' }
+          = icon('angle-down')
+          = icon('angle-up', '', style: 'display: none')
         %span.toggle-type
-          %i.icon.icon-star-empty
-          %i.icon.icon-star{ :style => 'display: none' }
+          = icon('star-o')
+          = icon('star', '', style: 'display: none')
         %span.loading{ :style => 'display:none' }
-          %i.icon.icon-refresh.icon-spin.loading-icon
+          = icon('refresh', '', class: 'icon-spin loading-icon')
 
       .game-cards
         = render 'game'
 
   .scroll-top
-    %i.icon.icon-double-angle-up
+    = icon('angle-double-up')
