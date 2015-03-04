@@ -44,13 +44,18 @@ group :doc do
 end
 
 group :development, :test do
+  gem 'factory_girl_rails'
   gem 'quiet_assets'
   gem 'pry'
+  gem 'rspec-rails'
   gem 'travis'
 end
 
 group :development, :production do
+  gem 'unicorn'
+end
+
+group :production do
   gem 'newrelic_rpm'
   gem 'rails_12factor'
-  gem 'unicorn'
 end

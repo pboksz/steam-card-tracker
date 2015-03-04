@@ -2,10 +2,10 @@ language: ruby
 bundler_args: --without development
 rvm:
   - 2.2.0
-#before_script:
-#  - bundle exec rake db:create
-#script:
-#  - bundle exec rspec spec
+before_script:
+  - bundle exec rake db:create
+script:
+  - bundle exec rspec spec
 #addons:
 #  code_climate:
 #    repo_token:
