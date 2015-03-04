@@ -6,10 +6,10 @@ before_script:
   - bundle exec rake db:create
 script:
   - bundle exec rspec spec
-#addons:
-#  code_climate:
-#    repo_token:
-#      secure:
+addons:
+  code_climate:
+    repo_token:
+      secure: I7G4oQ/oxjgAQMMHYiHWMRW3V2azRD/NEYnNyJ/BbUUYFY1o76BEenkVqZ1N4PnTPXVeD8ThMEY3II/gTIT/uAb5SLejj1U8E0RTnO9zoOsXRR62XlSdsZvQqDzje3Dr1JxWz24WQ+qLYIyP5dY6UPbx/Z0snx9sAO2TXH6EJEU=
 deploy:
   provider: heroku
   strategy: git

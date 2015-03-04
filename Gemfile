@@ -43,6 +43,11 @@ group :doc do
   gem 'sdoc', :require => false
 end
 
+group :test do
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'database_cleaner'
+end
+
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'quiet_assets'
