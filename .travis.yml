@@ -18,6 +18,5 @@ deploy:
   app: steam-card-tracker
   on:
     repo: pboksz/steam-card-tracker
-  run: cp config/unicorn.rb.example config/unicorn.rb
 notifications:
   email: false
