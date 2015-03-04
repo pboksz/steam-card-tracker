@@ -1,0 +1,23 @@
+language: ruby
+bundler_args: --without development
+rvm:
+  - 2.2.0
+#before_script:
+#  - bundle exec rake db:create
+#script:
+#  - bundle exec rspec spec
+#addons:
+#  code_climate:
+#    repo_token:
+#      secure:
+deploy:
+  provider: heroku
+  strategy: git
+  api_key:
+    secure: ZQuZG3gL0kF1wvPDOGkgBc8hxqbchLnLGh/zF/0cNufGeIPUfhRsU2q1Q8in7k9K27bfuoIlNtuIhOTWfV5j1Qh2faOssbHGHN4h4rM5RheBjaPvdg/9yLD6jerGANeToZBpCODo5pzU4G4Z9ylouqYetONWjlWbDpdnCujNP2M=
+  app: steam-card-tracker
+  on:
+    repo: pboksz/steam-card-tracker
+  run: cp config/unicorn.rb.example config/unicorn.rb
+notifications:
+  email: false
