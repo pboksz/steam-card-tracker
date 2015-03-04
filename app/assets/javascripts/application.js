@@ -12,10 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ajax-queue.min
 //= require angular.min
 //= require angular-resource.min
-//= require underscore
 //= require turbolinks
 //= require highcharts
 //= require highcharts/highcharts-more
