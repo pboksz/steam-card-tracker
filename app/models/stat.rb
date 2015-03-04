@@ -10,7 +10,11 @@ class Stat
 
   default_scope -> { order_by(:created_at => :asc) }
 
-  def humanize_date
-    created_at.strftime('%-m/%-d')
+  def date
+    created_at.strftime('%-m/%-d/%y')
+  end
+
+  def data
+    [min_price_low, min_price_high]
   end
 end
