@@ -43,10 +43,10 @@ angular.module('cardtracker').directive 'reloadGame', [
               Chart.render(gameElement.find('.regular .game-chart')[0], success.regular_dates, success.regular_data)
               Chart.render(gameElement.find('.foil .game-chart')[0], success.foil_dates, success.foil_data)
               gameElement.find('.reload-game i').removeClass('fa-spin')
-              gameElement.find('.name').addClass('success')
+              gameElement.find('.game-title').addClass('success')
             (error) ->
               gameElement.find('.reload-game i').removeClass('fa-spin')
-              gameElement.find('.name').addClass('warning')
+              gameElement.find('.game-title').addClass('warning')
 ]
 
 angular.module('cardtracker').directive 'scrollTop', ->
