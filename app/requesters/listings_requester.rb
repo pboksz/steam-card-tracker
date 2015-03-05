@@ -6,7 +6,7 @@ class ListingsRequester
   end
 
   def response
-    parser.parse(requester.body)
+    parser.parse(request_body)
   end
 
   private
@@ -15,11 +15,11 @@ class ListingsRequester
     @parser ||= JSON
   end
 
-  def request_uri
-    @request_uri ||= URI(request)
+  def requester
+    @requester ||= Weary::Request.new(request)
   end
 
-  def requester
-    @requester ||= Net::HTTP.get_response(request_uri)
+  def request_body
+    requester.perform.body
   end
 end
