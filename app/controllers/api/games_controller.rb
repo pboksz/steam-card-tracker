@@ -7,7 +7,7 @@ class Api::GamesController < ApplicationController
     game = games_repository.find(id: params[:id])
     listings_parser(game).parse
 
-    render :json => game.as_json
+    render :json => game.as_full_json
   end
 
   private

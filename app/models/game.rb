@@ -15,6 +15,10 @@ class Game
     json_generator.generate
   end
 
+  def as_full_json(options = {})
+    json_generator.generate_full
+  end
+
   private
 
   def json_generator

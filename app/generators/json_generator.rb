@@ -9,9 +9,20 @@ class JsonGenerator
     game_json
   end
 
+  def generate_full
+    game_full_json
+  end
+
   private
 
   def game_json
+    {
+      id: game.id.to_s,
+      name: game.name
+    }
+  end
+
+  def game_full_json
     {
       id: game.id.to_s,
       name: game.name,
