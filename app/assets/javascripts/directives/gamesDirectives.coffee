@@ -11,7 +11,7 @@ angular.module('cardtracker').directive 'toggleGame', [
           scope.$apply ->
             Game.show id: attributes.id,
               (success) ->
-                scope.game = success
+                scope.game.items = success.items
                 gameElement.find('.game-cards').append($compile($templateCache.get('game.html'))(scope))
                 Chart.render(gameElement.find('.game-chart')[0], success.data)
                 toggleGameCards(gameElement)
