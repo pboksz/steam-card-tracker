@@ -3,11 +3,8 @@ angular.module('cardtracker').directive 'gameChart', [
     restrict: 'C'
     scope:
       game: '=game'
-    link: (scope, element, attributes) ->
-      if attributes.type == 'regular'
-        Chart.render($(element).get(0), scope.game.regular_data)
-      else if attributes.type == 'foil'
-        Chart.render($(element).get(0), scope.game.foil_data)
+    link: (scope, element) ->
+      Chart.render($(element).get(0), scope.game.data)
 ]
 
 angular.module('cardtracker').directive 'toggleGame', ->
@@ -17,15 +14,6 @@ angular.module('cardtracker').directive 'toggleGame', ->
       gameElement = $(element).closest('.game')
       gameElement.find('.game-cards').toggle()
       gameElement.find('.collapse i').toggle()
-
-angular.module('cardtracker').directive 'toggleType', ->
-  restrict: 'C'
-  link: (scope, element) ->
-    $(element).on 'click', ->
-      gameElement = $(element).closest('.game')
-      gameElement.find('.toggle-type i').toggle()
-      gameElement.find('.regular').toggle()
-      gameElement.find('.foil').toggle()
 
 angular.module('cardtracker').directive 'reloadGame', [
   'Chart', 'Game', '$compile', '$templateCache', (Chart, Game, $compile, $templateCache) ->
@@ -40,8 +28,7 @@ angular.module('cardtracker').directive 'reloadGame', [
             (success) ->
               scope.game = success
               gameElement.find('.game-cards').append($compile($templateCache.get('game.html'))(scope))
-              Chart.render(gameElement.find('.regular .game-chart')[0], success.regular_data)
-              Chart.render(gameElement.find('.foil .game-chart')[0], success.foil_data)
+              Chart.render(gameElement.find('.game-chart')[0], success.data)
               gameElement.find('.reload-game i').removeClass('fa-spin')
               gameElement.find('.game-title').addClass('success')
             (error) ->
