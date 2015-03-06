@@ -17,7 +17,7 @@ class GameParser
   end
 
   def card_from_correct_game?
-    !!(parse_game_name =~ /#{Regexp.escape(game.name)}\s*(foil\s)?(trading card)/i)
+    !!(parse_game_name =~ /^(#{Regexp.escape(game.name)}) (foil )?(trading card)$/i)
   end
 
   def parse_game_name
