@@ -7,7 +7,7 @@ class GameParser
   end
 
   def parse
-    item_parser.parse if card_from_correct_game?
+    item_parser.parse if is_regular_item_from_correct_game?
   end
 
   private
@@ -16,8 +16,8 @@ class GameParser
     @item_parser ||= ItemParser.new(game.items, listing)
   end
 
-  def card_from_correct_game?
-    !!(parse_game_name =~ /^(#{Regexp.escape(game.name)}) (foil )?(trading card)$/i)
+  def is_regular_item_from_correct_game?
+    !!(parse_game_name =~ /^(#{Regexp.escape(game.name)}) (trading card)$/i)
   end
 
   def parse_game_name
