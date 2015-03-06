@@ -26,10 +26,8 @@ class JsonGenerator
     {
       id: game.id.to_s,
       name: game.name,
-      regular_items: items_as_json(regular_items),
-      regular_data: items_as_data_json(regular_items),
-      foil_items: items_as_json(foil_items),
-      foil_data: items_as_data_json(foil_items)
+      items: items_as_json,
+      data: items_as_data_json,
     }
   end
 
@@ -51,23 +49,15 @@ class JsonGenerator
     }
   end
 
-  def items_as_json(items)
-    items.map { |item| item_json(item) }
+  def items_as_json
+    game.items.map { |item| item_json(item) }
   end
 
-  def items_as_data_json(items)
-    items.map { |item| item_data_json(item) }
+  def items_as_data_json
+    game.items.map { |item| item_data_json(item) }
   end
 
   def item_data(item)
     item.stats.map(&:data) if item
-  end
-
-  def regular_items
-    @regular_items ||= game.items.select { |item| item.regular? }
-  end
-
-  def foil_items
-    @foil_items ||= game.items.select { |item| item.foil? }
   end
 end

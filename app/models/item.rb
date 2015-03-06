@@ -10,14 +10,6 @@ class Item
   belongs_to :game
   has_many :stats, :dependent => :destroy
 
-  def regular?
-    !name.include?('Foil')
-  end
-
-  def foil?
-    name.include?('Foil')
-  end
-
   def latest_price
     stats.last.min_price_low
   end
