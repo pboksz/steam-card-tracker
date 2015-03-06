@@ -1,5 +1,5 @@
 angular.module('cardtracker').factory 'Chart', ->
-  render: (containerId, seriesDates, seriesData) ->
+  render: (containerId, seriesData) ->
     new Highcharts.Chart
       chart:
         backgroundColor: 'rgba(255, 255, 255, 0.0)'
@@ -26,10 +26,10 @@ angular.module('cardtracker').factory 'Chart', ->
       tooltip:
         crosshairs: true
         formatter: ->
-          '<b>' + this.point.series.name + '</b> on ' + this.x + '<br/>' +
+          '<b>' + this.point.series.name + '</b> on ' + Highcharts.dateFormat('%d.%m.%y', this.x) + '<br/>' +
           '<b>$' + this.point.low.toFixed(2) + '</b> to $' + this.point.high.toFixed(2)
       xAxis:
-        categories: seriesDates
+        type: 'datetime'
       yAxis:
         title:
           text: ""

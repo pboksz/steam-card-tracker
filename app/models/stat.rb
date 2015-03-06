@@ -10,11 +10,13 @@ class Stat
 
   default_scope -> { order_by(:created_at => :asc) }
 
-  def date
-    created_at.strftime('%-m/%-d/%y')
+  def data
+    [created_at_in_milliseconds, min_price_low, min_price_high]
   end
 
-  def data
-    [min_price_low, min_price_high]
+  private
+
+  def created_at_in_milliseconds
+    created_at.to_i * 1000
   end
 end

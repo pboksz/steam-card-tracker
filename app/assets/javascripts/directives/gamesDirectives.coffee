@@ -5,9 +5,9 @@ angular.module('cardtracker').directive 'gameChart', [
       game: '=game'
     link: (scope, element, attributes) ->
       if attributes.type == 'regular'
-        Chart.render($(element).get(0), scope.game.regular_dates, scope.game.regular_data)
+        Chart.render($(element).get(0), scope.game.regular_data)
       else if attributes.type == 'foil'
-        Chart.render($(element).get(0), scope.game.foil_dates, scope.game.foil_data)
+        Chart.render($(element).get(0), scope.game.foil_data)
 ]
 
 angular.module('cardtracker').directive 'toggleGame', ->
@@ -40,8 +40,8 @@ angular.module('cardtracker').directive 'reloadGame', [
             (success) ->
               scope.game = success
               gameElement.find('.game-cards').append($compile($templateCache.get('game.html'))(scope))
-              Chart.render(gameElement.find('.regular .game-chart')[0], success.regular_dates, success.regular_data)
-              Chart.render(gameElement.find('.foil .game-chart')[0], success.foil_dates, success.foil_data)
+              Chart.render(gameElement.find('.regular .game-chart')[0], success.regular_data)
+              Chart.render(gameElement.find('.foil .game-chart')[0], success.foil_data)
               gameElement.find('.reload-game i').removeClass('fa-spin')
               gameElement.find('.game-title').addClass('success')
             (error) ->

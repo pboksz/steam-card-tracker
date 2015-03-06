@@ -27,10 +27,8 @@ class JsonGenerator
       id: game.id.to_s,
       name: game.name,
       regular_items: items_as_json(regular_items),
-      regular_dates: items_as_dates_json(regular_items),
       regular_data: items_as_data_json(regular_items),
       foil_items: items_as_json(foil_items),
-      foil_dates: items_as_dates_json(foil_items),
       foil_data: items_as_data_json(foil_items)
     }
   end
@@ -46,7 +44,7 @@ class JsonGenerator
     }
   end
 
-  def item_chart_json(item)
+  def item_data_json(item)
     {
       name: item.name,
       data: item_data(item)
@@ -57,16 +55,8 @@ class JsonGenerator
     items.map { |item| item_json(item) }
   end
 
-  def items_as_dates_json(items)
-    item_dates(items.first) || []
-  end
-
   def items_as_data_json(items)
-    items.map { |item| item_chart_json(item) }
-  end
-
-  def item_dates(item)
-    item.stats.map(&:date) if item
+    items.map { |item| item_data_json(item) }
   end
 
   def item_data(item)
