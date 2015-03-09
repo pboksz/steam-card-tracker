@@ -4,7 +4,7 @@ angular.module('cardtracker').directive 'toggleGame', [
     link: (scope, element, attributes) ->
       $(element).on 'click', ->
         gameElement = $(element).closest('.game')
-        if scope.game.data
+        if scope.game.items
           toggleGameCards(gameElement)
         else
           spinReloadingIcon(gameElement)
