@@ -16,4 +16,8 @@ describe Item do
   describe '#all_time_min_price_high' do
     it { expect(item.all_time_min_price_high).to eq stat2.min_price_high }
   end
+
+  describe '#all_stats_data' do
+    it { expect(item.all_stats_data).to eq [stat1.data, stat2.data] }
+  end
 end

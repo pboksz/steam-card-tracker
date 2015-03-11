@@ -20,4 +20,8 @@ class Item
   def all_time_min_price_high
     stats.max(:min_price_high)
   end
+
+  def all_stats_data
+    stats.map(&:data)
+  end
 end
