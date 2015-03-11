@@ -43,7 +43,8 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   config.before :suite do
-    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.orm = :mongoid
+    DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean_with :truncation
   end
 
