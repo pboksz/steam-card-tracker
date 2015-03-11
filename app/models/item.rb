@@ -10,7 +10,7 @@ class Item
   has_many :stats, :dependent => :destroy
 
   def latest_price
-    stats.last.min_price_low
+    stats.last.min_price_low if stats.present?
   end
 
   def all_time_min_price_low
