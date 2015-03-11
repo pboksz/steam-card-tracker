@@ -21,6 +21,6 @@ class Game
   private
 
   def json_generator
-    @json_generator ||= JsonGenerator.new(self)
+    @json_generator ||= GameJsonGenerator.new(self)
   end
 end

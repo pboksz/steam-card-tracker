@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-describe JsonGenerator do
+describe GameJsonGenerator do
   let(:game) { create(:game) }
-  let(:generator) { JsonGenerator.new(game) }
+  let(:generator) { GameJsonGenerator.new(game) }
 
   describe '#generate' do
     let(:generated) {
@@ -19,8 +19,8 @@ describe JsonGenerator do
     let(:items) { double }
     let(:data) { double }
     before do
-      expect(generator).to receive(:items_as_json).and_return(items)
-      expect(generator).to receive(:items_as_data_json).and_return(data)
+      expect(generator).to receive(:items_json).and_return(items)
+      expect(generator).to receive(:items_data_json).and_return(data)
     end
     let(:generated) {
       {

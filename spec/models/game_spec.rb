@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Game do
   let(:game) { build(:game) }
   let(:json_generator) { double }
-  before { allow(JsonGenerator).to receive(:new).with(game).and_return(json_generator) }
+  before { allow(GameJsonGenerator).to receive(:new).with(game).and_return(json_generator) }
 
   describe 'validations' do
     it { expect(game).to be_valid }
