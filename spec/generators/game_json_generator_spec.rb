@@ -16,18 +16,21 @@ describe GameJsonGenerator do
   end
 
   describe '#generate_full' do
-    let(:items) { double }
-    let(:data) { double }
+    let!(:item) { create(:item, game: game) }
+    let(:item_generator) { double }
+    let(:item_json) { double }
+    let(:data_json) { double }
     before do
-      expect(generator).to receive(:items_json).and_return(items)
-      expect(generator).to receive(:items_data_json).and_return(data)
+      allow(ItemJsonGenerator).to receive(:new).with(item).and_return(item_generator)
+      expect(item_generator).to receive(:generate).and_return(item_json)
+      expect(item_generator).to receive(:generate_data).and_return(data_json)
     end
     let(:generated) {
       {
         id: game.id.to_s,
         name: game.name,
-        items: items,
-        data: data
+        items: [item_json],
+        data: [data_json]
       }
     }
 
