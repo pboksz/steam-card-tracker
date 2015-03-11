@@ -6,7 +6,7 @@ class ListingsRequester
   end
 
   def response
-    parser.parse(request_body)
+    parse_request
   end
 
   private
@@ -21,5 +21,9 @@ class ListingsRequester
 
   def request_body
     requester.perform.body
+  end
+
+  def parse_request
+    parser.parse(request_body)
   end
 end
