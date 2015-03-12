@@ -6,7 +6,7 @@ class ListingsParser
   end
 
   def parse
-    listings.each { |listing| game_parser(listing).parse } if response_successful?
+    listings.each { |listing| game_parser(listing_parser(listing)).parse } if response_successful?
   end
 
   private
@@ -25,6 +25,10 @@ class ListingsParser
 
   def listings
     @listings ||= Nokogiri::HTML(response['results_html']).css('.market_listing_row_link')
+  end
+
+  def listing_parser(listing)
+    ListingParser.new(listing)
   end
 
   def game_parser(listing)
