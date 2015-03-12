@@ -25,10 +25,10 @@ describe ListingsParser do
 
     describe 'response is successful' do
       let(:success) { true }
-      let(:parser) { double }
+      let(:game_parser) { double }
       before do
-        allow(GameParser).to receive(:new).with(game, an_instance_of(Nokogiri::XML::Element)).and_return(parser)
-        expect(parser).to receive(:parse)
+        allow(GameParser).to receive(:new).with(game, an_instance_of(Nokogiri::XML::Element)).and_return(game_parser)
+        expect(game_parser).to receive(:parse)
       end
 
       it { listings_parser.parse }
