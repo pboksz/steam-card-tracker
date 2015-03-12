@@ -1,4 +1,4 @@
-class StatParser
+class StatProcessor
   attr_reader :stats, :listing
 
   def initialize(stats, listing)
@@ -6,7 +6,7 @@ class StatParser
     @listing = listing
   end
 
-  def parse
+  def process
     stats_repository.update_prices_for_today(listing.price)
   end
 

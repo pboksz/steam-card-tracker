@@ -1,4 +1,4 @@
-class GameParser
+class GameProcessor
   attr_reader :game, :listing
 
   def initialize(game, listing)
@@ -6,14 +6,14 @@ class GameParser
     @listing = listing
   end
 
-  def parse
-    item_parser.parse if is_regular_item_from_correct_game?
+  def process
+    item_processor.process if is_regular_item_from_correct_game?
   end
 
   private
 
-  def item_parser
-    @item_parser ||= ItemParser.new(game.items, listing)
+  def item_processor
+    @item_processor ||= ItemProcessor.new(game.items, listing)
   end
 
   def is_regular_item_from_correct_game?

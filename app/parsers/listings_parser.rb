@@ -6,7 +6,7 @@ class ListingsParser
   end
 
   def parse
-    listings.each { |listing| game_parser(listing_parser(listing)).parse } if response_successful?
+    listings.each { |listing| game_processor(listing_parser(listing)).process } if response_successful?
   end
 
   private
@@ -31,8 +31,8 @@ class ListingsParser
     ListingParser.new(listing)
   end
 
-  def game_parser(listing)
-    GameParser.new(game, listing)
+  def game_processor(listing)
+    GameProcessor.new(game, listing)
   end
 
   def response_successful?

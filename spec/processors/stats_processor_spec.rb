@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe StatParser do
+describe StatProcessor do
   let(:stat) { build(:stat) }
   let(:stats) { [stat] }
   let(:listing) { double(price: 0.1) }
-  let(:stat_parser) { StatParser.new(stats, listing) }
+  let(:stat_processor) { StatProcessor.new(stats, listing) }
 
-  describe '#parse' do
+  describe '#process' do
     let(:repository) { double }
 
     before do
@@ -14,6 +14,6 @@ describe StatParser do
       expect(repository).to receive(:update_prices_for_today).with(listing.price)
     end
 
-    it { stat_parser.parse }
+    it { stat_processor.process }
   end
 end
