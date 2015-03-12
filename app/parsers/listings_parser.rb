@@ -16,7 +16,7 @@ class ListingsParser
   end
 
   def listings_requester
-    @listings_requestor ||= ListingsRequester.new(request_generator.generate)
+    @listings_requester ||= ListingsRequester.new(request_generator.generate)
   end
 
   def response
@@ -27,8 +27,8 @@ class ListingsParser
     @listings ||= Nokogiri::HTML(response['results_html']).css('.market_listing_row_link')
   end
 
-  def game_parser(listing_html)
-    GameParser.new(game, listing_html)
+  def game_parser(listing)
+    GameParser.new(game, listing)
   end
 
   def response_successful?
