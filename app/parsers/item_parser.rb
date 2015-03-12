@@ -7,7 +7,7 @@ class ItemParser
   end
 
   def parse
-    item = items_repository.update_link_and_image(parse_item_name, parse_link_url, parse_image_url)
+    item = items_repository.update_link_and_image(listing.item_name, listing.link_url, listing.image_url)
     stat_parser(item.stats).parse
   end
 
@@ -19,17 +19,5 @@ class ItemParser
 
   def stat_parser(stats)
     StatParser.new(stats, listing)
-  end
-
-  def parse_item_name
-    listing.css('.market_listing_row .market_listing_item_name').first.content
-  end
-
-  def parse_link_url
-    listing.attributes['href'].value
-  end
-
-  def parse_image_url
-    listing.css('.market_listing_row img').first.attributes['src'].value
   end
 end
