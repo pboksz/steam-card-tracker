@@ -6,11 +6,11 @@ class ListingParser
   end
 
   def game_name
-    listing.css('.market_listing_row .market_listing_game_name').first.content
+    listing_row.css('.market_listing_game_name').first.content
   end
 
   def item_name
-    listing.css('.market_listing_row .market_listing_item_name').first.content
+    listing_row.css('.market_listing_item_name').first.content
   end
 
   def link_url
@@ -18,10 +18,16 @@ class ListingParser
   end
 
   def image_url
-    listing.css('.market_listing_row img').first.attributes['src'].value
+    listing_row.css('img').first.attributes['src'].value
   end
 
   def price
-    listing.css('.market_listing_row .market_table_value span').first.content.match(/\d+.\d{1,2}/).to_s.to_f
+    listing_row.css('.market_table_value span').first.content.match(/\d+.\d{1,2}/).to_s.to_f
+  end
+
+  private
+
+  def listing_row
+    listing.css('.market_listing_row')
   end
 end
