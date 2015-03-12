@@ -4,7 +4,7 @@ angular.module('cardtracker').directive 'toggleGame', [
     link: (scope, element, attributes) ->
       $(element).on 'click', ->
         gameElement = $(element).closest('.game')
-        if scope.game.items
+        if scope.game.items && scope.game.items.length > 0
           toggleGameCards(gameElement)
         else
           spinReloadingIcon(gameElement)
@@ -14,7 +14,6 @@ angular.module('cardtracker').directive 'toggleGame', [
                 scope.game.items = success.items
                 gameElement.find('.game-cards').append($compile($templateCache.get('game.html'))(scope))
                 Chart.render(gameElement.find('.game-chart')[0], success.data)
-                toggleGameCards(gameElement)
                 addClassToTitle(gameElement, 'success')
                 stopReloadingIcon(gameElement)
               (error) ->
