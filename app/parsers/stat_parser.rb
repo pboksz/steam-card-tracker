@@ -1,4 +1,4 @@
-class StatsParser
+class StatParser
   attr_reader :stats, :listing
 
   def initialize(stats, listing)
