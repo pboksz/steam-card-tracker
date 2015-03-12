@@ -1,6 +1,6 @@
 class TestListing
   def self.new
-    Nokogiri::HTML(html)
+    Nokogiri::HTML(html).css('.market_listing_row_link').first
   end
 
   private
