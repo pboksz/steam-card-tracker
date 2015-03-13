@@ -7,18 +7,16 @@ angular.module('cardtracker').directive 'toggleGame', [
         if scope.game.items && scope.game.items.length > 0
           toggleGameCards(gameElement)
         else
-          spinReloadingIcon(gameElement)
-          scope.$apply ->
-            Game.show id: attributes.id,
-              (success) ->
-                scope.game.items = success.items
-                gameElement.find('.game-cards').append($compile($templateCache.get('game.html'))(scope))
-                Chart.render(gameElement.find('.game-chart')[0], success.data)
-                addClassToTitle(gameElement, 'success')
-                stopReloadingIcon(gameElement)
-              (error) ->
-                addClassToTitle(gameElement, 'warning')
-                stopReloadingIcon(gameElement)
+          loadGame(scope, gameElement, attributes.id, Game, Chart, $compile, $templateCache)
+]
+
+angular.module('cardtracker').directive 'reloadGame', [
+  'Chart', 'Game', '$compile', '$templateCache', (Chart, Game, $compile, $templateCache) ->
+    restrict: 'C'
+    link: (scope, element, attributes) ->
+      $(element).on 'click', ->
+        gameElement = $(element).closest('.game')
+        loadGame(scope, gameElement, attributes.id, Game, Chart, $compile, $templateCache, false)
 ]
 
 angular.module('cardtracker').directive 'scrollTop', ->
@@ -28,6 +26,21 @@ angular.module('cardtracker').directive 'scrollTop', ->
       if $(window).scrollTop() > 100 then $(element).fadeIn(300) else $(element).fadeOut(300)
     $(element).on 'click', ->
       $('body').animate { scrollTop: 0 }, 500
+
+loadGame = (scope, gameElement, gameId, Game, Chart, $compile, $templateCache, toggle = true) ->
+  spinReloadingIcon(gameElement)
+  scope.$apply ->
+    Game.show id: gameId,
+      (success) ->
+        scope.game.items = success.items
+        gameElement.find('.game-cards').append($compile($templateCache.get('game.html'))(scope))
+        Chart.render(gameElement.find('.game-chart')[0], success.data)
+        toggleGameCards(gameElement) if toggle
+        addClassToTitle(gameElement, 'success')
+        stopReloadingIcon(gameElement)
+      (error) ->
+        addClassToTitle(gameElement, 'warning')
+        stopReloadingIcon(gameElement)
 
 toggleGameCards = (gameElement) ->
   gameElement.find('.game-cards').toggle()
