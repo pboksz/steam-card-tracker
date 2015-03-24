@@ -1,22 +1,22 @@
 angular.module('cardtracker').directive 'toggleGame', [
   'Chart', 'Game', '$compile', '$templateCache', (Chart, Game, $compile, $templateCache) ->
     restrict: 'C'
-    link: (scope, element, attributes) ->
+    link: (scope, element) ->
       $(element).on 'click', ->
         gameElement = $(element).closest('.game')
         if scope.game.items && scope.game.items.length > 0
           toggleGameCards(gameElement)
         else
-          loadGame(scope, gameElement, attributes.id, Game, Chart, $compile, $templateCache)
+          loadGame(gameElement, Game, Chart, $compile, $templateCache)
 ]
 
 angular.module('cardtracker').directive 'reloadGame', [
   'Chart', 'Game', '$compile', '$templateCache', (Chart, Game, $compile, $templateCache) ->
     restrict: 'C'
-    link: (scope, element, attributes) ->
+    link: (scope, element) ->
       $(element).on 'click', ->
         gameElement = $(element).closest('.game')
-        loadGame(scope, gameElement, attributes.id, Game, Chart, $compile, $templateCache, false)
+        loadGame(gameElement, Game, Chart, $compile, $templateCache, false)
 ]
 
 angular.module('cardtracker').directive 'scrollTop', ->
@@ -27,23 +27,24 @@ angular.module('cardtracker').directive 'scrollTop', ->
     $(element).on 'click', ->
       $('body').animate { scrollTop: 0 }, 500
 
-loadGame = (scope, gameElement, gameId, Game, Chart, $compile, $templateCache, toggle = true) ->
+loadGame = (gameElement, Game, Chart, $compile, $templateCache, toggle = true, all = false) ->
+  scope = gameElement.scope()
   startTime = getCurrentMilliseconds()
   spinReloadingIcon(gameElement)
   scope.$apply ->
-    Game.show id: gameId,
+    Game.show id: gameElement.attr('id'),
       (success) ->
         scope.game.items = success.items
         gameElement.find('.game-cards').append($compile($templateCache.get('game.html'))(scope))
         Chart.render(gameElement.find('.game-chart')[0], success.data)
         toggleGameCards(gameElement) if toggle
         addClassToTitle(gameElement, 'success')
-        stopReloadingIcon(gameElement)
         calculateTimeToLoad(gameElement, startTime)
+        stopReloadingIcon(gameElement)
       (error) ->
         addClassToTitle(gameElement, 'warning')
-        stopReloadingIcon(gameElement)
         calculateTimeToLoad(gameElement, startTime)
+        stopReloadingIcon(gameElement)
 
 toggleGameCards = (gameElement) ->
   gameElement.find('.game-cards').toggle()

@@ -1,14 +1,12 @@
 .game-title
-  %span.collapse.toggle-game{ id: '{{game.id}}' }
+  %span.collapse.toggle-game
     %span.name {{game.name}}
     %span.icon
       = icon('angle-down')
       = icon('angle-up', '', style: 'display: none')
-  %span.reload-game{ :id => '{{game.id}}' }
-    = icon('refresh')
+  %span.reload-game= icon('refresh')
   %span.time-to-load
-  %span.updated{ 'ng-show' => '{{game.updated}}' }
-    = icon('download')
+  %span.updated{ 'ng-show' => '{{game.updated}}' }= icon('download')
 
 .game-cards{ style: 'display:none' }
   .game-items

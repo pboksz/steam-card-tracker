@@ -1,13 +1,11 @@
 #steam-card-tracker{ 'ng-controller' => 'GamesController' }
   .header
     %span.app-title
-      Steam
-      = link_to 'Card', games_path, class: 'add-game'
-      Tracker
+      %span.name= "Steam #{link_to 'Card', games_path, class: 'add-game'} Tracker".html_safe
       %input{ 'ng-model' => 'query', class: :search, placeholder: 'Filter games by name' }
 
   .games
-    .game{ 'ng-repeat' => 'game in games | filter:query' }
+    .game{ 'ng-repeat' => 'game in games | filter:query', id: '{{game.id}}' }
       = render 'game'
 
   .scroll-top
