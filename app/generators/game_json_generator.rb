@@ -9,7 +9,7 @@ class GameJsonGenerator
     {
       id: game.id.to_s,
       name: game.name,
-      updated: items_updated?
+      updated: false
     }
   end
 
@@ -17,7 +17,7 @@ class GameJsonGenerator
     {
       id: game.id.to_s,
       name: game.name,
-      updated: items_updated?,
+      updated: true,
       items: items_json,
       data: items_data_json,
     }
