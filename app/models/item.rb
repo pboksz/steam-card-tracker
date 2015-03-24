@@ -8,6 +8,7 @@ class Item
 
   belongs_to :game
   has_many :stats, :dependent => :destroy
+  includes :stats
 
   def latest_price
     stats.last.min_price_low if stats.present?

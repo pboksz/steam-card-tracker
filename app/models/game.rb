@@ -5,6 +5,7 @@ class Game
   field :n, :as => :name, :type => String
 
   has_many :items, :dependent => :destroy
+  includes :items
 
   validates :name, :uniqueness => true
 
