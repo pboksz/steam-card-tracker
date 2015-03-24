@@ -8,7 +8,8 @@ describe GameJsonGenerator do
     let(:generated) {
       {
         id: game.id.to_s,
-        name: game.name
+        name: game.name,
+        updated: false
       }
     }
 
@@ -29,6 +30,7 @@ describe GameJsonGenerator do
       {
         id: game.id.to_s,
         name: game.name,
+        updated: false,
         items: [item_json],
         data: [data_json]
       }
