@@ -19,6 +19,17 @@ angular.module('cardtracker').directive 'reloadGame', [
         loadGame(gameElement, Game, Chart, $compile, $templateCache, false)
 ]
 
+angular.module('cardtracker').directive 'loadAllGames', [
+  'Chart', 'Game', '$compile', '$templateCache', '$timeout', (Chart, Game, $compile, $templateCache, $timeout) ->
+    restrict: 'C'
+    link: (scope, element) ->
+      $(element).on 'click', ->
+        $('.game').each (index, game) ->
+          $timeout ->
+            loadGame($(game), Game, Chart, $compile, $templateCache, false)
+          , 5000 * index
+]
+
 angular.module('cardtracker').directive 'scrollTop', ->
   restrict: 'C'
   link: (scope, element) ->
@@ -27,7 +38,7 @@ angular.module('cardtracker').directive 'scrollTop', ->
     $(element).on 'click', ->
       $('body').animate { scrollTop: 0 }, 500
 
-loadGame = (gameElement, Game, Chart, $compile, $templateCache, toggle = true, all = false) ->
+loadGame = (gameElement, Game, Chart, $compile, $templateCache, toggle = true) ->
   scope = gameElement.scope()
   startTime = getCurrentMilliseconds()
   spinReloadingIcon(gameElement)
