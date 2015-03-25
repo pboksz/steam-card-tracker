@@ -30,7 +30,7 @@ describe GameJsonGenerator do
       {
         id: game.id.to_s,
         name: game.name,
-        updated: true,
+        updated: false,
         items: [item_json],
         data: [data_json]
       }

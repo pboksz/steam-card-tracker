@@ -9,7 +9,7 @@ class GameJsonGenerator
     {
       id: game.id.to_s,
       name: game.name,
-      updated: false
+      updated: game.updated_today?
     }
   end
 
@@ -17,7 +17,7 @@ class GameJsonGenerator
     {
       id: game.id.to_s,
       name: game.name,
-      updated: true,
+      updated: game.updated_today?,
       items: items_json,
       data: items_data_json,
     }
@@ -31,10 +31,6 @@ class GameJsonGenerator
 
   def items_data_json
     game.items.map { |item| item_json_generator(item).generate_data }
-  end
-
-  def items_updated?
-    game.items.present? && game.items.all?(&:has_stats_for_today?)
   end
 
   def item_json_generator(item)
