@@ -1,4 +1,4 @@
-%a{ 'ng-href' => '{{item.link_url}}', :target => '_blank' }
+%a{ 'ng-href' => '{{item.link_url}}', target: :_blank }
   %img.left{ 'ng-src' => '{{item.image_url}}' }
   .right
     .name {{item.name | truncate}}

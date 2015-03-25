@@ -20,7 +20,7 @@ describe GamesController do
     let(:params) { { name: 'Game Name' } }
     before do
       expect(repository).to receive(:create).with(params)
-      post :create, :game => params
+      post :create, game: params
     end
 
     it { expect(response).to redirect_to games_path }

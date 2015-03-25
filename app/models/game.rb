@@ -2,14 +2,14 @@ class Game
   include Mongoid::Document
   include Mongoid::Timestamps::Created::Short
 
-  field :n, :as => :name, :type => String
-  field :u_at, :as => :updated_at, :type => Date
+  field :n, as: :name, type: String
+  field :u_at, as: :updated_at, type: Date
 
-  has_many :items, :dependent => :destroy
+  has_many :items, dependent: :destroy
 
-  validates :name, :uniqueness => true
+  validates :name, uniqueness: true
 
-  default_scope -> { order_by(:name => :asc) }
+  default_scope -> { order_by(name: :asc) }
 
   def as_json(options = {})
     json_generator.generate

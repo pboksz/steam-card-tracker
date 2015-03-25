@@ -1,13 +1,13 @@
 class Api::GamesController < ApplicationController
   def index
-    render :json => games_repository.all.as_json
+    render json: games_repository.all.as_json
   end
 
   def show
     game = games_repository.find(id: params[:id])
     listings_parser(game).parse
 
-    render :json => game.as_full_json
+    render json: game.as_full_json
   end
 
   private
