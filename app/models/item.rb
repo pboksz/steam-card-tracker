@@ -8,7 +8,6 @@ class Item
 
   belongs_to :game
   has_many :stats, :dependent => :destroy
-  includes :stats
 
   def latest_price
     stats.last.min_price_low if stats.present?
@@ -24,9 +23,5 @@ class Item
 
   def all_stats_data
     stats.map(&:data)
-  end
-
-  def has_stats_for_today?
-    stats.last.created_at.to_date == Date.today if stats.present?
   end
 end

@@ -20,15 +20,4 @@ describe Item do
   describe '#all_stats_data' do
     it { expect(item.all_stats_data).to eq [stat1.data, stat2.data] }
   end
-
-  describe '#has_stats_for_today?' do
-    describe 'no stats for today' do
-      it { expect(item.has_stats_for_today?).to eq false }
-    end
-
-    describe 'has stats for today' do
-      let!(:stat3) { create(:stat, item: item, created_at: Date.today) }
-      it { expect(item.has_stats_for_today?).to eq true }
-    end
-  end
 end
