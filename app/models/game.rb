@@ -3,9 +3,9 @@ class Game
   include Mongoid::Timestamps::Created::Short
 
   field :n, :as => :name, :type => String
+  field :u_at, :as => :updated_at, :type => Date
 
   has_many :items, :dependent => :destroy
-  includes :items
 
   validates :name, :uniqueness => true
 
@@ -17,6 +17,10 @@ class Game
 
   def as_full_json(options = {})
     json_generator.generate_full
+  end
+
+  def updated_today?
+    updated_at == Date.today
   end
 
   private
