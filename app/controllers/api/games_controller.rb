@@ -5,9 +5,12 @@ class Api::GamesController < ApplicationController
 
   def show
     game = games_repository.find(id: params[:id])
-    listings_parser(game).parse
 
-    render json: game.as_full_json
+    if game = listings_parser(game).parse
+      render json: game.as_full_json, status: :ok
+    else
+      render json: {}, status: :unprocessable_entity
+    end
   end
 
   private
