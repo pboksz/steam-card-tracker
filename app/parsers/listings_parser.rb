@@ -6,10 +6,17 @@ class ListingsParser
   end
 
   def parse
-    listings.each { |listing| game_processor(listing_parser(listing)).process } if response_successful?
+    if response_successful?
+      listings.each { |listing| game_processor(listing_parser(listing)).process }
+      games_repository.update(game.id)
+    end
   end
 
   private
+
+  def games_repository
+    @games_repository ||= GamesRepository.new(Game)
+  end
 
   def request_generator
     @request_generator ||= RequestGenerator.new(game)
