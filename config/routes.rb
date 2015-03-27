@@ -8,5 +8,7 @@ SteamCardTracker::Application.routes.draw do
 
   resources :games, only: [:index, :create]
 
+  get '/sitemap(.xml)' => 'home#sitemap', format: 'xml'
+
   root 'home#index'
 end
