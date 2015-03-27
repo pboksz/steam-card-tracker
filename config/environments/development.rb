@@ -26,10 +26,4 @@ SteamCardTracker::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
-
-  # Have unicorn log more info in sdout
-  config.logger = Logger.new(STDOUT)
-  config.logger.level = Logger.const_get(
-    ENV['LOG_LEVEL'] ? ENV['LOG_LEVEL'].upcase : 'DEBUG'
-  )
 end
