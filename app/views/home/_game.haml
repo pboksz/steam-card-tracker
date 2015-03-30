@@ -6,7 +6,7 @@
       = icon('angle-up', '', style: 'display: none')
   %span.reload-game= icon('refresh')
   %span.time-to-load
-  %span.updated{ 'ng-show' => '{{game.updated}}' }= icon('download')
+  %span.updated{ 'ng-show' => 'game.updated' }= icon('download')
 
 .game-cards{ style: 'display:none' }
   .game-items
