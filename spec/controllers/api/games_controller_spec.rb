@@ -24,7 +24,7 @@ describe Api::GamesController do
 
     describe 'listings parses correctly' do
       before do
-        # expect(parser).to receive(:parse).and_return(game)
+        expect(parser).to receive(:parse).and_return(game)
         expect(game).to receive(:as_full_json)
         get :show, id: game.id
       end
@@ -34,11 +34,11 @@ describe Api::GamesController do
 
     describe 'listings does not parse correctly' do
       before do
-        # expect(parser).to receive(:parse).and_return(nil)
+        expect(parser).to receive(:parse).and_return(nil)
         get :show, id: game.id
       end
 
-      # it { expect(response.status).to eq 422 }
+      it { expect(response.status).to eq 422 }
     end
   end
 end
