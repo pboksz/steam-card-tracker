@@ -4,4 +4,12 @@
 #= require angular-resource.min
 #= require highcharts
 #= require highcharts/highcharts-more
-#= require_tree .
+#= require cardtracker
+
+#= require services/analyticsService
+#= require services/chartServices
+#= require services/gamesServices
+
+#= require controllers/gamesController
+#= require directives/gamesDirectives
+#= require filters/gameFilters
