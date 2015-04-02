@@ -39,6 +39,7 @@ angular.module('cardtracker').directive 'scrollTop', ->
       $('body').animate { scrollTop: 0 }, 500
 
 loadGame = (gameElement, Game, Chart, $compile, $templateCache, toggle = true) ->
+  scrollToGame(gameElement)
   scope = gameElement.scope()
   startTime = getCurrentMilliseconds()
   spinReloadingIcon(gameElement)
@@ -57,6 +58,9 @@ loadGame = (gameElement, Game, Chart, $compile, $templateCache, toggle = true) -
         addClassToTitle(gameElement, 'warning')
         calculateTimeToLoad(gameElement, startTime)
         stopReloadingIcon(gameElement)
+
+scrollToGame = (gameElement) ->
+  $('body').animate { scrollTop: gameElement.offset().top }, 200
 
 toggleGameCards = (gameElement) ->
   gameElement.find('.game-cards').toggle()
