@@ -35,8 +35,8 @@ describe 'Home page' do
     let(:parser) { double }
     before do
       allow(DefaultRepository).to receive(:new).with(Game).and_return(repository)
-      expect(repository).to receive(:find).with(id: game1.id).and_return(game1)
       allow(ListingsParser).to receive(:new).with(game1).and_return(parser)
+      expect(repository).to receive(:find).with(id: game1.id).and_return(game1)
       expect(parser).to receive(:parse).and_return(result)
       first('.game .name').click
     end
@@ -48,11 +48,18 @@ describe 'Home page' do
         expect(first('.game')).to have_css '.game-title.success'
         expect(first('.game .time-to-load')).to have_text 'seconds'
         expect(first('.game .game-chart')).to have_css '.highcharts-container'
+        expect(first('.game .game-title')).to have_css '.updated', visible: true
 
         expect(first('.game').first('.game-item .name')).to have_text item1.name
         expect(first('.game').first('.game-item .low')).to have_text stat1.min_price_low
         expect(first('.game').first('.game-item .current')).to have_text stat1.min_price_low
         expect(first('.game').first('.game-item .high')).to have_text stat1.min_price_high
+      end
+
+      it 'click to hide' do
+        expect(first('.game')).to have_selector '.game-cards', visible: true
+        first('.game .name').click
+        expect(first('.game')).to have_selector '.game-cards', visible: false
       end
     end
 

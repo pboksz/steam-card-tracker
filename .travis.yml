@@ -5,7 +5,7 @@ rvm:
 services:
   - mongodb
 script:
-  - bundle exec rspec spec
+  - xvfb-run bundle exec rspec spec
 addons:
   code_climate:
     repo_token:
