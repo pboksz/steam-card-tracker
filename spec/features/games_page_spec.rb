@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe 'Games page' do
-  before { page.driver.block_unknown_urls }
-
   describe 'user visits add game page' do
     before do
       visit root_path

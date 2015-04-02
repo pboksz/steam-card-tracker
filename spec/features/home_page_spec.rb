@@ -9,10 +9,7 @@ describe 'Home page' do
   let!(:item2) { create(:item, game: game2) }
   let!(:stat2) { create(:stat, item: item2) }
 
-  before do
-    page.driver.block_unknown_urls
-    visit root_path
-  end
+  before { visit root_path }
 
   describe 'can view games' do
     it 'has both games listed' do

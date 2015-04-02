@@ -57,4 +57,9 @@ RSpec.configure do |config|
   config.after do
     DatabaseCleaner.clean
   end
+
+  config.before type: :feature do
+    page.driver.block_unknown_urls
+    page.driver.browser.set_skip_image_loading(true)
+  end
 end
