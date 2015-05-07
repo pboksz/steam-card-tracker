@@ -43,6 +43,7 @@ class ListingsParser
   end
 
   def response_successful?
+    Rails.logger.debug(response)
     response['success'] && response['total_count'] > 0
   end
 end
