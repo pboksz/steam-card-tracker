@@ -12,7 +12,7 @@ class Api::GamesController < ApplicationController
       render json: {}, status: :unprocessable_entity
     end
   rescue => e
-    render json: e.as_json, status: :unprocessable_entity 
+    render json: e, status: :unprocessable_entity 
   end
 
   private
