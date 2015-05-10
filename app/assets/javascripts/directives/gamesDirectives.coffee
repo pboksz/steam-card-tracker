@@ -81,5 +81,5 @@ getCurrentMilliseconds = ->
 calculateTimeToLoad = (gameElement, startTime, error = null) ->
   timeToLoad = (getCurrentMilliseconds() - startTime) / 1000
   timeText = "#{timeToLoad} seconds"
-  timeText += " | #{error}" if error
+  timeText += " | #{error.message}" if error
   gameElement.find('.time-to-load').text(timeText)
