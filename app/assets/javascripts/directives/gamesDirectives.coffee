@@ -57,6 +57,7 @@ loadGame = (gameElement, Game, Chart, $compile, $templateCache, toggle = true) -
       (error) ->
         addClassToTitle(gameElement, 'warning')
         calculateTimeToLoad(gameElement, startTime)
+        addErrorMessage(gameElement, error)
         stopReloadingIcon(gameElement)
 
 scrollToGame = (gameElement) ->
@@ -81,3 +82,6 @@ getCurrentMilliseconds = ->
 calculateTimeToLoad = (gameElement, startTime) ->
   timeToLoad = (getCurrentMilliseconds() - startTime) / 1000
   gameElement.find('.time-to-load').text("#{timeToLoad} seconds")
+
+addErrorMessage = (gameElement, error) ->
+  gameElement.find('.time-to-load').text(error.message)
