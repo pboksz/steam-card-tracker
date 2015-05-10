@@ -24,8 +24,6 @@ class ListingsRequester
   end
 
   def parse_request
-    puts "Request Body ------------------------------------>"
-    puts request_body
     parser.parse(request_body)
   end
 end
