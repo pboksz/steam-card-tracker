@@ -27,7 +27,7 @@ angular.module('cardtracker').directive 'loadAllGames', [
         $('.game').each (index, game) ->
           $timeout ->
             loadGame($(game), Game, Chart, $compile, $templateCache, false)
-          , 5000 * index
+          , 15000 * index
 ]
 
 angular.module('cardtracker').directive 'scrollTop', ->
