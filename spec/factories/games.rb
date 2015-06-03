@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :game do
     sequence(:name) { |n| "Game#{n}" }
-    updated_at Date.today
+    price_per_badge 0.99
   end
 end

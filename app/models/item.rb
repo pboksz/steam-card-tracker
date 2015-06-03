@@ -1,6 +1,6 @@
 class Item
   include Mongoid::Document
-  include Mongoid::Timestamps::Created::Short
+  include Mongoid::Timestamps::Short
 
   field :n, as: :name, type: String
   field :l, as: :link_url, type: String

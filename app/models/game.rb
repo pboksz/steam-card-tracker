@@ -1,9 +1,9 @@
 class Game
   include Mongoid::Document
-  include Mongoid::Timestamps::Created::Short
+  include Mongoid::Timestamps::Short
 
   field :n, as: :name, type: String
-  field :u_at, as: :updated_at, type: Date
+  field :ppb, as: :price_per_badge, type: Float
 
   has_many :items, dependent: :destroy
 
@@ -20,7 +20,7 @@ class Game
   end
 
   def updated_today?
-    updated_at == Date.today
+    updated_at.to_date == Date.today if updated_at
   end
 
   private

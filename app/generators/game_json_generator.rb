@@ -9,7 +9,8 @@ class GameJsonGenerator
     {
       id: game.id.to_s,
       name: game.name,
-      updated: game.updated_today?
+      price_per_badge: game.price_per_badge,
+      updated_today: game.updated_today?
     }
   end
 
@@ -17,7 +18,8 @@ class GameJsonGenerator
     {
       id: game.id.to_s,
       name: game.name,
-      updated: game.updated_today?,
+      price_per_badge: game.price_per_badge,
+      updated_today: game.updated_today?,
       items: items_json,
       data: items_data_json,
     }

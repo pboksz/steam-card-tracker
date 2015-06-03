@@ -47,7 +47,8 @@ loadGame = (gameElement, Game, Chart, $compile, $templateCache, toggle = true) -
     Game.show id: gameElement.attr('id'),
       (success) ->
         scope.game.items = success.items
-        scope.game.updated = success.updated
+        scope.game.price_per_badge = success.price_per_badge
+        scope.game.updated_today = success.updated_today
         gameElement.find('.game-cards').append($compile($templateCache.get('game.html'))(scope))
         Chart.render(gameElement.find('.game-chart')[0], success.data)
         toggleGameCards(gameElement) if toggle

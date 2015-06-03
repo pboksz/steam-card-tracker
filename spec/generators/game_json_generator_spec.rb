@@ -9,7 +9,8 @@ describe GameJsonGenerator do
       {
         id: game.id.to_s,
         name: game.name,
-        updated: true
+        price_per_badge: game.price_per_badge,
+        updated_today: true
       }
     }
 
@@ -30,7 +31,8 @@ describe GameJsonGenerator do
       {
         id: game.id.to_s,
         name: game.name,
-        updated: true,
+        price_per_badge: game.price_per_badge,
+        updated_today: true,
         items: [item_json],
         data: [data_json]
       }

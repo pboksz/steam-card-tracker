@@ -36,7 +36,7 @@ describe Game do
   describe '#updated_today?' do
     describe 'updated never' do
       let(:game) { build(:game, updated_at: nil) }
-      it { expect(game.updated_today?).to eq false }
+      it { expect(game.updated_today?).to be_nil }
     end
 
     describe 'updated before' do
