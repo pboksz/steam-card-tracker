@@ -1,12 +1,16 @@
 #steam-card-tracker{ 'ng-controller' => 'GamesController' }
   .header
     %span.app-title
-      %span.name= "Steam #{link_to 'Card', games_path, class: 'add-game'} Tracker".html_safe
-      %input{ 'ng-model' => 'query', class: :search, placeholder: 'Filter games by name' }
-      %span.load-all-games= icon('sort-amount-asc')
+      %span.left
+        %span.name= "Steam #{link_to 'Card', games_path, class: 'add-game'} Tracker".html_safe
+        %input{ 'ng-model' => 'query', class: :search, placeholder: 'Filter games by name' }
+      %span.right
+        %span.sort-name{ 'ng-click' => "sort = 'name'" }= icon('sort-alpha-asc')
+        %span.sort-price{ 'ng-click' => "sort = 'price_per_badge'" }= icon('sort-numeric-asc')
+        %span.load-all-games= icon('sort-amount-asc')
 
   .games
-    .game{ 'ng-repeat' => 'game in games | filter:query', id: '{{game.id}}' }
+    .game{ 'ng-repeat' => 'game in games | filter:query | orderBy:sort', id: '{{game.id}}' }
       = render 'game'
 
   .scroll-top

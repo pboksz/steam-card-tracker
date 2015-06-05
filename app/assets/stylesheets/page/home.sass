@@ -12,16 +12,19 @@
     .app-title
       font-weight: bold
       cursor: default
-      .add-game
-        text-decoration: none
-        cursor: default
-        color: $main
-      .search
-        vertical-align: middle
-        margin-left: 0.5em
-      .load-all-games
-        cursor: pointer
+      .left
+        .add-game
+          text-decoration: none
+          cursor: default
+          color: $main
+        .search
+          vertical-align: middle
+          margin-left: 0.5em
+      .right
         float: right
+        cursor: pointer
+        .load-all-games, .sort-name, .sort-price
+          margin-left: 0.5em
   .games
     .game
       padding-left: 0.5em
