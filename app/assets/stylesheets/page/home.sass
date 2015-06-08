@@ -29,15 +29,13 @@
     .game
       padding-left: 0.5em
       border-top: 1px dashed $main
-      &:hover
-        background-color: $info
       &:nth-of-type(odd)
         background-color: $white
-        &:hover
-          background-color: $info
       .game-title
         padding: 0.5em 0
         font-size: 1.2em
+        &:hover
+          background-color: $info
         .toggle-game
           cursor: pointer
         .reload-game, .time-to-load
