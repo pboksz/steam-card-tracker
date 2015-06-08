@@ -124,7 +124,6 @@ GEM
     multipart-post (2.0.0)
     net-http-persistent (2.9.4)
     net-http-pipeline (1.0.1)
-    newrelic_rpm (3.10.0.279)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     optionable (0.2.0)
@@ -492,7 +491,6 @@ DEPENDENCIES
   jquery-rails
   json
   mongoid (~> 4.0.0)
-  newrelic_rpm
   nokogiri
   pry
   quiet_assets
