@@ -91,6 +91,8 @@ GEM
       activesupport (~> 4.0.0)
       haml (>= 3.1, < 5.0)
       railties (~> 4.0.0)
+    heroku-deflater (0.5.3)
+      rack (>= 1.4.5)
     highcharts-rails (4.0.4.1)
       railties (>= 3.1)
     highline (1.7.1)
@@ -487,6 +489,7 @@ DEPENDENCIES
   factory_girl_rails
   font-awesome-sass
   haml-rails
+  heroku-deflater
   highcharts-rails
   jquery-rails
   json
