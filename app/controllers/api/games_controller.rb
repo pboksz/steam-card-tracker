@@ -9,10 +9,10 @@ class Api::GamesController < ApplicationController
     if game = listings_parser(game).parse
       render json: game.as_full_json, status: :ok
     else
-      render json: {}, status: :unprocessable_entity
+      render json: 'Processing error', status: :unprocessable_entity
     end
   rescue => e
-    render json: e, status: :unprocessable_entity 
+    render json: e.message, status: :unprocessable_entity
   end
 
   private

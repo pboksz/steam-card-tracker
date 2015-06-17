@@ -40,5 +40,14 @@ describe Api::GamesController do
 
       it { expect(response.status).to eq 422 }
     end
+
+    describe 'listing parse throws error' do
+      before do
+        expect(parser).to receive(:parse).and_raise(StandardError)
+        get :show, id: game.id
+      end
+
+      it { expect(response.status).to eq 422 }
+    end
   end
 end
