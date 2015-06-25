@@ -26,8 +26,13 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.7)
+    admin_auth (0.3.0)
+      bcrypt (~> 3)
+      haml (~> 4)
+      rails (~> 4)
     arel (4.0.2)
     backports (3.6.4)
+    bcrypt (3.1.10)
     bson (2.3.0)
     builder (3.1.4)
     capybara (2.4.4)
@@ -480,6 +485,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  admin_auth
   capybara
   capybara-webkit
   codeclimate-test-reporter

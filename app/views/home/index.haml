@@ -2,7 +2,7 @@
   .header
     %span.app-title
       %span.left
-        %span.name= "Steam #{link_to 'Card', games_path, class: 'add-game'} Tracker".html_safe
+        %span.name= "Steam Card Tracker"
         %input{ 'ng-model' => 'query', class: :search, placeholder: 'Filter games by name' }
       %span.right
         %span.sort-name{ 'ng-click' => "sort = 'name'" }= icon('sort-alpha-asc')

@@ -1,8 +1,11 @@
 require 'rails_helper'
 
-describe GamesController do
+describe Admin::GamesController do
   let(:repository) { double }
-  before { allow(DefaultRepository).to receive(:new).with(Game).and_return(repository) }
+  before do
+    allow(controller).to receive(:authenticate_admin!)
+    allow(DefaultRepository).to receive(:new).with(Game).and_return(repository)
+  end
 
   describe 'GET #index' do
     let(:game) { double }
@@ -23,6 +26,16 @@ describe GamesController do
       post :create, game: params
     end
 
-    it { expect(response).to redirect_to games_path }
+    it { expect(response).to redirect_to admin_games_path }
+  end
+
+  describe 'DELETE #destroy' do
+    let(:params) { { id: '1' } }
+    before do
+      expect(repository).to receive(:destroy).with(params[:id])
+      delete :destroy, params
+    end
+
+    it { expect(response).to redirect_to admin_games_path }
   end
 end

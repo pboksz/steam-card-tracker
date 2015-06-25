@@ -28,4 +28,8 @@ class DefaultRepository
   def find_or_initialize(attributes)
     find_all(attributes).first_or_initialize
   end
+
+  def destroy(id)
+    find(id: id).destroy
+  end
 end

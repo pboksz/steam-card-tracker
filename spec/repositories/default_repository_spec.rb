@@ -57,4 +57,9 @@ describe DefaultRepository do
       it { expect(repository.find_or_initialize(id: 1234)).to be_a Game }
     end
   end
+
+  describe '#destroy' do
+    let!(:game) { create(:game) }
+    it { expect{ repository.destroy(game.id) }.to change{ Game.count }.by(-1) }
+  end
 end

@@ -35,6 +35,7 @@ describe 'Home page' do
       allow(ListingsParser).to receive(:new).with(game1).and_return(parser)
       expect(repository).to receive(:find).with(id: game1.id).and_return(game1)
       expect(parser).to receive(:parse).and_return(result)
+      sleep(0.1)
       first('.game .name').click
     end
 

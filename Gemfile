@@ -2,36 +2,22 @@ ruby '2.2.0'
 source 'https://rubygems.org'
 
 gem 'rails', '4.0.0'
-
-# Use mongodb
 gem 'mongoid', '~> 4.0.0'
 
-# Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 gem 'font-awesome-sass'
 gem 'compass-rails'
-
-# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-
-# Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
-# Use jquery as the JavaScript library
 gem 'jquery-rails'
-
-# Use haml for views
 gem 'haml-rails'
-
-# Use highcharts for charts
 gem 'highcharts-rails'
-
 gem 'json'
 gem 'nokogiri'
 gem 'weary'
+gem 'admin_auth'
 
 group :test do
   gem 'codeclimate-test-reporter', require: nil
