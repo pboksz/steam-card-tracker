@@ -1,11 +1,9 @@
 language: ruby
 bundler_args: --without development
-rvm:
-  - 2.2.0
-services:
-  - mongodb
-script:
-  - xvfb-run bundle exec rspec spec
+sudo: false
+rvm: 2.2.0
+services: mongodb
+script: xvfb-run bundle exec rspec spec
 addons:
   code_climate:
     repo_token:
