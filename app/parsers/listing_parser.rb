@@ -22,7 +22,9 @@ class ListingParser
   end
 
   def price
-    listing_row.css('.market_table_value span').first.content.match(/\d+.\d{1,2}/).to_s.to_f
+    contents = listing_row.css('.market_table_value span').map(&:content)
+    content = contents.find { |c| c.match(/\$\d+\.\d{1,2}/) }
+    content[1..-1].to_f
   end
 
   private

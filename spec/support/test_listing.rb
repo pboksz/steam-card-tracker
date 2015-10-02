@@ -13,7 +13,8 @@ class TestListing
           <div class="market_listing_item_name">Trading Card</div>
           <img src="image.jpg">
           <div class="market_table_value">
-            <span>0.10</span>
+            <span>118</span>
+            <span>$0.10</span>
           </div>
         </div>
       </a>
