@@ -27,7 +27,7 @@ angular.module('cardtracker').directive 'loadAllGames', [
         $('.game').each (index, game) ->
           $timeout ->
             loadGame($(game), Game, Chart, $compile, $templateCache, false)
-          , 15000 * index
+          , 20000 * index
 ]
 
 angular.module('cardtracker').directive 'scrollTop', ->
@@ -82,5 +82,5 @@ getCurrentMilliseconds = ->
 calculateTimeToLoad = (gameElement, startTime, error = null) ->
   timeToLoad = (getCurrentMilliseconds() - startTime) / 1000
   timeText = "#{timeToLoad} seconds"
-  timeText += " | #{error}" if error
+  timeText += " | #{error.data}" if error?
   gameElement.find('.time-to-load').text(timeText)
