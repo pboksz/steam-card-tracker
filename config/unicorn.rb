@@ -1,6 +1,6 @@
 worker_processes 4
 listen 3000
-timeout 16
+timeout 30
 preload_app true
 
 before_fork do |server, worker|
