@@ -280,3 +280,9 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicorn
   weary
+
+RUBY VERSION
+   ruby 2.2.5p319
+
+BUNDLED WITH
+   1.13.6

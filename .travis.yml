@@ -1,7 +1,7 @@
 language: ruby
 bundler_args: --without development
 sudo: false
-rvm: 2.2.0
+rvm: 2.2.5
 services: mongodb
 script: xvfb-run bundle exec rspec spec
 addons:
