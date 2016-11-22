@@ -1,25 +1,24 @@
 development:
-  sessions:
+  clients:
     default:
       database: steam_card_tracker_development
       hosts:
         - localhost:27017
 
 test:
-  sessions:
+  clients:
     default:
       database: steam_card_tracker_test
       hosts:
         - localhost:27017
       options:
-        read: primary
-        max_retries: 1
-        retry_interval: 0
+        read:
+          mode: :primary
+        max_pool_size: 1
 
 production:
-  sessions:
+  clients:
     default:
       uri: <%= ENV['MONGODB_URI'] %>
       options:
-        max_retries: 10
-        retry_interval: 30
+        connect_timeout: 15

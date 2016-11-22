@@ -2,7 +2,7 @@ ruby '2.2.5'
 source 'https://rubygems.org'
 
 gem 'rails', '~> 4.2.7'
-gem 'mongoid', '~> 4.0.0'
+gem 'mongoid', '~> 5.1.5'
 
 gem 'sass-rails'
 gem 'font-awesome-sass'
