@@ -1,14 +1,14 @@
 ruby '2.2.5'
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.16'
+gem 'rails', '~> 4.2.7'
 gem 'mongoid', '~> 4.0.0'
 
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails'
 gem 'font-awesome-sass'
 gem 'compass-rails'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'uglifier'
+gem 'coffee-rails'
 gem 'therubyracer', platforms: :ruby
 
 gem 'jquery-rails'
