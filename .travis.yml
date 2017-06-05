@@ -12,7 +12,7 @@ deploy:
   provider: heroku
   strategy: git
   api_key:
-    secure: ZQuZG3gL0kF1wvPDOGkgBc8hxqbchLnLGh/zF/0cNufGeIPUfhRsU2q1Q8in7k9K27bfuoIlNtuIhOTWfV5j1Qh2faOssbHGHN4h4rM5RheBjaPvdg/9yLD6jerGANeToZBpCODo5pzU4G4Z9ylouqYetONWjlWbDpdnCujNP2M=
+    secure: "TDNa5mXBQ+M6qYlhimT+yBEuMS8ox0ceCtISUBYrhsdYZD/GPgWSds1AvmnUjGyf9sW8OwmtfppdEnOnro8fitpV8eRHVCJ05y49DDbJK9KtvISJZKOq2VOiHTkTAY8njUstjQ2xGv35gdvxpfg26/0a7TapZ6aYhuAX1q0Ov44="
   app: steam-card-tracker
   on:
     repo: pboksz/steam-card-tracker
