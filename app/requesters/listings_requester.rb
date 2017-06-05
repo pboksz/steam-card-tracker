@@ -11,19 +11,15 @@ class ListingsRequester
 
   private
 
-  def parser
-    @parser ||= JSON
-  end
-
   def requester
     @requester ||= Weary::Request.new(request)
   end
 
   def request_body
-    requester.perform.body
+    @request_body ||= requester.perform.body
   end
 
   def parse_request
-    parser.parse(request_body)
+    @parse_request ||= JSON.parse(request_body)
   end
 end

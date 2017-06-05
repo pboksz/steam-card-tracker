@@ -6,8 +6,8 @@ class Api::GamesController < ApplicationController
   def show
     game = games_repository.find(id: params[:id])
 
-    if game = listings_parser(game).parse
-      render json: game.as_full_json, status: :ok
+    if (updated_game = listings_parser(game).parse)
+      render json: updated_game.as_full_json, status: :ok
     else
       render json: 'Processing error', status: :unprocessable_entity
     end

@@ -30,6 +30,6 @@ class ListingParser
   private
 
   def listing_row
-    listing.css('.market_listing_row')
+    @listing_row ||= listing.css('.market_listing_row')
   end
 end
