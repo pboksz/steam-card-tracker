@@ -1,4 +1,6 @@
 class ListingParser
+  PRICE_REGEX = /\d+\.\d{1,2}/
+
   attr_reader :listing
 
   def initialize(listing)
@@ -6,30 +8,23 @@ class ListingParser
   end
 
   def game_name
-    listing_row.css('.market_listing_game_name').first.content
+    listing.css('.market_listing_game_name').first.text
   end
 
   def item_name
-    listing_row.css('.market_listing_item_name').first.content
+    listing.css('.market_listing_item_name').first.text
   end
 
   def link_url
-    listing.attributes['href'].value
+    listing.attribute('href').value
   end
 
   def image_url
-    listing_row.css('img').first.attributes['src'].value
+    listing.css('img').first.attribute('src').value
   end
 
   def price
-    contents = listing_row.css('.market_table_value span').map(&:content)
-    content = contents.find { |c| c.match(/\$\d+\.\d{1,2}/) }
-    content[1..-1].to_f
-  end
-
-  private
-
-  def listing_row
-    @listing_row ||= listing.css('.market_listing_row')
+    full_price = listing.css('.market_table_value .normal_price').text
+    full_price.match(PRICE_REGEX)[0].to_f
   end
 end

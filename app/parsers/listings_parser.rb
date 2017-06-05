@@ -31,7 +31,7 @@ class ListingsParser
   end
 
   def listings
-    @listings ||= Nokogiri::HTML(response['results_html']).css('.market_listing_row_link')
+    @listings ||= Oga.parse_html(response['results_html']).css('.market_listing_row_link')
   end
 
   def listing_parser(listing)
