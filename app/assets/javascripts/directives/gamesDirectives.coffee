@@ -36,7 +36,7 @@ angular.module('cardtracker').directive 'scrollTop', ->
     $(window).scroll ->
       if $(window).scrollTop() > 100 then $(element).fadeIn(300) else $(element).fadeOut(300)
     $(element).on 'click', ->
-      $('body').animate { scrollTop: 0 }, 500
+      $('html,body').animate { scrollTop: 0 }, 500
 
 loadGame = (gameElement, Game, Chart, $compile, $templateCache, toggle = true) ->
   scrollToGame(gameElement)
@@ -61,7 +61,7 @@ loadGame = (gameElement, Game, Chart, $compile, $templateCache, toggle = true) -
         stopReloadingIcon(gameElement)
 
 scrollToGame = (gameElement) ->
-  $('body').animate { scrollTop: gameElement.offset().top }, 200
+  $('html,body').animate { scrollTop: gameElement.offset().top }, 200
 
 toggleGameCards = (gameElement) ->
   gameElement.find('.game-cards').toggle()
