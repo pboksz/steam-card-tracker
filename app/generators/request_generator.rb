@@ -6,7 +6,7 @@ class RequestGenerator
   end
 
   def generate
-    "#{url}#{options}"
+    "#{url}?#{options}"
   end
 
   private
@@ -16,14 +16,6 @@ class RequestGenerator
   end
 
   def options
-    "?query=#{query}&start=0&count=5000"
-  end
-
-  def query
-    "trading+card+#{game_query_name}"
-  end
-
-  def game_query_name
-    game.name.downcase.gsub(' ', '+')
+    { query: "trading card #{game.name}", start: 0, count: 5000 }.to_query
   end
 end
