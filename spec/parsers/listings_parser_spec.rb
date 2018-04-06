@@ -1,16 +1,15 @@
 require 'rails_helper'
 
 describe ListingsParser do
-  let(:response) {
+  let(:requester) {
     {
       'success' => success,
       'total_count' => 1,
-      'results_html' => '<div class="market_listing_row_link">Row</div>'
+      'results' => { 'name' => 'Card' }
     }
   }
   let(:game) { build(:game) }
   let(:generator) { double(generate: double) }
-  let(:requester) { double(response: response) }
   let(:listings_parser) { ListingsParser.new(game) }
   before do
     allow(RequestGenerator).to receive(:new).with(game).and_return(generator)

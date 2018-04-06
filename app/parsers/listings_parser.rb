@@ -26,12 +26,8 @@ class ListingsParser
     @listings_requester ||= ListingsRequester.new(request_generator.generate)
   end
 
-  def response
-    @response ||= listings_requester.response
-  end
-
   def listings
-    @listings ||= Oga.parse_html(response['results_html']).css('.market_listing_row_link')
+    @listings ||= listings_requester['results']
   end
 
   def listing_parser(listing)
@@ -43,6 +39,6 @@ class ListingsParser
   end
 
   def response_successful?
-    response['success'] && response['total_count'] > 0
+    listings_requester['success'] && listings_requester['total_count'] > 0
   end
 end

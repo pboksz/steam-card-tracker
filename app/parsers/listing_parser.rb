@@ -1,30 +1,33 @@
 class ListingParser
-  PRICE_REGEX = /\d+\.\d{1,2}/
-
   attr_reader :listing
 
   def initialize(listing)
     @listing = listing
   end
 
-  def game_name
-    listing.css('.market_listing_game_name').first.text
-  end
-
   def item_name
-    listing.css('.market_listing_item_name').first.text
+    asset['name']
   end
 
   def link_url
-    listing.attribute('href').value
+    File.join('https://steamcommunity.com/market/listings', asset['appid'].to_s, asset['market_hash_name'].to_s)
   end
 
   def image_url
-    listing.css('img').first.attribute('src').value
+    File.join('https://steamcommunity.com/market/image', asset['icon_url'].to_s)
   end
 
   def price
-    full_price = listing.css('.market_table_value .normal_price').text
-    full_price.match(PRICE_REGEX)[0].to_f
+    listing['sell_price'].to_f / 100.0
+  end
+
+  def foil?
+    item_name.ends_with?('(Foil)')
+  end
+
+  private
+
+  def asset
+    @asset ||= listing['asset_description']
   end
 end

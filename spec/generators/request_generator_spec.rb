@@ -5,6 +5,6 @@ describe  RequestGenerator do
   let(:request_generator) { RequestGenerator.new(game) }
 
   describe '#generate' do
-    it { expect(request_generator.generate).to eq "http://steamcommunity.com/market/search/render?count=5000&query=trading+card+Game+ABZ%C3%9B&start=0" }
+    it { expect(request_generator.generate).to eq "http://steamcommunity.com/market/search/render?norender=1&query=trading+card+Game+ABZ%C3%9B" }
   end
 end

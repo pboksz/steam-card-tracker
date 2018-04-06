@@ -5,13 +5,13 @@ describe GameProcessor do
   let(:game_processor) { GameProcessor.new(game, listing) }
 
   describe '#process' do
-    describe 'game name not correct' do
-      let(:listing) { double(game_name: "Invalid") }
+    describe 'foil card' do
+      let(:listing) { double(foil?: true) }
       it { expect(game_processor.process).to be_nil }
     end
 
     describe 'game name is correct' do
-      let(:listing) { double(game_name: "#{game.name} Trading Card") }
+      let(:listing) { double(foil?: false) }
       let(:item_processor) { double }
       before do
         allow(ItemProcessor).to receive(:new).with(game.items, listing).and_return(item_processor)

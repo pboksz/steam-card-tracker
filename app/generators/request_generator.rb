@@ -16,6 +16,6 @@ class RequestGenerator
   end
 
   def options
-    { query: "trading card #{game.name}", start: 0, count: 5000 }.to_query
+    { query: "trading card #{game.name}", norender: 1 }.to_query
   end
 end

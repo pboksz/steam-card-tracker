@@ -1,25 +1,43 @@
 require 'rails_helper'
 
 describe 'ListingParser' do
-  let(:parser) { ListingParser.new(TestListing.new) }
-
-  describe '#game_name' do
-    it { expect(parser.game_name).to eq 'Game Trading Card' }
-  end
+  let(:listing) {
+    {
+      'sell_price' => 36,
+      'asset_description' => {
+        'name' => 'Trading Card',
+        'appid' => 100,
+        'market_hash_name' => '12345-Trading Card',
+        'icon_url' => 'TRADING-CARD12345'
+      }
+    }
+  }
+  let(:parser) { ListingParser.new(listing) }
 
   describe '#item_name' do
     it { expect(parser.item_name).to eq 'Trading Card' }
   end
 
   describe '#link_url' do
-    it { expect(parser.link_url).to eq '/link' }
+    it { expect(parser.link_url).to eq 'https://steamcommunity.com/market/listings/100/12345-Trading Card' }
   end
 
   describe '#image_url' do
-    it { expect(parser.image_url).to eq 'image.jpg' }
+    it { expect(parser.image_url).to eq 'https://steamcommunity.com/market/image/TRADING-CARD12345' }
   end
 
   describe '#price' do
-    it { expect(parser.price).to eq 0.1 }
+    it { expect(parser.price).to eq 0.36 }
+  end
+
+  describe '#foil?' do
+    context 'not foil' do
+      it { expect(parser.foil?).to be false }
+    end
+
+    context 'foil' do
+      let(:listing) { { 'asset_description' => { 'name' => 'Trading Card (Foil)' } } }
+      it { expect(parser.foil?).to be true }
+    end
   end
 end
