@@ -24,8 +24,6 @@ CodeClimate::TestReporter.start
 #
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
-Capybara.default_driver = :webkit
-
 RSpec.configure do |config|
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -56,10 +54,5 @@ RSpec.configure do |config|
 
   config.after do
     DatabaseCleaner.clean
-  end
-
-  config.before type: :feature do
-    page.driver.block_unknown_urls
-    page.driver.browser.set_skip_image_loading(true)
   end
 end
