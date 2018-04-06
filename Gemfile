@@ -15,7 +15,6 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'highcharts-rails'
 gem 'json'
-gem 'oga'
 gem 'weary'
 gem 'admin_auth'
 
