@@ -1,6 +1,0 @@
-unless Rails.env.production?
-  ENV['MYSQL_DB_HOST'] = '<host>'
-  ENV['MYSQL_DB_NAME'] = '<name>'
-  ENV['MYSQL_DB_USERNAME'] = '<username>'
-  ENV['MYSQL_DB_PASSWORD'] = '<password>'
-end
