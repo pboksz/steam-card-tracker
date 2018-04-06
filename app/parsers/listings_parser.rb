@@ -6,10 +6,9 @@ class ListingsParser
   end
 
   def parse
-    if response_successful?
-      listings.each { |listing| game_processor(listing_parser(listing)).process }
-      games_repository.update(game.id)
-    end
+    return unless response_successful?
+    listings.each { |listing| game_processor(listing_parser(listing)).process }
+    games_repository.update(game.id)
   end
 
   private
@@ -26,8 +25,12 @@ class ListingsParser
     @listings_requester ||= ListingsRequester.new(request_generator.generate)
   end
 
+  def response
+    @response ||= listings_requester.response
+  end
+
   def listings
-    @listings ||= listings_requester['results']
+    @listings ||= response['results']
   end
 
   def listing_parser(listing)
@@ -39,6 +42,6 @@ class ListingsParser
   end
 
   def response_successful?
-    listings_requester['success'] && listings_requester['total_count'] > 0
+    response['success'] && response['total_count'] > 0
   end
 end

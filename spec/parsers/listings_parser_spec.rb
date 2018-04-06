@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe ListingsParser do
-  let(:requester) {
+  let(:response) {
     {
       'success' => success,
       'total_count' => 1,
@@ -10,6 +10,7 @@ describe ListingsParser do
   }
   let(:game) { build(:game) }
   let(:generator) { double(generate: double) }
+  let(:requester) { double(response: response) }
   let(:listings_parser) { ListingsParser.new(game) }
   before do
     allow(RequestGenerator).to receive(:new).with(game).and_return(generator)

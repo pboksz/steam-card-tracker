@@ -31,11 +31,11 @@ describe 'ListingParser' do
   end
 
   describe '#foil?' do
-    context 'not foil' do
+    describe 'not foil' do
       it { expect(parser.foil?).to be false }
     end
 
-    context 'foil' do
+    describe 'foil' do
       let(:listing) { { 'asset_description' => { 'name' => 'Trading Card (Foil)' } } }
       it { expect(parser.foil?).to be true }
     end

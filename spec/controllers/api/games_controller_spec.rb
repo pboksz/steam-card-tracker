@@ -16,38 +16,39 @@ describe Api::GamesController do
 
   describe 'GET #show' do
     let(:game) { build(:game) }
-    let(:parser) { double }
-    before do
-      expect(repository).to receive(:find).with(id: game.id).and_return(game)
-      allow(ListingsParser).to receive(:new).with(game).and_return(parser)
-    end
+    before { expect(repository).to receive(:find).with(id: game.id).and_return(game) }
 
-    describe 'listings parses correctly' do
+    describe 'show' do
       before do
-        expect(parser).to receive(:parse).and_return(game)
         expect(game).to receive(:as_full_json)
-        get :show, id: game.id
+        get :show, id: game.id, reload: "false"
       end
 
       it { expect(response.status).to eq 200 }
     end
 
-    describe 'listings does not parse correctly' do
-      before do
-        expect(parser).to receive(:parse).and_return(nil)
-        get :show, id: game.id
+    describe 'reload' do
+      let(:parser) { double }
+      before { allow(ListingsParser).to receive(:new).with(game).and_return(parser) }
+
+      describe 'listings parses correctly' do
+        before do
+          expect(parser).to receive(:parse).and_return(game)
+          expect(game).to receive(:as_full_json)
+          get :show, id: game.id, reload: "true"
+        end
+
+        it { expect(response.status).to eq 200 }
       end
 
-      it { expect(response.status).to eq 422 }
-    end
+      describe 'listing parse throws error' do
+        before do
+          expect(parser).to receive(:parse).and_raise(StandardError)
+          get :show, id: game.id, reload: "true"
+        end
 
-    describe 'listing parse throws error' do
-      before do
-        expect(parser).to receive(:parse).and_raise(StandardError)
-        get :show, id: game.id
+        it { expect(response.status).to eq 422 }
       end
-
-      it { expect(response.status).to eq 422 }
     end
   end
 end

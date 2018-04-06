@@ -12,7 +12,7 @@ class RequestGenerator
   private
 
   def url
-    "http://steamcommunity.com/market/search/render"
+    "https://steamcommunity.com/market/search/render"
   end
 
   def options
