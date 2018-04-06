@@ -54,22 +54,4 @@ describe 'Home page' do
       expect(first('.game')).to have_selector '.game-cards', visible: false
     end
   end
-
-  describe 'click on reload' do
-    let(:repository) { double }
-    let(:parser) { double }
-    before do
-      allow(DefaultRepository).to receive(:new).with(Game).and_return(repository)
-      allow(ListingsParser).to receive(:new).with(game1).and_return(parser)
-      expect(repository).to receive(:find).with(id: game1.id).and_return(game1)
-      expect(parser).to receive(:parse).and_return(game1)
-      sleep(0.1)
-      first('.game .reload-game').click
-    end
-
-    it 'shows items' do
-      expect(first('.game')).to have_css '.game-title.success'
-      expect(first('.game .time-to-load')).to have_text 'seconds'
-    end
-  end
 end
