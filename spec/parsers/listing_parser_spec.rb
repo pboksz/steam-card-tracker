@@ -23,7 +23,7 @@ describe 'ListingParser' do
   end
 
   describe '#image_url' do
-    it { expect(parser.image_url).to eq 'https://steamcommunity.com/market/image/TRADING-CARD12345' }
+    it { expect(parser.image_url).to eq 'https://steamcommunity.com/economy/image/TRADING-CARD12345' }
   end
 
   describe '#price' do

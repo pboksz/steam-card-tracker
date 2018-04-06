@@ -14,7 +14,7 @@ class ListingParser
   end
 
   def image_url
-    File.join('https://steamcommunity.com/market/image', asset['icon_url'].to_s)
+    File.join('https://steamcommunity.com/economy/image', asset['icon_url'].to_s)
   end
 
   def price
