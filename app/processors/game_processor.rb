@@ -7,12 +7,16 @@ class GameProcessor
   end
 
   def process
-    item_processor.process unless listing.foil?
+    item_processor.process if processable?
   end
 
   private
 
   def item_processor
     @item_processor ||= ItemProcessor.new(game.items, listing)
+  end
+
+  def processable?
+    listing.game_name == "#{game.name} Trading Card" && !listing.foil?
   end
 end

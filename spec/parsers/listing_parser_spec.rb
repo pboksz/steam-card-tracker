@@ -8,7 +8,8 @@ describe 'ListingParser' do
         'name' => 'Trading Card',
         'appid' => 100,
         'market_hash_name' => '12345-Trading Card',
-        'icon_url' => 'TRADING-CARD12345'
+        'icon_url' => 'TRADING-CARD12345',
+        'type' => 'Game Trading Card'
       }
     }
   }
@@ -16,6 +17,10 @@ describe 'ListingParser' do
 
   describe '#item_name' do
     it { expect(parser.item_name).to eq 'Trading Card' }
+  end
+
+  describe '#game_name' do
+    it { expect(parser.game_name).to eq 'Game Trading Card' }
   end
 
   describe '#link_url' do

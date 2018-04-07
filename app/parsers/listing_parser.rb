@@ -9,6 +9,10 @@ class ListingParser
     asset['name']
   end
 
+  def game_name
+    asset['type']
+  end
+
   def link_url
     File.join('https://steamcommunity.com/market/listings', asset['appid'].to_s, asset['market_hash_name'].to_s)
   end
