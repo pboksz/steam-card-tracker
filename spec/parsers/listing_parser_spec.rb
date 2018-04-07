@@ -44,5 +44,10 @@ describe 'ListingParser' do
       let(:listing) { { 'asset_description' => { 'name' => 'Trading Card (Foil)' } } }
       it { expect(parser.foil?).to be true }
     end
+
+    describe 'foil trading card' do
+      let(:listing) { { 'asset_description' => { 'name' => 'Trading Card (Foil Trading Card)' } } }
+      it { expect(parser.foil?).to be true }
+    end
   end
 end

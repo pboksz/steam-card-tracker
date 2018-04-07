@@ -26,7 +26,7 @@ class ListingParser
   end
 
   def foil?
-    item_name.ends_with?('(Foil)')
+    item_name.ends_with?('(Foil)') || item_name.ends_with?("(Foil Trading Card)")
   end
 
   private
