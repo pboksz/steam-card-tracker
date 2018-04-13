@@ -1,11 +1,16 @@
 .admin
   margin: 0 auto
   width: 60%
-  .game
+  .game, .item
     margin-bottom: 1em
     border-bottom: 1px dotted $main
     a
-      float: right
       color: $main
       &:hover
+        color: $info
+    .delete
+      float: right
+      &:hover
         color: $warning
+    img
+      height: 10em
