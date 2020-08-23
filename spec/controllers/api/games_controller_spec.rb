@@ -37,7 +37,7 @@ describe Api::GamesController do
     end
   end
 
-  describe 'POST #reload' do
+  describe 'GET #reload' do
     let(:game) { build(:game) }
     let(:parser) { double }
     before do
@@ -49,7 +49,7 @@ describe Api::GamesController do
       before do
         expect(parser).to receive(:parse).and_return(game)
         expect(game).to receive(:as_json)
-        post :reload, id: game.id
+        get :reload, id: game.id
       end
 
       it { expect(response.status).to eq 200 }
@@ -58,7 +58,7 @@ describe Api::GamesController do
     describe 'throws error' do
       before do
         expect(parser).to receive(:parse).and_raise(StandardError)
-        post :reload, id: game.id
+        get :reload, id: game.id
       end
 
       it { expect(response.status).to eq 422 }
