@@ -17,7 +17,6 @@ gem 'weary'
 gem 'admin_auth'
 
 group :test do
-  gem 'codeclimate-test-reporter', require: nil
   gem 'database_cleaner'
 end
 
