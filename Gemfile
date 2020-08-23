@@ -9,8 +9,6 @@ gem 'font-awesome-sass'
 gem 'compass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
-gem 'therubyracer', platforms: :ruby
-
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'highcharts-rails'

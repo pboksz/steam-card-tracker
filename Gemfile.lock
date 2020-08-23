@@ -120,7 +120,6 @@ GEM
     kgio (2.9.3)
     launchy (2.4.3)
       addressable (~> 2.3)
-    libv8 (3.16.14.7)
     loofah (2.6.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -188,7 +187,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (13.0.1)
-    ref (1.0.5)
     rspec-core (3.5.4)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -231,9 +229,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    therubyracer (0.12.1)
-      libv8 (~> 3.16.14.0)
-      ref
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (1.4.1)
@@ -290,7 +285,6 @@ DEPENDENCIES
   rails_12factor
   rspec-rails
   sass-rails
-  therubyracer
   travis
   uglifier
   unicorn
