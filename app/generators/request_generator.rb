@@ -16,6 +16,10 @@ class RequestGenerator
   end
 
   def options
-    { query: "#{game.name} Trading Card", norender: 1 }.to_query
+    "norender=1&query=\"#{query}\""
+  end
+
+  def query
+    CGI.escape("#{game.name} Trading Card")
   end
 end
