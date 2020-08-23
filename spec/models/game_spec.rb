@@ -45,7 +45,7 @@ describe Game do
     end
 
     describe 'updated today' do
-      let(:game) { build(:game, updated_at: Date.today) }
+      let(:game) { build(:game, updated_at: Time.now) }
       it { expect(game.updated_today?).to eq true }
     end
   end
