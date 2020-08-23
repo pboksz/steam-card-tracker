@@ -20,7 +20,7 @@ class Game
   end
 
   def updated_today?
-    updated_at.to_date == Date.today if updated_at
+    updated_at.to_date == Time.now.utc.to_date if updated_at
   end
 
   private
