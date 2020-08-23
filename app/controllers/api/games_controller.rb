@@ -4,14 +4,14 @@ class Api::GamesController < ApplicationController
   end
 
   def show
-    game = games_repository.find(id: params[:id])
+    render json: game.as_full_json, status: :ok
+  rescue => e
+    render json: e.message, status: :unprocessable_entity
+  end
 
-    if params[:reload] == "true"
-      updated_game = listings_parser(game).parse
-      render json: updated_game.as_full_json, status: :ok
-    else
-      render json: game.as_full_json, status: :ok
-    end
+  def reload
+    listings_parser(game).parse
+    render json: game.as_json, status: :ok
   rescue => e
     render json: e.message, status: :unprocessable_entity
   end
@@ -20,6 +20,10 @@ class Api::GamesController < ApplicationController
 
   def games_repository
     @games_repository ||= DefaultRepository.new(Game)
+  end
+
+  def game
+    @game ||= games_repository.find(id: params[:id])
   end
 
   def listings_parser(game)

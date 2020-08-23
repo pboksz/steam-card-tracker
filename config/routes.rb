@@ -9,7 +9,9 @@ SteamCardTracker::Application.routes.draw do
   end
 
   namespace :api do
-    resources :games, only: [:index, :show]
+    resources :games, only: [:index, :show] do
+      post 'reload', on: :member
+    end
   end
 
   get '/sitemap(.xml)' => 'home#sitemap', format: 'xml'

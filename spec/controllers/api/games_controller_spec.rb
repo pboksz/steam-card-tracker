@@ -18,37 +18,50 @@ describe Api::GamesController do
     let(:game) { build(:game) }
     before { expect(repository).to receive(:find).with(id: game.id).and_return(game) }
 
-    describe 'show' do
+    describe 'renders success' do
       before do
         expect(game).to receive(:as_full_json)
-        get :show, id: game.id, reload: "false"
+        get :show, id: game.id
       end
 
       it { expect(response.status).to eq 200 }
     end
 
-    describe 'reload' do
-      let(:parser) { double }
-      before { allow(ListingsParser).to receive(:new).with(game).and_return(parser) }
-
-      describe 'listings parses correctly' do
-        before do
-          expect(parser).to receive(:parse).and_return(game)
-          expect(game).to receive(:as_full_json)
-          get :show, id: game.id, reload: "true"
-        end
-
-        it { expect(response.status).to eq 200 }
+    describe 'throws error' do
+      before do
+        expect(game).to receive(:as_full_json).and_raise(StandardError)
+        get :show, id: game.id
       end
 
-      describe 'listing parse throws error' do
-        before do
-          expect(parser).to receive(:parse).and_raise(StandardError)
-          get :show, id: game.id, reload: "true"
-        end
+      it { expect(response.status).to eq 422 }
+    end
+  end
 
-        it { expect(response.status).to eq 422 }
+  describe 'POST #reload' do
+    let(:game) { build(:game) }
+    let(:parser) { double }
+    before do
+      expect(repository).to receive(:find).with(id: game.id).and_return(game)
+      allow(ListingsParser).to receive(:new).with(game).and_return(parser)
+    end
+
+    describe 'parses correctly' do
+      before do
+        expect(parser).to receive(:parse).and_return(game)
+        expect(game).to receive(:as_json)
+        post :reload, id: game.id
       end
+
+      it { expect(response.status).to eq 200 }
+    end
+
+    describe 'throws error' do
+      before do
+        expect(parser).to receive(:parse).and_raise(StandardError)
+        post :reload, id: game.id
+      end
+
+      it { expect(response.status).to eq 422 }
     end
   end
 end
