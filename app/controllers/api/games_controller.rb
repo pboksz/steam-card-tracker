@@ -10,7 +10,6 @@ class Api::GamesController < ApplicationController
   end
 
   def reload
-    binding.pry
     listings_parser(game).parse
     render json: game.as_json, status: :ok
   rescue => e
