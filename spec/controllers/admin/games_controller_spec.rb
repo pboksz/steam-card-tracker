@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Admin::GamesController do
-  let(:repository) { double }
+  let(:repository) { DefaultRepository.new(Game) }
   before do
     allow(controller).to receive(:authenticate_admin!)
     allow(DefaultRepository).to receive(:new).with(Game).and_return(repository)
@@ -24,23 +24,50 @@ describe Admin::GamesController do
 
     describe 'not present' do
       before do
-        expect(repository).to receive(:find).with(params).and_return(nil)
         expect(repository).to receive(:create).with(params)
         post :create, game: params
       end
 
-      it { expect(response).to redirect_to admin_games_path }
+      it do
+        expect(response).to redirect_to admin_games_path
+        expect(flash[:success]).to eq "Game Name has been created"
+      end
     end
 
     describe 'already present' do
-      let(:game_in_database) { double }
+      let!(:game) { create(:game, name: 'Game Name') }
       before do
-        expect(repository).to receive(:find).with(params).and_return(game_in_database)
-        expect(repository).to receive(:create).with(params).never
+        expect(repository).to receive(:create).never
         post :create, game: params
       end
 
-      it { expect(response).to redirect_to admin_games_path }
+      it do
+        expect(response).to redirect_to admin_games_path
+        expect(flash[:warning]).to eq "Game Name is already in the database"
+      end
+    end
+  end
+
+  describe 'PUT #update' do
+    let!(:game) { create(:game, name: 'Game Name') }
+    let(:params) { { name: 'Game Name' } }
+
+    describe 'valid params' do
+      before { put :update, id: game.id, game: params }
+
+      it do
+        expect(response).to redirect_to admin_games_path
+        expect(flash[:success]).to eq "Game Name has been updated"
+      end
+    end
+
+    describe 'invalid params' do
+      before { put :update, id: 'invalid123', game: params }
+
+      it do
+        expect(response).to redirect_to admin_games_path
+        expect(flash[:warning]).to eq "Game Name has NOT been updated"
+      end
     end
   end
 end
