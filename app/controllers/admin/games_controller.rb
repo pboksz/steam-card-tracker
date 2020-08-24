@@ -6,7 +6,7 @@ class Admin::GamesController < ApplicationController
   end
 
   def create
-    games_repository.create(game_params)
+    games_repository.create(game_params) unless games_repository.find(game_params).present?
     redirect_to admin_games_path
   end
 

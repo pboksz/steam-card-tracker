@@ -21,11 +21,26 @@ describe Admin::GamesController do
 
   describe 'POST #create' do
     let(:params) { { name: 'Game Name' } }
-    before do
-      expect(repository).to receive(:create).with(params)
-      post :create, game: params
+
+    describe 'not present' do
+      before do
+        expect(repository).to receive(:find).with(params).and_return(nil)
+        expect(repository).to receive(:create).with(params)
+        post :create, game: params
+      end
+
+      it { expect(response).to redirect_to admin_games_path }
     end
 
-    it { expect(response).to redirect_to admin_games_path }
+    describe 'already present' do
+      let(:game_in_database) { double }
+      before do
+        expect(repository).to receive(:find).with(params).and_return(game_in_database)
+        expect(repository).to receive(:create).with(params).never
+        post :create, game: params
+      end
+
+      it { expect(response).to redirect_to admin_games_path }
+    end
   end
 end
