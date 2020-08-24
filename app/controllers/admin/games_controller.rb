@@ -10,15 +10,6 @@ class Admin::GamesController < ApplicationController
     redirect_to admin_games_path
   end
 
-  def show
-    render :show, locals: { game: games_repository.find(id: params[:id]) }
-  end
-
-  def destroy
-    games_repository.destroy(params[:id])
-    redirect_to admin_games_path
-  end
-
   private
 
   def games_repository

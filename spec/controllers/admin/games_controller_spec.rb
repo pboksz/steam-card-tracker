@@ -28,25 +28,4 @@ describe Admin::GamesController do
 
     it { expect(response).to redirect_to admin_games_path }
   end
-
-  describe 'GET #show' do
-    let(:game) { double }
-    let(:params) { { id: '1' } }
-    before do
-      expect(repository).to receive(:find).with(id: '1').and_return(game)
-      get :show, params
-    end
-
-    it { expect(response).to render_template :show, locals: { game: game } }
-  end
-
-  describe 'DELETE #destroy' do
-    let(:params) { { id: '1' } }
-    before do
-      expect(repository).to receive(:destroy).with(params[:id])
-      delete :destroy, params
-    end
-
-    it { expect(response).to redirect_to admin_games_path }
-  end
 end

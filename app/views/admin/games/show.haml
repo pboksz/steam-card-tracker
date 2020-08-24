@@ -1,8 +1,0 @@
-.admin.game
-  %h2= game.name
-  - game.items.each do |item|
-    .item
-      = link_to item.link_url, target: :_blank do
-        = image_tag item.image_url
-      = link_to admin_game_item_path(game.id, item.id), method: :delete, class: :delete do
-        = icon('trash-o')
