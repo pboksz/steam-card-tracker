@@ -3,7 +3,7 @@ SteamCardTracker::Application.routes.draw do
   admin_auth_routes
 
   namespace :admin do
-    resources :games, only: [:index, :create]
+    resources :games, only: [:index, :create, :update]
   end
 
   namespace :api do

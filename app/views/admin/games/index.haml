@@ -1,9 +1,16 @@
 .admin.games
+  #flash-messages
+    - flash.each do |type, message|
+      %div{ class: type }= message
+
   %h2= 'Add a new game'
   = form_for game, url: admin_games_path, method: :post do |f|
-    = f.text_field :name, placeholder: 'Game Title'
+    = f.text_field :name, placeholder: 'New Game Title'
     = f.submit 'Save'
 
   %h2= 'Already in the database'
   - games.each do |game|
-    .game= game.name
+    = form_for game, url: admin_game_path(game), method: :put do |f|
+      .game
+        = f.text_field :name
+        = f.submit 'Update'

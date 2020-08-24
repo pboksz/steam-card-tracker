@@ -6,7 +6,23 @@ class Admin::GamesController < ApplicationController
   end
 
   def create
-    games_repository.create(game_params) unless games_repository.find(game_params).present?
+    if games_repository.find(game_params).present?
+      flash[:warning] = "#{game_params[:name]} is already in the database"
+    else
+      games_repository.create(game_params)
+      flash[:success] = "#{game_params[:name]} has been created"
+    end
+
+    redirect_to admin_games_path
+  end
+
+  def update
+    if game.update_attributes(game_params)
+      flash[:success] = "#{game_params[:name]} has been updated"
+    else
+      flash[:warning] = "#{game_params[:name]} has NOT been updated"
+    end
+
     redirect_to admin_games_path
   end
 
@@ -14,6 +30,10 @@ class Admin::GamesController < ApplicationController
 
   def games_repository
     @games_repository ||= DefaultRepository.new(Game)
+  end
+
+  def game
+    @game ||= games_repository.find(id: params[:id])
   end
 
   def game_params
