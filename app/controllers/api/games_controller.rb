@@ -10,8 +10,8 @@ class Api::GamesController < ApplicationController
   end
 
   def parse
-    listings_parser(game).parse
-    render json: game.as_json, status: :ok
+    updated_game = listings_parser(game).parse
+    render json: updated_game.as_json, status: :ok
   rescue => e
     render json: e.message, status: :unprocessable_entity
   end
