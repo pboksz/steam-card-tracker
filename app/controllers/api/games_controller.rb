@@ -9,7 +9,7 @@ class Api::GamesController < ApplicationController
     render json: e.message, status: :unprocessable_entity
   end
 
-  def reload
+  def parse
     listings_parser(game).parse
     render json: game.as_json, status: :ok
   rescue => e

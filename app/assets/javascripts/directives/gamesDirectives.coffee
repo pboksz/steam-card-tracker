@@ -7,7 +7,7 @@ angular.module('cardtracker').directive 'toggleGame', [
         if scope.game.items && scope.game.items.length > 0
           toggleGameCards(gameElement)
         else
-          loadGame(gameElement, Game, Chart, $compile, $templateCache)
+          showGame(gameElement, Game, Chart, $compile, $templateCache)
 ]
 
 angular.module('cardtracker').directive 'reloadGame', [
@@ -16,7 +16,7 @@ angular.module('cardtracker').directive 'reloadGame', [
     link: (scope, element) ->
       $(element).on 'click', ->
         gameElement = $(element).closest('.game')
-        reloadGame(gameElement, Game)
+        parseGame(gameElement, Game)
 ]
 
 angular.module('cardtracker').directive 'loadAllGames', [
@@ -26,7 +26,7 @@ angular.module('cardtracker').directive 'loadAllGames', [
       $(element).on 'click', ->
         $('.game').each (index, game) ->
           $timeout ->
-            reloadGame($(game), Game)
+            parseGame($(game), Game)
           , 12000 * index
 ]
 
@@ -38,7 +38,7 @@ angular.module('cardtracker').directive 'scrollTop', ->
     $(element).on 'click', ->
       $('html,body').animate { scrollTop: 0 }, 500
 
-loadGame = (gameElement, Game, Chart, $compile, $templateCache) ->
+showGame = (gameElement, Game, Chart, $compile, $templateCache) ->
   spinReloadingIcon(gameElement)
   scrollToGame(gameElement)
   scope = gameElement.scope()
@@ -51,30 +51,22 @@ loadGame = (gameElement, Game, Chart, $compile, $templateCache) ->
         gameElement.find('.game-cards').append($compile($templateCache.get('game.html'))(scope))
         Chart.render(gameElement.find('.game-chart')[0], success.data)
         toggleGameCards(gameElement)
-        addClassToTitle(gameElement, 'success')
-        calculateTimeToLoad(gameElement, startTime)
-        stopReloadingIcon(gameElement)
+        loadSuccess(gameElement, startTime)
       (error) ->
-        addClassToTitle(gameElement, 'warning')
-        calculateTimeToLoad(gameElement, startTime, error)
-        stopReloadingIcon(gameElement)
+        loadError(gameElement, startTime, error)
 
-reloadGame = (gameElement, Game) ->
+parseGame = (gameElement, Game) ->
   spinReloadingIcon(gameElement)
   scrollToGame(gameElement)
   scope = gameElement.scope()
   startTime = getCurrentMilliseconds()
   scope.$apply ->
-    Game.show id: gameElement.attr('id'), action: 'reload',
+    Game.show id: gameElement.attr('id'), action: 'parse',
       (success) ->
         scope.game.updated_today = success.updated_today
-        addClassToTitle(gameElement, 'success')
-        calculateTimeToLoad(gameElement, startTime)
-        stopReloadingIcon(gameElement)
+        loadSuccess(gameElement, startTime)
       (error) ->
-        addClassToTitle(gameElement, 'warning')
-        calculateTimeToLoad(gameElement, startTime, error)
-        stopReloadingIcon(gameElement)
+        loadError(gameElement, startTime, error)
 
 scrollToGame = (gameElement) ->
   $('html,body').animate { scrollTop: gameElement.offset().top + 88 }, 200
@@ -100,3 +92,13 @@ calculateTimeToLoad = (gameElement, startTime, error = null) ->
   timeText = "#{timeToLoad} seconds"
   timeText += " | #{error.data}" if error?
   gameElement.find('.time-to-load').text(timeText)
+
+loadSuccess = (gameElement, startTime) ->
+  addClassToTitle(gameElement, 'success')
+  calculateTimeToLoad(gameElement, startTime)
+  stopReloadingIcon(gameElement)
+
+loadError = (gameElement, startTime, error) ->
+  addClassToTitle(gameElement, 'warning')
+  calculateTimeToLoad(gameElement, startTime, error)
+  stopReloadingIcon(gameElement)

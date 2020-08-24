@@ -10,7 +10,7 @@ SteamCardTracker::Application.routes.draw do
 
   namespace :api do
     resources :games, only: [:index, :show] do
-      get 'reload', on: :member
+      get 'parse', on: :member
     end
   end
 
