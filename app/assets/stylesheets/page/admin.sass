@@ -1,19 +1,13 @@
 .admin
   margin: 0 auto
   width: 60%
-  .game, .item
+  .game
     padding: 0.5em 0
     border-bottom: 1px dotted $main
-    a
-      color: $main
-      &:hover
-        color: $info
-    .delete
-      float: right
-      &:hover
-        color: $warning
-    img
-      height: 10em
+    &:hover
+      background-color: $info
+      input[type="text"]
+        background-color: $info
   input[type="text"]
     background-color: $background
     border: 0
