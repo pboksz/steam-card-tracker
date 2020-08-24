@@ -10,7 +10,7 @@ class ListingParser
   end
 
   def game_name
-    asset['type']
+    asset['type'].tr("™", "")
   end
 
   def link_url

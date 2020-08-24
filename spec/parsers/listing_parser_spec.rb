@@ -9,7 +9,7 @@ describe 'ListingParser' do
         'appid' => 100,
         'market_hash_name' => '12345-Trading Card',
         'icon_url' => 'TRADING-CARD12345',
-        'type' => 'Game Trading Card'
+        'type' => 'Game™ Trading Card'
       }
     }
   }
