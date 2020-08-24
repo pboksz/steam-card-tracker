@@ -69,7 +69,7 @@ parseGame = (gameElement, Game) ->
         loadError(gameElement, startTime, error)
 
 scrollToGame = (gameElement) ->
-  $('html,body').animate { scrollTop: gameElement.offset().top + 88 }, 200
+  $('html,body').animate { scrollTop: gameElement.offset().top - 88 }, 200
 
 toggleGameCards = (gameElement) ->
   gameElement.find('.game-cards').toggle()
