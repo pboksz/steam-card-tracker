@@ -19,8 +19,13 @@ describe ListingsParser do
 
   describe '#parse' do
     describe 'response is not successful' do
+      let(:response) { nil }
+      it { expect { listings_parser.parse }.to raise_error "response not present" }
+    end
+
+    describe 'response is not successful' do
       let(:success) { false }
-      it { expect { listings_parser.parse }.to raise_error "no listings present" }
+      it { expect { listings_parser.parse }.to raise_error "listings not present" }
     end
 
     describe 'response is successful' do

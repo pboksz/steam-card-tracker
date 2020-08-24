@@ -63,6 +63,7 @@ parseGame = (gameElement, Game) ->
   scope.$apply ->
     Game.show id: gameElement.attr('id'), action: 'parse',
       (success) ->
+        scope.game.price_per_badge = success.price_per_badge
         scope.game.updated_today = success.updated_today
         loadSuccess(gameElement, startTime)
       (error) ->

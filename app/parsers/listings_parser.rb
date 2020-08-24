@@ -6,7 +6,8 @@ class ListingsParser
   end
 
   def parse
-    raise "no listings present" unless response_successful?
+    raise "response not present" unless response.present?
+    raise "listings not present" unless response_successful?
     listings.each { |listing| game_processor(listing_parser(listing)).process }
     games_repository.update(game.id)
   end
