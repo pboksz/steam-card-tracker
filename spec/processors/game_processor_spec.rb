@@ -6,7 +6,7 @@ describe GameProcessor do
 
   describe '#process' do
     describe 'wrong game' do
-      let(:listing) { double(game_name: 'Game2 Trading Card') }
+      let(:listing) { double(game_name: 'Other Trading Card', foil?: false) }
       it { expect(game_processor.process).to be_nil }
     end
 
@@ -16,7 +16,7 @@ describe GameProcessor do
     end
 
     describe 'game name is correct' do
-      let(:listing) { double(game_name: 'Game Trading Card', foil?: false) }
+      let(:listing) { double(game_name: 'Game   Trading Card', foil?: false) }
       let(:item_processor) { double }
       before do
         allow(ItemProcessor).to receive(:new).with(game.items, listing).and_return(item_processor)
