@@ -14,6 +14,6 @@ describe Stat do
 
   describe '#data' do
     let(:milliseconds) { stat.created_at.to_i * 1000 }
-    it { expect(stat.data).to eq [milliseconds, stat.min_price_low, stat.min_price_high] }
+    it { expect(stat.data).to eq x: milliseconds, low: stat.min_price_low, high: stat.min_price_high, total: stat.quantity }
   end
 end

@@ -11,6 +11,7 @@ class ItemJsonGenerator
       link_url: item.link_url,
       image_url: item.image_url,
       latest_price: item.latest_price,
+      latest_quantity: item.latest_quantity,
       all_time_min_price_low: item.all_time_min_price_low,
       all_time_min_price_high: item.all_time_min_price_high
     }

@@ -7,7 +7,7 @@ class StatProcessor
   end
 
   def process
-    stats_repository.update_prices_for_today(listing.price)
+    stats_repository.update_prices_for_today(listing.price, listing.quantity)
   end
 
   private

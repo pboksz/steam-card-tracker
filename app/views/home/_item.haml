@@ -1,7 +1,7 @@
 %a{ 'ng-href' => '{{item.link_url}}', target: :_blank }
   %img.left{ 'ng-src' => '{{item.image_url}}' }
   .right
-    .name {{item.name | truncate}}
+    .name ({{item.latest_quantity}}) {{item.name | truncate}}
     .prices
       .low.success {{item.all_time_min_price_low | currency}}
       .current.info {{item.latest_price | currency}}

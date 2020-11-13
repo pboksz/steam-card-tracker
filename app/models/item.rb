@@ -13,6 +13,10 @@ class Item
     stats.last.min_price_low if stats.present?
   end
 
+  def latest_quantity
+    stats.last.quantity if stats.present?
+  end
+
   def all_time_min_price_low
     stats.min(:min_price_low)
   end
