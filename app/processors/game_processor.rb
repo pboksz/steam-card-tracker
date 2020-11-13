@@ -17,6 +17,6 @@ class GameProcessor
   end
 
   def processable?
-    listing.game_name.starts_with?(game.name) && !listing.foil?
+    listing.available? && !listing.foil? && listing.game_name.start_with?(game.name)
   end
 end

@@ -21,12 +21,20 @@ class ListingParser
     File.join('https://community.cloudflare.steamstatic.com/economy/image', asset['icon_url'].to_s)
   end
 
+  def quantity
+    listing['sell_listings'].to_i
+  end
+
   def price
     listing['sell_price'].to_f / 100.0
   end
 
+  def available?
+    quantity > 0
+  end
+
   def foil?
-    item_name.ends_with?('(Foil)') || item_name.ends_with?("(Foil Trading Card)")
+    item_name.end_with?('(Foil)') || item_name.end_with?("(Foil Trading Card)")
   end
 
   private
