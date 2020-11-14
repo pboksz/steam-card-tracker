@@ -31,5 +31,8 @@ angular.module('cardtracker').factory 'Chart', ->
       xAxis:
         type: 'datetime'
       yAxis:
+        labels:
+          formatter: ->
+            '$' + this.value.toFixed(2)
         title:
           text: ""
