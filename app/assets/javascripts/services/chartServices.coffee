@@ -27,7 +27,7 @@ angular.module('cardtracker').factory 'Chart', ->
         crosshairs: true
         formatter: ->
           '<b>' + this.point.series.name + '</b> on ' + Highcharts.dateFormat('%d.%m.%y', this.x) + '<br/>' +
-          this.point.total + ' at <b>$' + this.point.low.toFixed(2) + '</b> to $' + this.point.high.toFixed(2)
+          '<b>$' + this.point.low.toFixed(2) + '</b> to $' + this.point.high.toFixed(2)
       xAxis:
         type: 'datetime'
       yAxis:

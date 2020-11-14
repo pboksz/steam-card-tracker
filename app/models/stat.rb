@@ -11,7 +11,7 @@ class Stat
   default_scope -> { order_by(created_at: :asc) }
 
   def data
-    { x: created_at_in_milliseconds, low: min_price_low, high: min_price_high, total: quantity }
+    [created_at_in_milliseconds, min_price_low, min_price_high, quantity]
   end
 
   private
