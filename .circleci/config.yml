@@ -26,13 +26,17 @@ jobs:
           command: sudo apt-get install -y mongodb
 
       - run:
+          name: Start MongoDB
+          command: mongod
+
+      - run:
           name: Wait For Database
           command: dockerize -wait tcp://localhost:27017 -timeout 1m
 
       - run:
           name: Add Database Admin
           command: |
-            mongodb && mongo --eval 'db.createUser({ user: "root", pwd: "pass", roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] })'
+            mongo --eval 'db.createUser({ user: "root", pwd: "pass", roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] })'
 
       - run:
           name: Run Specs
