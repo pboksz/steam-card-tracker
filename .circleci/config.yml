@@ -27,7 +27,7 @@ jobs:
 
       - run:
           name: Make MongoDB Directory
-          command: mkdir /data/db/
+          command: sudo mkdir /data/db/
 
       - run:
           name: Start MongoDB
