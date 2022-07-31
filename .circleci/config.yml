@@ -25,13 +25,13 @@ jobs:
           name: Install MongoDB
           command: sudo apt-get install -y mongodb
 
-      - run:
-          name: Make MongoDB Directory
-          command: sudo mkdir -p /data/db/
-
-      - run:
-          name: Start MongoDB
-          command: mongod
+#      - run:
+#          name: Make MongoDB Directory
+#          command: sudo mkdir -p /data/db/
+#
+#      - run:
+#          name: Start MongoDB
+#          command: mongod
 
       - run:
           name: Wait For MongoDB
