@@ -6,7 +6,6 @@
 #= require highcharts/highcharts-more
 #= require cardtracker
 
-#= require services/analyticsService
 #= require services/chartServices
 #= require services/gamesServices
 
