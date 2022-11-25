@@ -1,8 +1,8 @@
-ruby '2.4.2'
+ruby '2.7.6'
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.7'
-gem 'mongoid', '~> 5.4.1'
+gem 'rails', '~> 5.2'
+gem 'mongoid', '~> 6.4'
 
 gem 'sass-rails'
 gem 'font-awesome-sass'
@@ -20,14 +20,8 @@ group :test do
   gem 'database_cleaner'
 end
 
-group :production do
-  gem 'heroku-deflater'
-  gem 'rails_12factor'
-end
-
 group :development, :test do
   gem 'factory_girl_rails'
-  gem 'quiet_assets'
   gem 'pry'
   gem 'rspec-rails'
 end
