@@ -5,9 +5,9 @@
         %span.name= "Steam Card Tracker"
         %input{ 'ng-model' => 'query', class: :search, placeholder: 'Filter games by name' }
       %span.right
-        %span.sort-name{ 'ng-click' => "sort = 'name'" }= icon('fas', 'sort-alpha-asc')
-        %span.sort-price{ 'ng-click' => "sort = 'price_per_badge'" }= icon('fas', 'sort-numeric-asc')
-        %span.load-all-games= icon('fas', 'sort-amount-asc')
+        %span.sort-name{ 'ng-click' => "sort = 'name'" }= icon('fas', 'sort-alpha-down')
+        %span.sort-price{ 'ng-click' => "sort = 'price_per_badge'" }= icon('fas', 'sort-numeric-down')
+        %span.load-all-games= icon('fas', 'download')
 
   .games
     .game{ 'ng-repeat' => 'game in games | filter:query | orderBy:sort', id: '{{game.id}}' }

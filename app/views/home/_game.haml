@@ -3,9 +3,9 @@
     %span.name {{game.name}} ({{game.price_per_badge | currency}}/badge)
     %span.icon
       = icon('fas', 'angle-down')
-      = icon('fas', 'angle-up', '', style: 'display: none')
-  %span.reload-game= icon('fas', 'refresh')
-  %span.updated-today{ 'ng-show' => 'game.updated_today' }= icon('fas', 'download')
+      = icon('fas', 'angle-up', style: 'display: none')
+  %span.reload-game= icon('fas', 'sync-alt')
+  %span.updated-today{ 'ng-show' => 'game.updated_today' }= icon('fas', 'check')
   %span.time-to-load
 
 .game-cards{ style: 'display:none' }
