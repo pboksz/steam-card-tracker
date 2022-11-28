@@ -6,7 +6,7 @@ jobs:
       - image: cimg/ruby:2.7-browsers
         environment:
           RAILS_ENV: test
-      - image: cimg/mongo:6.4
+      - image: circleci/mongo:4.2
         environment:
           - MONGODB_USERNAME: "root"
           - MONGODB_PASSWORD: "pass"
@@ -55,13 +55,10 @@ jobs:
       - run:
           name: Deploy to fly.io
           command: |
-            apk add --no-cache curl
             curl -L https://fly.io/install.sh | sh
-            export FLYCTL_INSTALL="/root/.fly"
+            export FLYCTL_INSTALL="/home/circleci/.fly"
             export PATH="$FLYCTL_INSTALL/bin:$PATH"
-            sh -c "flyctl deploy"
-            sh -c "flyctl info"
-            exit 0
+            sh -c "flyctl deploy --auto-confirm --app $FLY_APP_NAME --access-token $FLY_API_TOKEN"
 
 workflows:
   version: 2
