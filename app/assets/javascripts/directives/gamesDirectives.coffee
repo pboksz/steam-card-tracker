@@ -11,12 +11,12 @@ angular.module('cardtracker').directive 'toggleGame', [
 ]
 
 angular.module('cardtracker').directive 'reloadGame', [
-  'Chart', 'Game', '$compile', '$templateCache', (Chart, Game, $compile, $templateCache) ->
+  'Chart', 'Game', '$compile', '$templateCache', '$timeout', (Chart, Game, $compile, $templateCache, $timeout) ->
     restrict: 'C'
     link: (scope, element) ->
       $(element).on 'click', ->
         gameElement = $(element).closest('.game')
-        parseGame(gameElement, Game)
+        parseGame(gameElement, Game, $timeout, true)
 ]
 
 angular.module('cardtracker').directive 'loadAllGames', [
@@ -25,9 +25,7 @@ angular.module('cardtracker').directive 'loadAllGames', [
     link: (scope, element) ->
       $(element).on 'click', ->
         $('.game').each (index, game) ->
-          $timeout ->
-            parseGame($(game), Game)
-          , 12000 * index
+          parseGameWithTimeout($(game), Game, $timeout, 8000 * index, true)
 ]
 
 angular.module('cardtracker').directive 'scrollTop', ->
@@ -55,7 +53,12 @@ showGame = (gameElement, Game, Chart, $compile, $templateCache) ->
       (error) ->
         loadError(gameElement, startTime, error)
 
-parseGame = (gameElement, Game) ->
+parseGameWithTimeout = (gameElement, Game, $timeout, wait, retry = false) ->
+  $timeout ->
+    parseGame(gameElement, Game, $timeout, retry)
+  , wait
+
+parseGame = (gameElement, Game, $timeout, retry = false) ->
   spinReloadingIcon(gameElement)
   scrollToGame(gameElement)
   scope = gameElement.scope()
@@ -68,6 +71,7 @@ parseGame = (gameElement, Game) ->
         loadSuccess(gameElement, startTime)
       (error) ->
         loadError(gameElement, startTime, error)
+        parseGameWithTimeout(gameElement, Game, $timeout, 2000, false) if retry
 
 scrollToGame = (gameElement) ->
   $('html,body').animate { scrollTop: gameElement.offset().top - 88 }, 200
