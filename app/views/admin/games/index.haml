@@ -18,5 +18,6 @@
   - games.each do |game|
     = form_for game, url: admin_game_path(game), method: :put do |f|
       .game
+        %span.updated= "#{game.updated_at.to_date} | #{game.items.count.to_s.rjust(2, "0")} Items"
         = f.text_field :name
         = f.submit 'Update'
