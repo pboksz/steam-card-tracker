@@ -25,7 +25,7 @@ angular.module('cardtracker').directive 'loadAllGames', [
     link: (scope, element) ->
       $(element).on 'click', ->
         $('.game').each (index, game) ->
-          parseGameWithTimeout($(game), Game, $timeout, 8000 * index, true)
+          parseGameWithTimeout($(game), Game, $timeout, 12000 * index, true)
 ]
 
 angular.module('cardtracker').directive 'scrollTop', ->
@@ -71,7 +71,7 @@ parseGame = (gameElement, Game, $timeout, retry = false) ->
         loadSuccess(gameElement, startTime)
       (error) ->
         loadError(gameElement, startTime, error)
-        parseGameWithTimeout(gameElement, Game, $timeout, 2000, false) if retry
+        parseGameWithTimeout(gameElement, Game, $timeout, 4000, false) if retry
 
 scrollToGame = (gameElement) ->
   $('html,body').animate { scrollTop: gameElement.offset().top - 88 }, 200
