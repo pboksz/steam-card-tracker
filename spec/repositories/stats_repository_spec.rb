@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe StatsRepository do
-  let(:repository) { StatsRepository.new(Stat) }
+  let(:item) { create(:item) }
+  let(:repository) { StatsRepository.new(item.stats) }
 
   describe '#update_prices_for_today' do
     let(:quantity) { 102 }
@@ -19,7 +20,7 @@ describe StatsRepository do
     end
 
     describe 'stat in database' do
-      let!(:stat) { create(:stat, min_price_low: 0.10, min_price_high: 0.20, quantity: 99) }
+      let!(:stat) { create(:stat, item: item, min_price_low: 0.10, min_price_high: 0.20, quantity: 99) }
 
       describe 'price is lower than current low price' do
         let(:price) { 0.05 }
