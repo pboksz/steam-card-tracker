@@ -15,13 +15,13 @@ describe Api::GamesController do
   end
 
   describe 'GET #show' do
-    let(:game) { build(:game) }
+    let(:game) { create(:game) }
     before { expect(repository).to receive(:find).with(id: game.id).and_return(game) }
 
     describe 'renders success' do
       before do
         expect(game).to receive(:as_full_json)
-        get :show, id: game.id
+        get :show, params: { id: game.id }
       end
 
       it { expect(response.status).to eq 200 }
@@ -30,7 +30,7 @@ describe Api::GamesController do
     describe 'throws error' do
       before do
         expect(game).to receive(:as_full_json).and_raise(StandardError)
-        get :show, id: game.id
+        get :show, params: { id: game.id }
       end
 
       it { expect(response.status).to eq 422 }
@@ -38,7 +38,7 @@ describe Api::GamesController do
   end
 
   describe 'GET #parse' do
-    let(:game) { build(:game) }
+    let(:game) { create(:game) }
     let(:parser) { double }
     before do
       expect(repository).to receive(:find).with(id: game.id).and_return(game)
@@ -49,7 +49,7 @@ describe Api::GamesController do
       before do
         expect(parser).to receive(:parse).and_return(game)
         expect(game).to receive(:as_json)
-        get :parse, id: game.id
+        get :parse, params: { id: game.id }
       end
 
       it { expect(response.status).to eq 200 }
@@ -58,7 +58,7 @@ describe Api::GamesController do
     describe 'throws error' do
       before do
         expect(parser).to receive(:parse).and_raise(StandardError)
-        get :parse, id: game.id
+        get :parse, params: { id: game.id }
       end
 
       it { expect(response.status).to eq 422 }
