@@ -20,12 +20,12 @@ describe Admin::GamesController do
   end
 
   describe 'POST #create' do
-    let(:params) { { name: 'Game Name' } }
+    let(:params) { { game: { name: 'Game Name' } } }
 
     describe 'not present' do
       before do
-        expect(repository).to receive(:create).with(params)
-        post :create, game: params
+        expect(repository).to receive(:create)
+        post :create, params: params
       end
 
       it do
@@ -38,7 +38,7 @@ describe Admin::GamesController do
       let!(:game) { create(:game, name: 'Game Name') }
       before do
         expect(repository).to receive(:create).never
-        post :create, game: params
+        post :create, params: params
       end
 
       it do
@@ -50,10 +50,11 @@ describe Admin::GamesController do
 
   describe 'PUT #update' do
     let!(:game) { create(:game, name: 'Game Name') }
-    let(:params) { { name: 'Game Name' } }
+    let(:params) { { id: game.id, game: { name: 'Game Name' } } }
 
     describe 'valid params' do
-      before { put :update, id: game.id, game: params }
+      let(:params) { { id: game.id, game: { name: 'Game Name' } } }
+      before { put :update, params: params }
 
       it do
         expect(response).to redirect_to admin_games_path
@@ -62,7 +63,8 @@ describe Admin::GamesController do
     end
 
     describe 'invalid params' do
-      before { put :update, id: 'invalid123', game: params }
+      let(:params) { { id: 'invalid123', game: { name: 'Game Name' } } }
+      before { put :update, params: params }
 
       it do
         expect(response).to redirect_to admin_games_path
