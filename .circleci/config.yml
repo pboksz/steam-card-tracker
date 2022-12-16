@@ -32,14 +32,6 @@ jobs:
             - vendor/bundle
 
       - run:
-          name: Install MongoDB
-          command: sudo apt-get install -y mongodb-org
-
-      - run:
-          name: Wait For MongoDB
-          command: dockerize -wait tcp://localhost:27017 -timeout 1m
-
-      - run:
           name: Run Specs
           command: bundle exec rspec --format progress --profile 10 spec
 
